@@ -1,0 +1,274 @@
+{
+  "request": {
+    "raw_request": "c1-1-5-3-5-1.2",
+    "count_to_generate": 2,
+    "display_path": "1-1-5-3-5-1",
+    "stable_path": "attack.explicit_actor.highest_threat_enemy.move_then_attack.highest_threat_target_clear",
+    "skill_stable_path": null,
+    "command_slot_index": 1,
+    "base_command_text": "A_01, 제일 위험한 적에게 접근해서 공격해."
+  },
+  "target_split": "train",
+  "selected_bucket": {
+    "intent_family": "attack",
+    "intent_family_description": "기본 공격 또는 공격 중심 명령이다.",
+    "actor_selection": "explicit_actor",
+    "actor_selection_description": "명령에 단일 아군 actor가 직접 지목된다.",
+    "target_selection": "highest_threat_enemy",
+    "target_selection_description": "공격력이 높거나 현재 위협이 큰 적을 target으로 고른다.",
+    "action_pattern": "move_then_attack",
+    "action_pattern_description": "정답 output이 move 후 attack sequence를 가진다.",
+    "scenario_family": "highest_threat_target_clear",
+    "scenario_family_description": "가장 위협적인 적이 명확히 유효한 target이다.",
+    "edge_flags": [],
+    "edge_flag_descriptions": {},
+    "skill_case": null
+  },
+  "existing_valid_paraphrase_samples": [
+    {
+      "command_text": "A_01, 제일 위험한 적에게 접근해서 공격해.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_01, 가장 위협적인 놈한테 붙어서 패.",
+      "command_style": "rough_korean"
+    },
+    {
+      "command_text": "A_01, 제일 위험한 놈한테 가서 공격해.",
+      "command_style": "casual_korean"
+    },
+    {
+      "command_text": "A_01, 제일 위협적인 놈한테 붙어서 쳐.",
+      "command_style": "rough_korean"
+    },
+    {
+      "command_text": "A_01, 제일 위협적인 놈한테 가서 공격해.",
+      "command_style": "casual_korean"
+    }
+  ],
+  "other_split_reserved_command_texts": [],
+  "command_text_policy": {
+    "target_split": "train",
+    "same_split_expression_pool_size": 7,
+    "existing_same_split_expression_count": 5,
+    "other_split_reserved_expression_count": 0,
+    "new_unique_command_texts_to_create": 2,
+    "samples_using_same_split_cycle": 0,
+    "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
+    "sequence_contract": {
+      "output_order": "new_unique_first_then_cycle",
+      "new_unique_output_range_1_based": [
+        1,
+        2
+      ],
+      "cycle_output_range_1_based": [],
+      "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
+      "cycle_reuse_strategy": "round_robin_from_first_source_pool_item",
+      "cycle_source_pool_size_after_new_unique": 7,
+      "cycle_reuse_plan_1_based": [],
+      "hard_fail_conditions": [
+        "cycle samples appear before all new_unique samples are created",
+        "a new_unique output reuses an existing command_text",
+        "a cycle output ignores cycle_reuse_plan_1_based",
+        "a cycle output repeatedly uses only source_pool_index_1_based=1"
+      ],
+      "example": "if existing=2,new=5,cycle=5 then outputs 1-5 are new unique; outputs 6-10 reuse source pool indexes [1,2,3,4,5], where 1-2 are existing samples and 3-5 are newly created unique outputs 1-3"
+    },
+    "rules": [
+      "같은 split 안에서 command_text 표현 pool을 관리한다.",
+      "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
+      "새 command_text는 existing_valid_paraphrase_samples와 exact duplicate이면 안 된다.",
+      "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
+      "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
+      "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
+      "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
+      "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
+      "새 command_text는 other_split_reserved_command_texts와 exact duplicate이면 안 된다.",
+      "표현 pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+      "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+      "other_split_reserved_command_texts는 cycle source가 아니다.",
+      "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
+      "다른 split의 command_text 표현 pool을 cycle 대상으로 섞지 않는다."
+    ]
+  },
+  "count_to_generate": 2,
+  "runtime_generation_contract": {
+    "teacher_role": "전장 시나리오와 정답 output을 생성한다.",
+    "validator_role": "area_situation을 검증하고 commandAnalysis를 계산해 accepted 저장 시점에 추가한다.",
+    "teacher_must_create": [
+      "id",
+      "split",
+      "command_spec",
+      "metadata",
+      "skill_case",
+      "gold",
+      "input.input.command",
+      "input.input.area_situation.allies",
+      "input.input.area_situation.enemies",
+      "output.thinking",
+      "output.dialog",
+      "output.action"
+    ],
+    "teacher_must_not_create": [
+      "input.commandAnalysis",
+      "commandAnalysis",
+      "allowedActors",
+      "allowedAttackTargets",
+      "validMoveToUnits",
+      "deadAllies",
+      "invalidUnits",
+      "actionPolicy",
+      "validator_result",
+      "source_ref"
+    ],
+    "validator_will_create_on_accept": [
+      "input.commandAnalysis.analysisMode",
+      "input.commandAnalysis.allowedActors",
+      "input.commandAnalysis.allowedAttackTargets",
+      "input.commandAnalysis.validMoveToUnits",
+      "input.commandAnalysis.deadAllies",
+      "input.commandAnalysis.invalidUnits",
+      "input.commandAnalysis.actionPolicy"
+    ],
+    "runtime_student_input_after_accept": {
+      "input": {
+        "command": "한국어 명령",
+        "area_situation": {
+          "allies": "A_01부터 A_06까지 정확히 6명",
+          "enemies": "E_01부터 E_06까지 정확히 6명"
+        }
+      },
+      "commandAnalysis": "validator가 계산한 runtime_constraint_summary"
+    }
+  },
+  "area_situation_contract": {
+    "allies_count": 6,
+    "enemies_count": 6,
+    "ally_ids": [
+      "A_01",
+      "A_02",
+      "A_03",
+      "A_04",
+      "A_05",
+      "A_06"
+    ],
+    "enemy_ids": [
+      "E_01",
+      "E_02",
+      "E_03",
+      "E_04",
+      "E_05",
+      "E_06"
+    ],
+    "ally_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole",
+      "skillDescription",
+      "IsSkillOnSelf",
+      "IsSkillOnOtherAlly",
+      "isSkillAoe",
+      "canSkillTargetDead",
+      "closestTargetableOpponent",
+      "farthestTargetableOpponent",
+      "closestAliveAlly",
+      "farthestAliveAlly"
+    ],
+    "enemy_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole"
+    ],
+    "single_distance_fields": {
+      "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
+      "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
+    },
+    "single_distance_field_rules": [
+      "네 필드는 배열이 아니라 unitId string 또는 null이다.",
+      "후보가 없으면 null을 사용한다.",
+      "후보가 1명뿐이면 closest와 farthest에 같은 unitId를 사용한다.",
+      "후보가 2명 이상이면 closest와 farthest는 서로 다른 unitId를 사용한다.",
+      "closestAliveAlly와 farthestAliveAlly에는 자기 자신의 unitId를 쓰지 않는다.",
+      "죽은 unit은 네 필드에 들어가지 않는다."
+    ],
+    "dead_unit_rules": [
+      "이 게임에서는 죽은 unit도 보통 canBeTargeted=true일 수 있다.",
+      "죽은 ally가 canBeTargeted=true이면 validator가 commandAnalysis.deadAllies에 포함한다.",
+      "죽은 unit은 actor, attack target, move.to로 사용할 수 없다.",
+      "canSkillTargetDead=true인 skill에서만 죽은 targetable ally를 skill target으로 사용할 수 있다."
+    ]
+  },
+  "assistant_output_contract": {
+    "assistant_output_top_level_keys": [
+      "thinking",
+      "dialog",
+      "action"
+    ],
+    "thinking": "짧은 한국어 판단 요약. 자세한 사고 과정 금지.",
+    "dialog": [
+      "action actor마다 정확히 하나만 생성한다.",
+      "action에 없는 unitId를 넣지 않는다.",
+      "여러 actor에게 완전히 같은 text를 반복하지 않는다."
+    ],
+    "action": [
+      "actor는 살아있는 ally만 가능하다.",
+      "enemy는 actor가 될 수 없다.",
+      "각 actor sequence는 최대 3개 action이다.",
+      "실행 가능한 action이 없으면 dialog와 action은 빈 배열이다."
+    ],
+    "skill": [
+      "skill.description은 actor.skillDescription과 정확히 같아야 한다.",
+      "IsSkillOnSelf=true이면 target은 actor 자신이다.",
+      "IsSkillOnOtherAlly=true이면 target은 actor 자신이 아닌 ally다.",
+      "IsSkillOnSelf=false이고 IsSkillOnOtherAlly=false이면 target은 enemy다.",
+      "canSkillTargetDead=false이면 죽은 unit을 skill target으로 쓰지 않는다.",
+      "isSkillAoe=true여도 output target은 중심 unitId 하나만 쓴다."
+    ],
+    "wait_and_skill_control": [
+      "wait은 명령에 대기, 지연, 타이밍 조절, 위치 유지 의미가 직접 있을 때만 사용한다.",
+      "attack 또는 skill 뒤에는 wait을 붙이지 않는다.",
+      "skillControl은 스킬 지연 또는 금지 의도가 명시될 때만 사용한다.",
+      "조건부 명령은 current-state-only로 처리한다."
+    ]
+  },
+  "generation_constraints": [
+    "selected_bucket만 따른다.",
+    "각 sample.split은 반드시 train이다.",
+    "새 command는 selected_bucket의 command slot 의미와 edge_flags를 유지한다.",
+    "command_text_policy를 따른다.",
+    "metadata.command_style은 direct_korean, casual_korean, elliptical_korean, tactical_korean, rough_korean 중 하나만 사용한다.",
+    "metadata.command_style에 informal을 절대 사용하지 않는다.",
+    "existing_valid_paraphrase_samples는 요청 split의 cycle 가능 표현 pool이다.",
+    "other_split_reserved_command_texts는 다른 split의 중복 금지 표현 목록이다.",
+    "새 command_text는 existing_valid_paraphrase_samples와 exact duplicate이면 안 된다.",
+    "새 command_text는 other_split_reserved_command_texts와 exact duplicate이면 안 된다.",
+    "표현 pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+    "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+    "other_split_reserved_command_texts는 cycle source가 아니다.",
+    "command_text를 재사용하더라도 area_situation, gold, output은 복사하지 않고 새로 구성한다.",
+    "taxonomy 밖 값을 만들지 않는다.",
+    "source_ref를 생성하지 않는다.",
+    "validator_result를 생성하지 않는다.",
+    "input.commandAnalysis와 commandAnalysis 하위 필드를 절대 생성하지 않는다.",
+    "input.input.area_situation을 완전한 전장 상태로 창작한다.",
+    "area_situation.allies에는 A_01부터 A_06까지 정확히 6명의 ally를 만든다.",
+    "area_situation.enemies에는 E_01부터 E_06까지 정확히 6명의 enemy를 만든다.",
+    "아군 유닛에는 IsSkillOnOtherAlly와 단일 closest/farthest 필드를 사용한다.",
+    "closestTargetableOpponent, farthestTargetableOpponent, closestAliveAlly, farthestAliveAlly는 배열이 아니라 unitId string 또는 null이며, 살아있는 유효 후보만 넣는다.",
+    "죽은 unit도 보통 canBeTargeted=true일 수 있지만, 새 네 필드에는 죽은 unit을 넣지 않는다.",
+    "output은 sanitizer가 고친 결과가 아니라 처음부터 raw valid assistant output이어야 한다.",
+    "output은 학생 SLM runtime system prompt를 실제로 적용했을 때의 thinking/dialog/action 정답이어야 한다."
+  ]
+}
