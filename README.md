@@ -860,6 +860,15 @@ generation_automation/auto_generation_plan_*.txt를 검증한다.
 invalid 항목은 numeric/stable request 형식과 실패 이유를 함께 출력한다.
 ```
 
+### 15.10 `scripts/build_sft_messages_dataset.py`
+
+```text
+accepted/*.jsonl 전체를 읽는다.
+각 accepted sample에서 input과 output만 뽑아 student runtime messages 형식으로 변환한다.
+샘플 순서를 간단한 deterministic shuffle로 섞는다.
+datasets/train_sft_messages.jsonl 파일 하나를 생성한다.
+```
+
 ---
 
 ## 16. 주요 명령어
@@ -946,6 +955,18 @@ py -3.11 scripts/sft_cli.py validate --input raw_generations/batch_0001_raw.json
 python scripts/jsonl_pretty.py accepted_20260512_005252
 python scripts/jsonl_pretty.py accepted/accepted_20260512_005252.jsonl
 python scripts/jsonl_pretty.py seed_master_0001
+```
+
+### 16.12 SFT messages JSONL 생성
+
+```powershell
+python scripts/build_sft_messages_dataset.py
+```
+
+기본 출력 파일은 `datasets/train_sft_messages.jsonl`이다. 이 파일은 `accepted/*.jsonl`의 모든 sample을 섞은 뒤 다음 형태로 저장한다.
+
+```json
+{"messages":[{"role":"system","content":"학생 런타임 시스템 프롬프트"},{"role":"user","content":"{...input, commandAnalysis, output_schema_example, hard_constraints...}"},{"role":"assistant","content":"{...thinking, dialog, action...}"}]}
 ```
 
 ---
