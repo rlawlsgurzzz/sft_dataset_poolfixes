@@ -1,4 +1,4 @@
-﻿import ast
+import ast
 import json
 import sys
 from pathlib import Path
@@ -24,28 +24,36 @@ for node in module.body:
 if system_prompt is None:
     raise RuntimeError("SYSTEM_PROMPT not found")
 
+mixed_requests = [
+    {
+        "request": "c2-4-8-2-6-1.5",
+        "cycle_start_offset": 0,
+    },
+    {
+        "request": "c2-4-12-2-10-1.4",
+        "cycle_start_offset": 5,
+    },
+]
+
 payload = build_mixed_generation_payload(
-    mixed_requests=[
-        {
-            "request": "c1-1-1-1-1-1.1",
-            "cycle_start_offset": 0,
-        }
-    ],
+    mixed_requests=mixed_requests,
     target_split="train",
 )
 
 contents = json.dumps(payload, ensure_ascii=False, indent=2)
 
 combined_prompt = (
-    "<SYSTEM_INSTRUCTION>`n"
+    "<SYSTEM_INSTRUCTION>\n"
     + system_prompt
-    + "`n</SYSTEM_INSTRUCTION>`n`n"
-    + "<USER_CONTENTS>`n"
+    + "\n</SYSTEM_INSTRUCTION>\n\n"
+    + "<USER_CONTENTS>\n"
     + contents
-    + "`n</USER_CONTENTS>`n"
+    + "\n</USER_CONTENTS>\n"
 )
 
-Path("sft_full_prompt_c1-1-1-1-1-1_train.txt").write_text(
+full_prompt_path = Path("full_prompt/sft_full_prompt_0001.txt")
+full_prompt_path.parent.mkdir(parents=True, exist_ok=True)
+full_prompt_path.write_text(
     combined_prompt,
     encoding="utf-8",
 )
@@ -60,6 +68,6 @@ Path("sft_user_contents_train.json").write_text(
     encoding="utf-8",
 )
 
-print("wrote sft_full_prompt_c1-1-1-1-1-1_train.txt")
+print(f"wrote {full_prompt_path}")
 print("wrote sft_system_instruction.txt")
 print("wrote sft_user_contents_train.json")
