@@ -277,6 +277,28 @@ def make_duplicate_key_with_units(sample: dict[str, Any]) -> tuple[str, str, str
     )
 
 
+def _canonicalize_for_full_exact(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: _canonicalize_for_full_exact(inner)
+            for key, inner in sorted(value.items())
+            if key != "id"
+        }
+    if isinstance(value, list):
+        return [_canonicalize_for_full_exact(item) for item in value]
+    return value
+
+
+def make_full_exact_key(sample: dict[str, Any]) -> str:
+    canonical = _canonicalize_for_full_exact(sample)
+    return json.dumps(
+        canonical,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
 def compute_leaf_stats(
     leaves: list[LeafEntry],
     sample_lookup: dict[str, dict[str, Any]],
@@ -348,6 +370,56 @@ def compute_leaf_stats_with_units(
 
         duplicate_count = sum(len(refs) - 1 for refs in duplicate_groups_raw.values())
         max_group_size = max((len(refs) for refs in duplicate_groups_raw.values()), default=0)
+
+        results.append(
+            DuplicateStats(
+                leaf=leaf,
+                loaded_count=sum(len(refs) for refs in grouped.values()),
+                missing_count=missing_count,
+                duplicate_count=duplicate_count,
+                duplicate_group_count=len(duplicate_groups_raw),
+                max_group_size=max_group_size,
+                groups=duplicate_groups,
+            )
+        )
+
+    return results
+
+
+def compute_leaf_stats_full_exact(
+    leaves: list[LeafEntry],
+    sample_lookup: dict[str, dict[str, Any]],
+) -> list[DuplicateStats]:
+    results: list[DuplicateStats] = []
+
+    for leaf in leaves:
+        grouped: dict[str, list[str]] = defaultdict(list)
+        missing_count = 0
+
+        for record_ref in leaf.record_refs:
+            sample = sample_lookup.get(record_ref)
+            if sample is None:
+                missing_count += 1
+                continue
+
+            grouped[make_full_exact_key(sample)].append(record_ref)
+
+        duplicate_groups_raw = {
+            key: refs
+            for key, refs in grouped.items()
+            if len(refs) > 1
+        }
+
+        duplicate_count = sum(len(refs) - 1 for refs in duplicate_groups_raw.values())
+        max_group_size = max((len(refs) for refs in duplicate_groups_raw.values()), default=0)
+
+        # print/detail JSON 포맷 재사용을 위해 그룹 key는 첫 ref 샘플의 기본 key로 노출한다.
+        duplicate_groups: dict[tuple[str, str, str], list[str]] = {}
+        for refs in duplicate_groups_raw.values():
+            sample = sample_lookup.get(refs[0])
+            if sample is None:
+                continue
+            duplicate_groups[make_duplicate_key(sample)] = refs
 
         results.append(
             DuplicateStats(
@@ -548,6 +620,14 @@ def build_parser() -> argparse.ArgumentParser:
             "포함한 exact duplicate 상세 결과를 JSON 파일로 저장할 경로."
         ),
     )
+    parser.add_argument(
+        "--json-output-full-exact",
+        default="",
+        help=(
+            "sample 전체를 기준으로(단 id 필드는 제외) 토씨 하나 안 틀리는 exact duplicate "
+            "상세 결과를 JSON 파일로 저장할 경로."
+        ),
+    )
     return parser
 
 
@@ -577,6 +657,7 @@ def main() -> int:
         sample_lookup = build_sample_lookup(accepted_dir)
         stats = compute_leaf_stats(leaves, sample_lookup)
         stats_with_units = compute_leaf_stats_with_units(leaves, sample_lookup)
+        stats_full_exact = compute_leaf_stats_full_exact(leaves, sample_lookup)
 
         print(f"dataset_root: {dataset_root}")
         print(f"coverage: {coverage_path}")
@@ -603,6 +684,11 @@ def main() -> int:
             units_output_path = Path(args.json_output_units).resolve()
             write_json_report(units_output_path, stats_with_units)
             print(f"json_output_units: {units_output_path}")
+
+        if args.json_output_full_exact:
+            full_exact_output_path = Path(args.json_output_full_exact).resolve()
+            write_json_report(full_exact_output_path, stats_full_exact)
+            print(f"json_output_full_exact: {full_exact_output_path}")
 
         return 0
 
