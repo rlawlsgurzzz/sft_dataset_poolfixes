@@ -17,7 +17,7 @@ from typing import Any
 from google import genai
 from google.genai import types
 
-MODEL_NAME = "gemma-4-31b-it"
+MODEL_NAME = "gemini-3.1-flash-lite"
 
 SYSTEM_PROMPT = """
 너는 Unity 전투 명령 파서용 Synthetic SFT dataset master sample을 생성하는 데이터 생성기다.
@@ -124,7 +124,6 @@ battlefield_diversity_hint 규칙:
 - isAlive=true인 hint unit은 hpRatio를 0보다 크고 1 이하로 만든다.
 - battlefield_diversity_hint가 command_text, selected_bucket, skill_case, gold, output action 가능성과 충돌하면 기존 생성 계약을 우선한다.
 - battlefield_diversity_hint는 taxonomy가 아니며 raw sample output에 복사하지 않는다.
-
 - other_split_reserved_command_texts는 cycle source가 아니다.
 
 
@@ -514,122 +513,120 @@ Conditional command:
 - 강제 점검: 모든 ally의 closest/farthest 필드는 실제 allies/enemies 목록을 역조회해, opponent는 isAlive=true && canBeTargeted=true인 enemy만, ally는 자기 자신이 아닌 isAlive=true ally만 가리키는지 확인한다.
 
 schema skeleton example:
-{
-  "samples": [
-    {
-      "id": "sample 식별자 string",
-      "split": "train | validation | test",
-      "command_spec": {
-        "command_text": "input.input.command와 정확히 같은 한국어 명령문",
-        "base_command_text": "기준이 되는 원형 명령문",
-        "slots": {
-          "actors": ["명령문에서 행동 주체로 직접 지정된 ally unitId들"],
-          "target": "명령문에서 대상 역할을 하는 unitId string, null, 또는 multi-actor different-target 명령의 unitId string array",
-          "target_side_in_text": "ally | enemy | self | none",
-          "mentioned_units": ["명령문에 직접 등장한 모든 unitId들"]
-        }
-      },
-      "metadata": {
-        "intent_family": "taxonomy에 존재하는 intent_family 값",
-        "command_style": "taxonomy에 존재하는 command_style 값",
-        "actor_selection": "taxonomy에 존재하는 actor_selection 값",
-        "target_selection": "taxonomy에 존재하는 target_selection 값",
-        "action_pattern": "taxonomy에 존재하는 action_pattern 값",
-        "scenario_family": "taxonomy에 존재하는 scenario_family 값",
-        "edge_flags": ["taxonomy에 존재하는 edge_flags 값들"],
-        "difficulty": "easy | medium | hard"
-      },
-      "skill_case": null 또는 {
-        "skill_family": "taxonomy에 존재하는 skill_family 값",
-        "skill_target_kind": "taxonomy에 존재하는 skill_target_kind 값",
-        "is_skill_aoe": true 또는 false,
-        "can_skill_target_dead": true 또는 false,
-        "conflict_type": "taxonomy에 존재하는 conflict_type 값 또는 null"
-      },
-      "gold": {
-        "required_actors": ["정답 output에 반드시 포함되어야 하는 actor unitId들"],
-        "allowed_actors": ["정답 output에 포함될 수 있는 actor unitId들"],
-        "forbidden_actors": ["정답 output에 포함되면 안 되는 actor unitId들"],
-        "required_action_types": ["정답 output에 반드시 포함되어야 하는 action type들"],
-        "allowed_action_types": ["정답 output에 포함될 수 있는 action type들"],
-        "forbidden_action_types": ["정답 output에 포함되면 안 되는 action type들"],
-        "empty_action_allowed": true 또는 false,
-        "expected_action_pattern": "metadata.action_pattern과 동일한 taxonomy action_pattern enum",
-        "targets": {
-          "required": ["정답 output에서 반드시 사용되어야 하는 target 또는 move.to unitId들"],
-          "allowed": ["정답 output에서 사용할 수 있는 target 또는 move.to unitId들"],
-          "forbidden": ["정답 output에서 사용하면 안 되는 target 또는 move.to unitId들"]
-        }
-      },
-      "input": {
-        "input": {
-          "command": "command_spec.command_text와 정확히 같은 한국어 명령문",
-          "area_situation": {
-            "allies": [
-              {
-                "unitId": "A_01부터 A_06 중 하나",
-                "isAlive": true 또는 false,
-                "canBeTargeted": true 또는 false,
-                "isRanged": true 또는 false,
-                "hpRatio": "0 이상 1 이하 number",
-                "attackRatioToAvg": "0보다 큰 number",
-                "engagedByOpponentCount": "0 이상의 integer",
-                "teamFormationRole": "frontline | midline | backline",
-                "skillDescription": "이 ally가 가진 스킬 설명 문자열",
-                "IsSkillOnSelf": true 또는 false,
-                "IsSkillOnOtherAlly": true 또는 false,
-                "isSkillAoe": true 또는 false,
-                "canSkillTargetDead": true 또는 false,
-                "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
-                "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
-                "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
-                "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
-              }
-            ],
-            "enemies": [
-              {
-                "unitId": "E_01부터 E_06 중 하나",
-                "isAlive": true 또는 false,
-                "canBeTargeted": true 또는 false,
-                "isRanged": true 또는 false,
-                "hpRatio": "0 이상 1 이하 number",
-                "attackRatioToAvg": "0보다 큰 number",
-                "engagedByOpponentCount": "0 이상의 integer",
-                "teamFormationRole": "frontline | midline | backline"
-              }
-            ]
-          }
-        }
-      },
-      "output": {
-        "thinking": "짧은 한국어 판단 요약",
-        "dialog": [
-          {
-            "unitId": "action에 포함된 actor unitId",
-            "text": "그 actor의 전체 sequence를 요약하는 짧은 한국어 한 문장"
-          }
-        ],
-        "action": [
-          {
-            "unitId": "살아있는 ally actor unitId",
-            "sequence": [
-              {
-                "type": "attack | move | skill | wait | skillControl",
-                "target": "attack 또는 skill target unitId가 필요한 경우 사용",
-                "to": "move.to unitId가 필요한 경우 사용",
-                "description": "skill action일 때 actor.skillDescription과 정확히 같은 문자열",
-                "subtype": "move action일 때 approachOpponent | escape | help | holdFront",
-                "movementType": "move action일 때 direct | flank",
-                "durationSec": "wait 또는 defer skillControl일 때 1 이상 10 이하 number",
-                "mode": "skillControl일 때 defer | forbid"
-              }
-            ]
-          }
-        ]
+[
+  {
+    "id": "sample 식별자 string",
+    "split": "train | validation | test",
+    "command_spec": {
+      "command_text": "input.input.command와 정확히 같은 한국어 명령문",
+      "base_command_text": "기준이 되는 원형 명령문",
+      "slots": {
+        "actors": ["명령문에서 행동 주체로 직접 지정된 ally unitId들"],
+        "target": "명령문에서 대상 역할을 하는 unitId string, null, 또는 multi-actor different-target 명령의 unitId string array",
+        "target_side_in_text": "ally | enemy | self | none",
+        "mentioned_units": ["명령문에 직접 등장한 모든 unitId들"]
       }
+    },
+    "metadata": {
+      "intent_family": "taxonomy에 존재하는 intent_family 값",
+      "command_style": "taxonomy에 존재하는 command_style 값",
+      "actor_selection": "taxonomy에 존재하는 actor_selection 값",
+      "target_selection": "taxonomy에 존재하는 target_selection 값",
+      "action_pattern": "taxonomy에 존재하는 action_pattern 값",
+      "scenario_family": "taxonomy에 존재하는 scenario_family 값",
+      "edge_flags": ["taxonomy에 존재하는 edge_flags 값들"],
+      "difficulty": "easy | medium | hard"
+    },
+    "skill_case": null 또는 {
+      "skill_family": "taxonomy에 존재하는 skill_family 값",
+      "skill_target_kind": "taxonomy에 존재하는 skill_target_kind 값",
+      "is_skill_aoe": true 또는 false,
+      "can_skill_target_dead": true 또는 false,
+      "conflict_type": "taxonomy에 존재하는 conflict_type 값 또는 null"
+    },
+    "gold": {
+      "required_actors": ["정답 output에 반드시 포함되어야 하는 actor unitId들"],
+      "allowed_actors": ["정답 output에 포함될 수 있는 actor unitId들"],
+      "forbidden_actors": ["정답 output에 포함되면 안 되는 actor unitId들"],
+      "required_action_types": ["정답 output에 반드시 포함되어야 하는 action type들"],
+      "allowed_action_types": ["정답 output에 포함될 수 있는 action type들"],
+      "forbidden_action_types": ["정답 output에 포함되면 안 되는 action type들"],
+      "empty_action_allowed": true 또는 false,
+      "expected_action_pattern": "metadata.action_pattern과 동일한 taxonomy action_pattern enum",
+      "targets": {
+        "required": ["정답 output에서 반드시 사용되어야 하는 target 또는 move.to unitId들"],
+        "allowed": ["정답 output에서 사용할 수 있는 target 또는 move.to unitId들"],
+        "forbidden": ["정답 output에서 사용하면 안 되는 target 또는 move.to unitId들"]
+      }
+    },
+    "input": {
+      "input": {
+        "command": "command_spec.command_text와 정확히 같은 한국어 명령문",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01부터 A_06 중 하나",
+              "isAlive": true 또는 false,
+              "canBeTargeted": true 또는 false,
+              "isRanged": true 또는 false,
+              "hpRatio": "0 이상 1 이하 number",
+              "attackRatioToAvg": "0보다 큰 number",
+              "engagedByOpponentCount": "0 이상의 integer",
+              "teamFormationRole": "frontline | midline | backline",
+              "skillDescription": "이 ally가 가진 스킬 설명 문자열",
+              "IsSkillOnSelf": true 또는 false,
+              "IsSkillOnOtherAlly": true 또는 false,
+              "isSkillAoe": true 또는 false,
+              "canSkillTargetDead": true 또는 false,
+              "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+              "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+              "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
+              "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01부터 E_06 중 하나",
+              "isAlive": true 또는 false,
+              "canBeTargeted": true 또는 false,
+              "isRanged": true 또는 false,
+              "hpRatio": "0 이상 1 이하 number",
+              "attackRatioToAvg": "0보다 큰 number",
+              "engagedByOpponentCount": "0 이상의 integer",
+              "teamFormationRole": "frontline | midline | backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "짧은 한국어 판단 요약",
+      "dialog": [
+        {
+          "unitId": "action에 포함된 actor unitId",
+          "text": "그 actor의 전체 sequence를 요약하는 짧은 한국어 한 문장"
+        }
+      ],
+      "action": [
+        {
+          "unitId": "살아있는 ally actor unitId",
+          "sequence": [
+            {
+              "type": "attack | move | skill | wait | skillControl",
+              "target": "attack 또는 skill target unitId가 필요한 경우 사용",
+              "to": "move.to unitId가 필요한 경우 사용",
+              "description": "skill action일 때 actor.skillDescription과 정확히 같은 문자열",
+              "subtype": "move action일 때 approachOpponent | escape | help | holdFront",
+              "movementType": "move action일 때 direct | flank",
+              "durationSec": "wait 또는 defer skillControl일 때 1 이상 10 이하 number",
+              "mode": "skillControl일 때 defer | forbid"
+            }
+          ]
+        }
+      ]
     }
-  ]
-}
+  }
+]
 
 위 예시는 구조 설명용 skeleton이다.
 위 예시에 적힌 설명 문자열, placeholder 문자열, 예시 문구를 실제 출력값으로 복사하지 않는다.
