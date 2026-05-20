@@ -103,7 +103,6 @@ battlefield_diversity_hint 규칙:
 - isAlive=true인 hint unit은 hpRatio를 0보다 크고 1 이하로 만든다.
 - battlefield_diversity_hint가 command_text, selected_bucket, skill_case, gold, output action 가능성과 충돌하면 기존 생성 계약을 우선한다.
 - battlefield_diversity_hint는 taxonomy가 아니며 raw sample output에 복사하지 않는다.
-
 - other_split_reserved_command_texts는 cycle source가 아니다.
 
 
@@ -493,122 +492,120 @@ Conditional command:
 - 강제 점검: 모든 ally의 closest/farthest 필드는 실제 allies/enemies 목록을 역조회해, opponent는 isAlive=true && canBeTargeted=true인 enemy만, ally는 자기 자신이 아닌 isAlive=true ally만 가리키는지 확인한다.
 
 schema skeleton example:
-{
-  "samples": [
-    {
-      "id": "sample 식별자 string",
-      "split": "train | validation | test",
-      "command_spec": {
-        "command_text": "input.input.command와 정확히 같은 한국어 명령문",
-        "base_command_text": "기준이 되는 원형 명령문",
-        "slots": {
-          "actors": ["명령문에서 행동 주체로 직접 지정된 ally unitId들"],
-          "target": "명령문에서 대상 역할을 하는 unitId string, null, 또는 multi-actor different-target 명령의 unitId string array",
-          "target_side_in_text": "ally | enemy | self | none",
-          "mentioned_units": ["명령문에 직접 등장한 모든 unitId들"]
-        }
-      },
-      "metadata": {
-        "intent_family": "taxonomy에 존재하는 intent_family 값",
-        "command_style": "taxonomy에 존재하는 command_style 값",
-        "actor_selection": "taxonomy에 존재하는 actor_selection 값",
-        "target_selection": "taxonomy에 존재하는 target_selection 값",
-        "action_pattern": "taxonomy에 존재하는 action_pattern 값",
-        "scenario_family": "taxonomy에 존재하는 scenario_family 값",
-        "edge_flags": ["taxonomy에 존재하는 edge_flags 값들"],
-        "difficulty": "easy | medium | hard"
-      },
-      "skill_case": null 또는 {
-        "skill_family": "taxonomy에 존재하는 skill_family 값",
-        "skill_target_kind": "taxonomy에 존재하는 skill_target_kind 값",
-        "is_skill_aoe": true 또는 false,
-        "can_skill_target_dead": true 또는 false,
-        "conflict_type": "taxonomy에 존재하는 conflict_type 값 또는 null"
-      },
-      "gold": {
-        "required_actors": ["정답 output에 반드시 포함되어야 하는 actor unitId들"],
-        "allowed_actors": ["정답 output에 포함될 수 있는 actor unitId들"],
-        "forbidden_actors": ["정답 output에 포함되면 안 되는 actor unitId들"],
-        "required_action_types": ["정답 output에 반드시 포함되어야 하는 action type들"],
-        "allowed_action_types": ["정답 output에 포함될 수 있는 action type들"],
-        "forbidden_action_types": ["정답 output에 포함되면 안 되는 action type들"],
-        "empty_action_allowed": true 또는 false,
-        "expected_action_pattern": "metadata.action_pattern과 동일한 taxonomy action_pattern enum",
-        "targets": {
-          "required": ["정답 output에서 반드시 사용되어야 하는 target 또는 move.to unitId들"],
-          "allowed": ["정답 output에서 사용할 수 있는 target 또는 move.to unitId들"],
-          "forbidden": ["정답 output에서 사용하면 안 되는 target 또는 move.to unitId들"]
-        }
-      },
-      "input": {
-        "input": {
-          "command": "command_spec.command_text와 정확히 같은 한국어 명령문",
-          "area_situation": {
-            "allies": [
-              {
-                "unitId": "A_01부터 A_06 중 하나",
-                "isAlive": true 또는 false,
-                "canBeTargeted": true 또는 false,
-                "isRanged": true 또는 false,
-                "hpRatio": "0 이상 1 이하 number",
-                "attackRatioToAvg": "0보다 큰 number",
-                "engagedByOpponentCount": "0 이상의 integer",
-                "teamFormationRole": "frontline | midline | backline",
-                "skillDescription": "이 ally가 가진 스킬 설명 문자열",
-                "IsSkillOnSelf": true 또는 false,
-                "IsSkillOnOtherAlly": true 또는 false,
-                "isSkillAoe": true 또는 false,
-                "canSkillTargetDead": true 또는 false,
-                "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
-                "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
-                "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
-                "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
-              }
-            ],
-            "enemies": [
-              {
-                "unitId": "E_01부터 E_06 중 하나",
-                "isAlive": true 또는 false,
-                "canBeTargeted": true 또는 false,
-                "isRanged": true 또는 false,
-                "hpRatio": "0 이상 1 이하 number",
-                "attackRatioToAvg": "0보다 큰 number",
-                "engagedByOpponentCount": "0 이상의 integer",
-                "teamFormationRole": "frontline | midline | backline"
-              }
-            ]
-          }
-        }
-      },
-      "output": {
-        "thinking": "짧은 한국어 판단 요약",
-        "dialog": [
-          {
-            "unitId": "action에 포함된 actor unitId",
-            "text": "그 actor의 전체 sequence를 요약하는 짧은 한국어 한 문장"
-          }
-        ],
-        "action": [
-          {
-            "unitId": "살아있는 ally actor unitId",
-            "sequence": [
-              {
-                "type": "attack | move | skill | wait | skillControl",
-                "target": "attack 또는 skill target unitId가 필요한 경우 사용",
-                "to": "move.to unitId가 필요한 경우 사용",
-                "description": "skill action일 때 actor.skillDescription과 정확히 같은 문자열",
-                "subtype": "move action일 때 approachOpponent | escape | help | holdFront",
-                "movementType": "move action일 때 direct | flank",
-                "durationSec": "wait 또는 defer skillControl일 때 1 이상 10 이하 number",
-                "mode": "skillControl일 때 defer | forbid"
-              }
-            ]
-          }
-        ]
+[
+  {
+    "id": "sample 식별자 string",
+    "split": "train | validation | test",
+    "command_spec": {
+      "command_text": "input.input.command와 정확히 같은 한국어 명령문",
+      "base_command_text": "기준이 되는 원형 명령문",
+      "slots": {
+        "actors": ["명령문에서 행동 주체로 직접 지정된 ally unitId들"],
+        "target": "명령문에서 대상 역할을 하는 unitId string, null, 또는 multi-actor different-target 명령의 unitId string array",
+        "target_side_in_text": "ally | enemy | self | none",
+        "mentioned_units": ["명령문에 직접 등장한 모든 unitId들"]
       }
+    },
+    "metadata": {
+      "intent_family": "taxonomy에 존재하는 intent_family 값",
+      "command_style": "taxonomy에 존재하는 command_style 값",
+      "actor_selection": "taxonomy에 존재하는 actor_selection 값",
+      "target_selection": "taxonomy에 존재하는 target_selection 값",
+      "action_pattern": "taxonomy에 존재하는 action_pattern 값",
+      "scenario_family": "taxonomy에 존재하는 scenario_family 값",
+      "edge_flags": ["taxonomy에 존재하는 edge_flags 값들"],
+      "difficulty": "easy | medium | hard"
+    },
+    "skill_case": null 또는 {
+      "skill_family": "taxonomy에 존재하는 skill_family 값",
+      "skill_target_kind": "taxonomy에 존재하는 skill_target_kind 값",
+      "is_skill_aoe": true 또는 false,
+      "can_skill_target_dead": true 또는 false,
+      "conflict_type": "taxonomy에 존재하는 conflict_type 값 또는 null"
+    },
+    "gold": {
+      "required_actors": ["정답 output에 반드시 포함되어야 하는 actor unitId들"],
+      "allowed_actors": ["정답 output에 포함될 수 있는 actor unitId들"],
+      "forbidden_actors": ["정답 output에 포함되면 안 되는 actor unitId들"],
+      "required_action_types": ["정답 output에 반드시 포함되어야 하는 action type들"],
+      "allowed_action_types": ["정답 output에 포함될 수 있는 action type들"],
+      "forbidden_action_types": ["정답 output에 포함되면 안 되는 action type들"],
+      "empty_action_allowed": true 또는 false,
+      "expected_action_pattern": "metadata.action_pattern과 동일한 taxonomy action_pattern enum",
+      "targets": {
+        "required": ["정답 output에서 반드시 사용되어야 하는 target 또는 move.to unitId들"],
+        "allowed": ["정답 output에서 사용할 수 있는 target 또는 move.to unitId들"],
+        "forbidden": ["정답 output에서 사용하면 안 되는 target 또는 move.to unitId들"]
+      }
+    },
+    "input": {
+      "input": {
+        "command": "command_spec.command_text와 정확히 같은 한국어 명령문",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01부터 A_06 중 하나",
+              "isAlive": true 또는 false,
+              "canBeTargeted": true 또는 false,
+              "isRanged": true 또는 false,
+              "hpRatio": "0 이상 1 이하 number",
+              "attackRatioToAvg": "0보다 큰 number",
+              "engagedByOpponentCount": "0 이상의 integer",
+              "teamFormationRole": "frontline | midline | backline",
+              "skillDescription": "이 ally가 가진 스킬 설명 문자열",
+              "IsSkillOnSelf": true 또는 false,
+              "IsSkillOnOtherAlly": true 또는 false,
+              "isSkillAoe": true 또는 false,
+              "canSkillTargetDead": true 또는 false,
+              "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+              "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+              "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
+              "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01부터 E_06 중 하나",
+              "isAlive": true 또는 false,
+              "canBeTargeted": true 또는 false,
+              "isRanged": true 또는 false,
+              "hpRatio": "0 이상 1 이하 number",
+              "attackRatioToAvg": "0보다 큰 number",
+              "engagedByOpponentCount": "0 이상의 integer",
+              "teamFormationRole": "frontline | midline | backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "짧은 한국어 판단 요약",
+      "dialog": [
+        {
+          "unitId": "action에 포함된 actor unitId",
+          "text": "그 actor의 전체 sequence를 요약하는 짧은 한국어 한 문장"
+        }
+      ],
+      "action": [
+        {
+          "unitId": "살아있는 ally actor unitId",
+          "sequence": [
+            {
+              "type": "attack | move | skill | wait | skillControl",
+              "target": "attack 또는 skill target unitId가 필요한 경우 사용",
+              "to": "move.to unitId가 필요한 경우 사용",
+              "description": "skill action일 때 actor.skillDescription과 정확히 같은 문자열",
+              "subtype": "move action일 때 approachOpponent | escape | help | holdFront",
+              "movementType": "move action일 때 direct | flank",
+              "durationSec": "wait 또는 defer skillControl일 때 1 이상 10 이하 number",
+              "mode": "skillControl일 때 defer | forbid"
+            }
+          ]
+        }
+      ]
     }
-  ]
-}
+  }
+]
 
 위 예시는 구조 설명용 skeleton이다.
 위 예시에 적힌 설명 문자열, placeholder 문자열, 예시 문구를 실제 출력값으로 복사하지 않는다.
@@ -733,30 +730,30 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 1,
               "battlefield_diversity_hint": [
-                "A_03",
-                true,
-                0.5,
-                0.93,
-                "A_06",
-                true,
-                0.21,
-                1.01,
-                "A_01",
+                "A_04",
                 false,
                 0.0,
-                1.1,
-                "E_02",
+                1.07,
+                "A_02",
                 true,
-                0.91,
-                1.12,
+                0.14,
+                0.73,
+                "A_01",
+                true,
+                0.17,
+                0.7,
                 "E_06",
                 true,
-                0.98,
-                0.77,
+                0.13,
+                0.86,
+                "E_05",
+                true,
+                0.22,
+                1.16,
                 "E_01",
-                false,
-                0.0,
-                1.15
+                true,
+                0.34,
+                0.96
               ]
             },
             {
@@ -765,30 +762,30 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 2,
               "battlefield_diversity_hint": [
-                "A_01",
-                true,
-                0.06,
-                1.06,
                 "A_02",
                 true,
-                0.36,
-                1.05,
-                "A_05",
+                0.6,
+                0.84,
+                "A_04",
                 false,
                 0.0,
-                0.94,
+                1.04,
+                "A_06",
+                true,
+                0.74,
+                1.07,
+                "E_06",
+                true,
+                0.49,
+                0.9,
+                "E_04",
+                true,
+                0.14,
+                0.83,
                 "E_05",
                 true,
-                0.42,
-                0.82,
-                "E_03",
-                true,
-                0.61,
-                0.9,
-                "E_01",
-                true,
-                0.55,
-                1.17
+                0.92,
+                0.84
               ]
             },
             {
@@ -797,30 +794,30 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 3,
               "battlefield_diversity_hint": [
-                "A_01",
+                "A_05",
                 true,
-                0.39,
-                0.83,
-                "A_02",
-                true,
-                0.86,
-                1.01,
-                "A_03",
-                true,
-                0.27,
-                0.98,
-                "E_04",
-                true,
-                0.1,
-                0.94,
-                "E_06",
-                true,
-                0.45,
-                1.09,
-                "E_05",
+                0.6,
+                1.15,
+                "A_06",
                 false,
                 0.0,
-                0.99
+                0.8,
+                "A_02",
+                true,
+                0.5,
+                1.03,
+                "E_04",
+                true,
+                0.78,
+                0.99,
+                "E_02",
+                true,
+                0.41,
+                1.02,
+                "E_03",
+                false,
+                0.0,
+                0.77
               ]
             },
             {
@@ -829,30 +826,30 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 4,
               "battlefield_diversity_hint": [
-                "A_01",
-                true,
-                0.41,
-                0.88,
                 "A_06",
                 true,
-                0.22,
-                0.91,
-                "A_03",
-                false,
-                0.0,
-                0.78,
-                "E_01",
+                0.9,
+                1.01,
+                "A_05",
                 true,
-                0.07,
-                0.89,
-                "E_04",
-                true,
-                0.85,
+                0.82,
                 1.3,
+                "A_04",
+                true,
+                0.8,
+                0.91,
+                "E_05",
+                true,
+                0.13,
+                1.16,
                 "E_02",
                 false,
                 0.0,
-                1.22
+                1.09,
+                "E_06",
+                true,
+                0.11,
+                0.95
               ]
             }
           ],
@@ -942,6 +939,10 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
           "command_style": "direct_korean"
         },
         {
+          "command_text": "A_03이랑 A_04는 지금 스킬 작동시켜봐.",
+          "command_style": "casual_korean"
+        },
+        {
           "command_text": "A_03과 A_04는 지금 스킬 써.",
           "command_style": "direct_korean"
         }
@@ -950,19 +951,19 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
       "command_text_policy": {
         "target_split": "train",
         "same_split_expression_pool_size": 7,
-        "existing_same_split_expression_count": 5,
+        "existing_same_split_expression_count": 6,
         "other_split_reserved_expression_count": 0,
-        "new_unique_command_texts_to_create": 2,
-        "samples_using_same_split_cycle": 3,
+        "new_unique_command_texts_to_create": 1,
+        "samples_using_same_split_cycle": 4,
         "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
         "sequence_contract": {
           "output_order": "new_unique_first_then_cycle",
           "new_unique_output_range_1_based": [
             1,
-            2
+            1
           ],
           "cycle_output_range_1_based": [
-            3,
+            2,
             5
           ],
           "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
@@ -971,99 +972,131 @@ commandAnalysis는 validator가 accepted 저장 시점에 계산해서 추가한
           "cycle_source_pool_size_after_new_unique": 7,
           "cycle_reuse_plan_1_based": [
             {
-              "output_index_1_based": 3,
+              "output_index_1_based": 2,
               "source_pool_index_1_based": 1,
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 1,
               "battlefield_diversity_hint": [
-                "A_04",
+                "A_01",
                 true,
-                0.23,
-                0.95,
-                "A_02",
+                0.19,
+                0.9,
+                "A_05",
                 true,
-                0.83,
-                0.95,
-                "A_06",
-                false,
-                0.0,
-                0.8,
-                "E_02",
+                0.29,
+                1.28,
+                "A_03",
                 true,
-                0.61,
-                1.04,
-                "E_04",
-                true,
-                0.51,
-                0.85,
+                0.99,
+                1.3,
                 "E_06",
                 true,
-                0.59,
-                0.88
+                0.66,
+                1.14,
+                "E_02",
+                true,
+                0.34,
+                1.24,
+                "E_01",
+                false,
+                0.0,
+                1.1
               ]
             },
             {
-              "output_index_1_based": 4,
+              "output_index_1_based": 3,
               "source_pool_index_1_based": 2,
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 2,
               "battlefield_diversity_hint": [
-                "A_05",
-                false,
-                0.0,
-                1.09,
+                "A_04",
+                true,
+                0.58,
+                1.07,
                 "A_03",
                 true,
-                0.1,
-                1.08,
-                "A_02",
+                0.77,
+                1.25,
+                "A_01",
                 true,
-                0.91,
-                1.05,
-                "E_06",
+                0.88,
+                0.94,
+                "E_05",
                 true,
-                0.25,
-                0.91,
-                "E_02",
-                true,
-                0.8,
-                0.92,
-                "E_04",
+                0.49,
+                1.0,
+                "E_01",
                 false,
                 0.0,
-                0.89
+                0.89,
+                "E_02",
+                false,
+                0.0,
+                0.98
               ]
             },
             {
-              "output_index_1_based": 5,
+              "output_index_1_based": 4,
               "source_pool_index_1_based": 3,
               "source_kind": "existing_valid_paraphrase_samples",
               "source_index_1_based": 3,
               "battlefield_diversity_hint": [
-                "A_05",
-                true,
-                0.95,
-                0.7,
-                "A_02",
+                "A_03",
                 false,
                 0.0,
-                0.96,
+                0.93,
                 "A_01",
                 true,
-                0.57,
-                1.14,
+                0.26,
+                1.23,
+                "A_05",
+                false,
+                0.0,
+                0.83,
+                "E_01",
+                true,
+                0.79,
+                1.0,
+                "E_03",
+                true,
+                0.46,
+                1.15,
+                "E_05",
+                true,
+                0.58,
+                1.3
+              ]
+            },
+            {
+              "output_index_1_based": 5,
+              "source_pool_index_1_based": 4,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 4,
+              "battlefield_diversity_hint": [
+                "A_03",
+                true,
+                0.72,
+                1.24,
+                "A_06",
+                true,
+                0.34,
+                0.99,
+                "A_05",
+                true,
+                0.36,
+                1.02,
                 "E_06",
                 true,
-                0.96,
-                0.84,
+                0.31,
+                0.99,
                 "E_04",
+                false,
+                0.0,
+                1.23,
+                "E_01",
                 true,
-                0.56,
-                1.03,
-                "E_02",
-                true,
-                0.24,
-                1.01
+                0.22,
+                1.04
               ]
             }
           ],

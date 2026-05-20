@@ -17,7 +17,7 @@ from typing import Any
 from google import genai
 from google.genai import types
 
-MODEL_NAME = "gemini-3.1-flash-lite"
+MODEL_NAME = "gemini-3.5-flash"
 
 SYSTEM_PROMPT = """
 너는 Unity 전투 명령 파서용 Synthetic SFT dataset master sample을 생성하는 데이터 생성기다.
