@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Optional
@@ -65,6 +66,75 @@ SPLIT_EXPRESSION_POOL_LIMITS: dict[str, int] = {
     "validation": 3,
     "test": 3,
 }
+
+BATTLEFIELD_DIVERSITY_ALLY_IDS: tuple[str, ...] = tuple(
+    f"A_{index:02d}" for index in range(1, 7)
+)
+
+BATTLEFIELD_DIVERSITY_ENEMY_IDS: tuple[str, ...] = tuple(
+    f"E_{index:02d}" for index in range(1, 7)
+)
+
+_BATTLEFIELD_DIVERSITY_RANDOM = random.SystemRandom()
+
+
+def clamp_number(value: float, lower: float, upper: float) -> float:
+    return max(lower, min(upper, value))
+
+
+def roll_alive_hp_ratio() -> float:
+    return round(_BATTLEFIELD_DIVERSITY_RANDOM.uniform(0.05, 1.0), 2)
+
+
+def roll_attack_ratio_to_avg() -> float:
+    return round(
+        clamp_number(
+            _BATTLEFIELD_DIVERSITY_RANDOM.normalvariate(1.0, 0.15),
+            0.7,
+            1.3,
+        ),
+        2,
+    )
+
+
+# cycle sample마다 일부 unit의 생존/체력/공격력 조건을 teacher input에 넣는다.
+def build_battlefield_diversity_hint() -> list[Any]:
+    unit_ids = list(
+        _BATTLEFIELD_DIVERSITY_RANDOM.sample(
+            BATTLEFIELD_DIVERSITY_ALLY_IDS,
+            3,
+        )
+    ) + list(
+        _BATTLEFIELD_DIVERSITY_RANDOM.sample(
+            BATTLEFIELD_DIVERSITY_ENEMY_IDS,
+            3,
+        )
+    )
+
+    dead_unit_ids = set(
+        _BATTLEFIELD_DIVERSITY_RANDOM.sample(
+            unit_ids,
+            _BATTLEFIELD_DIVERSITY_RANDOM.randint(1, 2),
+        )
+    )
+
+    hint: list[Any] = []
+
+    for unit_id in unit_ids:
+        is_alive = unit_id not in dead_unit_ids
+        hp_ratio = roll_alive_hp_ratio() if is_alive else 0.0
+        attack_ratio_to_avg = roll_attack_ratio_to_avg()
+
+        hint.extend(
+            [
+                unit_id,
+                is_alive,
+                hp_ratio,
+                attack_ratio_to_avg,
+            ]
+        )
+
+    return hint
 
 
 DEFAULT_SKILL_FLAGS: dict[str, dict[str, bool]] = {
@@ -370,6 +440,7 @@ def build_command_text_sequence_contract(
                     "source_pool_index_1_based": source_pool_index,
                     "source_kind": source_kind,
                     "source_index_1_based": source_index_1_based,
+                    "battlefield_diversity_hint": build_battlefield_diversity_hint(),
                 }
             )
 
