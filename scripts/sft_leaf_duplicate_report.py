@@ -42,6 +42,14 @@ class DuplicateStats:
     groups: dict[tuple[str, str, str], list[str]]
 
 
+UNIT_FIELDS = (
+    "hpRatio",
+    "attackRatioToAvg",
+    "teamFormationRole",
+    "skillDescription",
+)
+
+
 def detect_dataset_root(explicit_root: str | None) -> Path:
     if explicit_root:
         return Path(explicit_root).resolve()
@@ -210,6 +218,65 @@ def make_duplicate_key(sample: dict[str, Any]) -> tuple[str, str, str]:
     )
 
 
+def _extract_unit_signature_from_container(units: Any) -> list[dict[str, Any]]:
+    if not isinstance(units, list):
+        return []
+
+    normalized: list[dict[str, Any]] = []
+    for unit in units:
+        if not isinstance(unit, dict):
+            continue
+        normalized.append({field: unit.get(field) for field in UNIT_FIELDS})
+    return normalized
+
+
+def _find_units(sample: dict[str, Any]) -> list[dict[str, Any]]:
+    candidates: list[Any] = []
+
+    input_obj = sample.get("input")
+    if isinstance(input_obj, dict):
+        candidates.append(input_obj.get("units"))
+        nested_input = input_obj.get("input")
+        if isinstance(nested_input, dict):
+            candidates.append(nested_input.get("units"))
+
+    output_obj = sample.get("output")
+    if isinstance(output_obj, dict):
+        candidates.append(output_obj.get("units"))
+        dialog = output_obj.get("dialog")
+        if isinstance(dialog, list):
+            for turn in dialog:
+                if not isinstance(turn, dict):
+                    continue
+                candidates.append(turn.get("units"))
+                content = turn.get("content")
+                if isinstance(content, dict):
+                    candidates.append(content.get("units"))
+
+    for candidate in candidates:
+        found = _extract_unit_signature_from_container(candidate)
+        if found:
+            return found
+
+    return []
+
+
+def make_duplicate_key_with_units(sample: dict[str, Any]) -> tuple[str, str, str, str]:
+    units = _find_units(sample)
+    units_key = json.dumps(
+        units,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return (
+        get_command_text(sample),
+        get_thinking(sample),
+        get_dialog_key(sample),
+        units_key,
+    )
+
+
 def compute_leaf_stats(
     leaves: list[LeafEntry],
     sample_lookup: dict[str, dict[str, Any]],
@@ -244,6 +311,51 @@ def compute_leaf_stats(
                 missing_count=missing_count,
                 duplicate_count=duplicate_count,
                 duplicate_group_count=len(duplicate_groups),
+                max_group_size=max_group_size,
+                groups=duplicate_groups,
+            )
+        )
+
+    return results
+
+
+def compute_leaf_stats_with_units(
+    leaves: list[LeafEntry],
+    sample_lookup: dict[str, dict[str, Any]],
+) -> list[DuplicateStats]:
+    results: list[DuplicateStats] = []
+
+    for leaf in leaves:
+        grouped: dict[tuple[str, str, str, str], list[str]] = defaultdict(list)
+        missing_count = 0
+
+        for record_ref in leaf.record_refs:
+            sample = sample_lookup.get(record_ref)
+            if sample is None:
+                missing_count += 1
+                continue
+
+            grouped[make_duplicate_key_with_units(sample)].append(record_ref)
+
+        duplicate_groups_raw = {
+            key: refs
+            for key, refs in grouped.items()
+            if len(refs) > 1
+        }
+        duplicate_groups = {
+            (k[0], k[1], k[2]): refs for k, refs in duplicate_groups_raw.items()
+        }
+
+        duplicate_count = sum(len(refs) - 1 for refs in duplicate_groups_raw.values())
+        max_group_size = max((len(refs) for refs in duplicate_groups_raw.values()), default=0)
+
+        results.append(
+            DuplicateStats(
+                leaf=leaf,
+                loaded_count=sum(len(refs) for refs in grouped.values()),
+                missing_count=missing_count,
+                duplicate_count=duplicate_count,
+                duplicate_group_count=len(duplicate_groups_raw),
                 max_group_size=max_group_size,
                 groups=duplicate_groups,
             )
@@ -428,6 +540,14 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="상세 결과를 JSON 파일로 저장할 경로.",
     )
+    parser.add_argument(
+        "--json-output-units",
+        default="",
+        help=(
+            "유닛 필드(hpRatio, attackRatioToAvg, teamFormationRole, skillDescription)까지 "
+            "포함한 exact duplicate 상세 결과를 JSON 파일로 저장할 경로."
+        ),
+    )
     return parser
 
 
@@ -456,6 +576,7 @@ def main() -> int:
         leaves = parse_general_coverage(coverage_path)
         sample_lookup = build_sample_lookup(accepted_dir)
         stats = compute_leaf_stats(leaves, sample_lookup)
+        stats_with_units = compute_leaf_stats_with_units(leaves, sample_lookup)
 
         print(f"dataset_root: {dataset_root}")
         print(f"coverage: {coverage_path}")
@@ -477,6 +598,11 @@ def main() -> int:
             output_path = Path(args.json_output).resolve()
             write_json_report(output_path, stats)
             print(f"json_output: {output_path}")
+
+        if args.json_output_units:
+            units_output_path = Path(args.json_output_units).resolve()
+            write_json_report(units_output_path, stats_with_units)
+            print(f"json_output_units: {units_output_path}")
 
         return 0
 
