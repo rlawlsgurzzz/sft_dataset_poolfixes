@@ -34,7 +34,8 @@ teacher LLM은 master sample 후보를 생성한다.
 
 teacher가 생성하는 항목은 다음이다.
 
-```text
+```text 
+
 id
 split
 command_spec
