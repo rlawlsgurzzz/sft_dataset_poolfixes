@@ -690,9 +690,9 @@ test
 각 split은 서로 다른 command_text 표현 pool을 가진다.
 
 ```text
-train: 8개
-validation: 4개
-test: 4개
+train: 7개
+validation: 3개
+test: 3개
 ```
 
 같은 command slot에서 teacher LLM은 다음 규칙을 따른다.
@@ -701,8 +701,8 @@ test: 4개
 1. 요청 split의 accepted 표현은 existing_valid_paraphrase_samples로 전달된다.
 2. 다른 split의 accepted 표현은 other_split_reserved_command_texts로 전달된다.
 3. 요청 split의 표현 pool이 가득 차기 전에는 새 command_text를 만든다.
-4. 새 command_text는 같은 split의 기존 표현과 exact duplicate이면 안 된다.
-5. 새 command_text는 다른 split의 reserved 표현과 exact duplicate이면 안 된다.
+4. 새 command_text는 같은 split의 기존 표현과 같은 command_text family이면 안 된다.
+5. 새 command_text는 다른 split의 reserved 표현과 같은 command_text family이면 안 된다.
 6. 출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.
 7. 새 unique command_text 생성이 모두 끝난 뒤에만 cycle sample을 만든다.
 8. cycle source pool은 existing_valid_paraphrase_samples 뒤에 이번 응답에서 새로 만든 unique command_text를 output 순서대로 이어 붙인 목록이다.
@@ -710,6 +710,14 @@ test: 4개
 10. cycle 구간에서 첫 번째 source만 반복하거나 같은 command_text를 연속 반복하지 않는다.
 11. 다른 split의 reserved command_text는 cycle source로 사용할 수 없다.
 12. command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.
+```
+
+여기서 command_text family는 다음 정규화 기준으로 판정한다.
+
+```text
+- unitId 표기는 A_XX/E_XX를 A_ID/E_ID로 정규화한다.
+- A_ID/E_ID 뒤의 조사(은/는, 이/가, 을/를) 차이는 같은 family로 본다.
+- command_style 차이는 family distinct 판정에 사용하지 않는다.
 ```
 
 `command_text_policy.sequence_contract`는 output 순서를 `new_unique_first_then_cycle`로 고정하고, cycle 구간의 source index를 1-based round-robin plan으로 명시한다.
@@ -868,6 +876,68 @@ accepted/*.jsonl 전체를 읽는다.
 각 accepted sample에서 input과 output만 뽑아 student runtime messages 형식으로 변환한다.
 샘플 순서를 간단한 deterministic shuffle로 섞는다.
 datasets/train_sft_messages.jsonl 파일 하나를 생성한다.
+```
+
+### 15.11 `scripts/sft_leaf_duplicate_report.py`
+
+```text
+reports/general_coverage.md의 leaf id를 기준으로 accepted sample 중복을 계산한다.
+기본 보고서는 leaf 내부 command_text + output.thinking + output.dialog exact match를 사용한다.
+full exact 기준은 sample 전체에서 id를 제외한 canonical JSON exact match를 사용한다.
+--decimate-full-exact로 full exact duplicate 그룹마다 첫 sample만 남기고 나머지를 accepted 파일에서 제거할 수 있다.
+```
+
+### 15.12 `scripts/inspect_command_slot_pool.py`
+
+```text
+coverage markdown의 numeric path로 command slot pool을 점검한다.
+A_XX/E_XX와 일부 한국어 조사만 다른 command_text는 같은 family로 취급한다.
+payload용 existing_valid_paraphrase_samples와 family 요약을 출력 파일로 기록할 수 있다.
+```
+
+### 15.13 `scripts/sft_auto_generate_auto_request.py`
+
+```text
+automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
+각 요청마다 생성 직후 validate를 실행한다.
+요청 실패 시 최대 10회 재시도 후 다음 요청으로 넘어간다.
+```
+
+### 15.14 `scripts/sft_auto_generate_compromised.py`
+
+```text
+automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
+각 요청마다 생성 직후 validate를 실행한다.
+30초 이내 API 거절은 재시도하고, 30초 이상 걸린 거절은 해당 요청을 스킵한다.
+```
+
+### 15.15 `scripts/sft_auto_generate_never_stops.py`
+
+```text
+automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
+각 요청마다 생성 직후 validate를 실행한다.
+요청 실패 시 수락될 때까지 무한 재시도한다.
+```
+
+### 15.16 `scripts/dump_full_prompt.py`
+
+```text
+하나 또는 둘의 mixed generation request를 받아 teacher full prompt text를 생성한다.
+full_prompt/*.txt 저장 및 user content 확인용 출력에 사용한다.
+```
+
+### 15.17 `scripts/sft_file_sequence.py`
+
+```text
+raw_generations 내부 순번 파일명(request_####.json, batch_####_raw.jsonl 등)을 계산한다.
+기존 파일을 덮어쓰지 않도록 현재 최대 번호 다음 번호를 사용한다.
+```
+
+### 15.18 `scripts/jsonl_pretty.py`
+
+```text
+레포의 JSON/JSONL 샘플을 사람이 읽기 좋은 형태로 stdout에 pretty-print한다.
+accepted/rejected/raw_generations 파일을 빠르게 점검할 때 사용한다.
 ```
 
 ---
