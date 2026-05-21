@@ -1,0 +1,469 @@
+{
+  "request": {
+    "count_to_generate": 10,
+    "path_count": 2,
+    "items": [
+      {
+        "mix_item_index_1_based": 1,
+        "raw_request": "c2-2-12-2-10-1.5",
+        "count_to_generate": 5,
+        "stable_path": "move.explicit_multi_actor.none.move_only.hold_front",
+        "skill_stable_path": null,
+        "cycle_start_offset_used": 0
+      },
+      {
+        "mix_item_index_1_based": 2,
+        "raw_request": "c3-1-1-4-1-1.5",
+        "count_to_generate": 5,
+        "stable_path": "skill.explicit_actor.explicit_enemy_target.skill_only.enemy_skill_valid_target",
+        "skill_stable_path": "mobility_skill.enemy_alive.null",
+        "cycle_start_offset_used": 0
+      }
+    ]
+  },
+  "target_split": "train",
+  "mixed_generation_requests": [
+    {
+      "mix_item_index_1_based": 1,
+      "request": {
+        "raw_request": "c2-2-12-2-10-1.5",
+        "count_to_generate": 5,
+        "display_path": "2-2-12-2-10-1",
+        "stable_path": "move.explicit_multi_actor.none.move_only.hold_front",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "A_01과 A_02는 전열을 유지해."
+      },
+      "target_split": "train",
+      "selected_bucket": {
+        "intent_family": "move",
+        "intent_family_description": "위치 이동, 후퇴, 접근, 지원, 전열 유지 명령이다.",
+        "actor_selection": "explicit_multi_actor",
+        "actor_selection_description": "명령에 복수 아군 actor가 직접 지목된다.",
+        "target_selection": "none",
+        "target_selection_description": "target이 필요 없거나 명시되지 않은 wait, skillControl, holdFront류 명령이다.",
+        "action_pattern": "move_only",
+        "action_pattern_description": "정답 output이 move action만 가진다.",
+        "scenario_family": "hold_front",
+        "scenario_family_description": "전열을 유지하거나 앞에서 버티는 상황이다.",
+        "edge_flags": [
+          "hold_front_requested"
+        ],
+        "edge_flag_descriptions": {
+          "hold_front_requested": "전열 유지가 요구된다."
+        },
+        "skill_case": null
+      },
+      "existing_valid_paraphrase_samples": [
+        {
+          "command_text": "A_01과 A_02는 전열을 유지해.",
+          "command_style": "direct_korean"
+        },
+        {
+          "command_text": "A_03이랑 A_05는 앞에서 버텨.",
+          "command_style": "casual_korean"
+        },
+        {
+          "command_text": "A_04랑 A_06, 전선에서 밀리지 말고 버텨.",
+          "command_style": "rough_korean"
+        }
+      ],
+      "other_split_reserved_command_texts": [],
+      "command_text_policy": {
+        "target_split": "train",
+        "same_split_expression_pool_size": 7,
+        "existing_same_split_expression_count": 3,
+        "other_split_reserved_expression_count": 0,
+        "new_unique_command_texts_to_create": 4,
+        "samples_using_same_split_cycle": 1,
+        "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
+        "sequence_contract": {
+          "output_order": "new_unique_first_then_cycle",
+          "new_unique_output_range_1_based": [
+            1,
+            4
+          ],
+          "cycle_output_range_1_based": [
+            5,
+            5
+          ],
+          "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
+          "cycle_reuse_strategy": "round_robin_from_cycle_start_offset",
+          "cycle_start_offset_0_based": 0,
+          "cycle_source_pool_size_after_new_unique": 7,
+          "cycle_reuse_plan_1_based": [
+            {
+              "output_index_1_based": 5,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_05",
+                true,
+                0.18,
+                0.91,
+                "A_02",
+                true,
+                0.82,
+                1.07,
+                "A_03",
+                false,
+                0.0,
+                1.06,
+                "E_03",
+                true,
+                0.36,
+                1.19,
+                "E_05",
+                false,
+                0.0,
+                1.19,
+                "E_02",
+                true,
+                0.28,
+                1.04
+              ]
+            }
+          ],
+          "hard_fail_conditions": [
+            "cycle samples appear before all new_unique samples are created",
+            "a new_unique output reuses an existing command_text",
+            "a cycle output ignores cycle_reuse_plan_1_based",
+            "a cycle output repeatedly uses only source_pool_index_1_based=1 when cycle_reuse_plan_1_based specifies otherwise"
+          ],
+          "example": "if existing=7,new=0,cycle=5,cycle_start_offset=5 then outputs 1-5 reuse source pool indexes [6,7,1,2,3]"
+        },
+        "rules": [
+          "같은 split 안에서 command_text 표현 pool을 관리한다.",
+          "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
+          "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
+          "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
+          "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
+          "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
+          "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
+          "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+          "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+          "other_split_reserved_command_texts는 cycle source가 아니다.",
+          "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
+          "다른 split의 command_text 표현 pool을 cycle 대상으로 섞지 않는다."
+        ]
+      },
+      "count_to_generate": 5,
+      "cycle_start_offset_used": 0
+    },
+    {
+      "mix_item_index_1_based": 2,
+      "request": {
+        "raw_request": "c3-1-1-4-1-1.5",
+        "count_to_generate": 5,
+        "display_path": "3-1-1-4-1-1",
+        "stable_path": "skill.explicit_actor.explicit_enemy_target.skill_only.enemy_skill_valid_target",
+        "skill_stable_path": "mobility_skill.enemy_alive.null",
+        "command_slot_index": 1,
+        "base_command_text": "A_01, E_02에게 도약기로 붙어."
+      },
+      "target_split": "train",
+      "selected_bucket": {
+        "intent_family": "skill",
+        "intent_family_description": "skill action을 사용하는 명령이다.",
+        "actor_selection": "explicit_actor",
+        "actor_selection_description": "명령에 단일 아군 actor가 직접 지목된다.",
+        "target_selection": "explicit_enemy_target",
+        "target_selection_description": "명령에 적 unitId가 직접 지목된다.",
+        "action_pattern": "skill_only",
+        "action_pattern_description": "정답 output이 skill action만 가진다.",
+        "scenario_family": "enemy_skill_valid_target",
+        "scenario_family_description": "적 대상 skill과 적 target이 일치하는 정상 상황이다.",
+        "edge_flags": [
+          "mobility_skill_enemy_approach"
+        ],
+        "edge_flag_descriptions": {
+          "mobility_skill_enemy_approach": "mobility skill로 적에게 접근해야 한다."
+        },
+        "skill_case": {
+          "skill_family": "mobility_skill",
+          "skill_family_description": "이동, 돌진, 도약, 이탈 성격의 스킬이다.",
+          "skill_target_kind": "enemy_alive",
+          "skill_target_kind_description": "스킬 target은 살아있는 적이다.",
+          "conflict_type": null,
+          "conflict_type_description": "스킬 대상 충돌이 없다.",
+          "is_skill_aoe": false,
+          "can_skill_target_dead": false
+        }
+      },
+      "existing_valid_paraphrase_samples": [
+        {
+          "command_text": "A_01, E_02에게 도약기로 붙어.",
+          "command_style": "casual_korean"
+        },
+        {
+          "command_text": "A_01, E_02한테 스킬 써서 붙어.",
+          "command_style": "casual_korean"
+        },
+        {
+          "command_text": "A_01, E_02한테 스킬 써서 파고들어.",
+          "command_style": "casual_korean"
+        }
+      ],
+      "other_split_reserved_command_texts": [],
+      "command_text_policy": {
+        "target_split": "train",
+        "same_split_expression_pool_size": 7,
+        "existing_same_split_expression_count": 3,
+        "other_split_reserved_expression_count": 0,
+        "new_unique_command_texts_to_create": 4,
+        "samples_using_same_split_cycle": 1,
+        "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
+        "sequence_contract": {
+          "output_order": "new_unique_first_then_cycle",
+          "new_unique_output_range_1_based": [
+            1,
+            4
+          ],
+          "cycle_output_range_1_based": [
+            5,
+            5
+          ],
+          "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
+          "cycle_reuse_strategy": "round_robin_from_cycle_start_offset",
+          "cycle_start_offset_0_based": 0,
+          "cycle_source_pool_size_after_new_unique": 7,
+          "cycle_reuse_plan_1_based": [
+            {
+              "output_index_1_based": 5,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_05",
+                true,
+                0.21,
+                0.86,
+                "A_06",
+                true,
+                0.65,
+                0.86,
+                "A_03",
+                true,
+                0.48,
+                1.15,
+                "E_01",
+                false,
+                0.0,
+                0.83,
+                "E_06",
+                true,
+                0.92,
+                0.83,
+                "E_05",
+                true,
+                0.37,
+                0.92
+              ]
+            }
+          ],
+          "hard_fail_conditions": [
+            "cycle samples appear before all new_unique samples are created",
+            "a new_unique output reuses an existing command_text",
+            "a cycle output ignores cycle_reuse_plan_1_based",
+            "a cycle output repeatedly uses only source_pool_index_1_based=1 when cycle_reuse_plan_1_based specifies otherwise"
+          ],
+          "example": "if existing=7,new=0,cycle=5,cycle_start_offset=5 then outputs 1-5 reuse source pool indexes [6,7,1,2,3]"
+        },
+        "rules": [
+          "같은 split 안에서 command_text 표현 pool을 관리한다.",
+          "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
+          "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
+          "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
+          "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
+          "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
+          "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
+          "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+          "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+          "other_split_reserved_command_texts는 cycle source가 아니다.",
+          "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
+          "다른 split의 command_text 표현 pool을 cycle 대상으로 섞지 않는다."
+        ]
+      },
+      "count_to_generate": 5,
+      "cycle_start_offset_used": 0
+    }
+  ],
+  "count_to_generate": 10,
+  "mixed_output_contract": {
+    "output_order": "generate all samples for mixed_generation_requests in array order; finish one item before starting the next item",
+    "per_item_rule": "Each mixed_generation_requests item is an independent generation contract.",
+    "count_rule": "The final JSON array length must equal top-level count_to_generate."
+  },
+  "runtime_generation_contract": {
+    "teacher_role": "전장 시나리오와 정답 output을 생성한다.",
+    "validator_role": "area_situation을 검증하고 commandAnalysis를 계산해 accepted 저장 시점에 추가한다.",
+    "teacher_must_create": [
+      "id",
+      "split",
+      "command_spec",
+      "metadata",
+      "skill_case",
+      "gold",
+      "input.input.command",
+      "input.input.area_situation.allies",
+      "input.input.area_situation.enemies",
+      "output.thinking",
+      "output.dialog",
+      "output.action"
+    ],
+    "teacher_must_not_create": [
+      "input.commandAnalysis",
+      "commandAnalysis",
+      "allowedActors",
+      "allowedAttackTargets",
+      "validMoveToUnits",
+      "deadAllies",
+      "invalidUnits",
+      "actionPolicy",
+      "validator_result",
+      "source_ref"
+    ],
+    "validator_will_create_on_accept": [
+      "input.commandAnalysis.analysisMode",
+      "input.commandAnalysis.allowedActors",
+      "input.commandAnalysis.allowedAttackTargets",
+      "input.commandAnalysis.validMoveToUnits",
+      "input.commandAnalysis.deadAllies",
+      "input.commandAnalysis.invalidUnits",
+      "input.commandAnalysis.actionPolicy"
+    ],
+    "runtime_student_input_after_accept": {
+      "input": {
+        "command": "한국어 명령",
+        "area_situation": {
+          "allies": "A_01부터 A_06까지 정확히 6명",
+          "enemies": "E_01부터 E_06까지 정확히 6명"
+        }
+      },
+      "commandAnalysis": "validator가 계산한 runtime_constraint_summary"
+    }
+  },
+  "area_situation_contract": {
+    "allies_count": 6,
+    "enemies_count": 6,
+    "ally_ids": [
+      "A_01",
+      "A_02",
+      "A_03",
+      "A_04",
+      "A_05",
+      "A_06"
+    ],
+    "enemy_ids": [
+      "E_01",
+      "E_02",
+      "E_03",
+      "E_04",
+      "E_05",
+      "E_06"
+    ],
+    "ally_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole",
+      "skillDescription",
+      "IsSkillOnSelf",
+      "IsSkillOnOtherAlly",
+      "isSkillAoe",
+      "canSkillTargetDead",
+      "closestTargetableOpponent",
+      "farthestTargetableOpponent",
+      "closestAliveAlly",
+      "farthestAliveAlly"
+    ],
+    "enemy_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole"
+    ],
+    "single_distance_fields": {
+      "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
+      "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
+    },
+    "single_distance_field_rules": [
+      "네 필드는 배열이 아니라 unitId string 또는 null이다.",
+      "후보가 없으면 null을 사용한다.",
+      "후보가 1명뿐이면 closest와 farthest에 같은 unitId를 사용한다.",
+      "후보가 2명 이상이면 closest와 farthest는 서로 다른 unitId를 사용한다.",
+      "closestAliveAlly와 farthestAliveAlly에는 자기 자신의 unitId를 쓰지 않는다.",
+      "죽은 unit은 네 필드에 들어가지 않는다."
+    ],
+    "dead_unit_rules": [
+      "이 게임에서는 죽은 unit도 보통 canBeTargeted=true일 수 있다.",
+      "죽은 ally가 canBeTargeted=true이면 validator가 commandAnalysis.deadAllies에 포함한다.",
+      "죽은 unit은 actor, attack target, move.to로 사용할 수 없다.",
+      "canSkillTargetDead=true인 skill에서만 죽은 targetable ally를 skill target으로 사용할 수 있다."
+    ]
+  },
+  "assistant_output_contract": {
+    "assistant_output_top_level_keys": [
+      "thinking",
+      "dialog",
+      "action"
+    ],
+    "thinking": "짧은 한국어 판단 요약. 자세한 사고 과정 금지.",
+    "dialog": [
+      "action actor마다 정확히 하나만 생성한다.",
+      "action에 없는 unitId를 넣지 않는다.",
+      "여러 actor에게 완전히 같은 text를 반복하지 않는다."
+    ],
+    "action": [
+      "actor는 살아있는 ally만 가능하다.",
+      "enemy는 actor가 될 수 없다.",
+      "각 actor sequence는 최대 3개 action이다.",
+      "실행 가능한 action이 없으면 dialog와 action은 빈 배열이다."
+    ],
+    "skill": [
+      "skill.description은 actor.skillDescription과 정확히 같아야 한다.",
+      "IsSkillOnSelf=true이면 target은 actor 자신이다.",
+      "IsSkillOnOtherAlly=true이면 target은 actor 자신이 아닌 ally다.",
+      "IsSkillOnSelf=false이고 IsSkillOnOtherAlly=false이면 target은 enemy다.",
+      "canSkillTargetDead=false이면 죽은 unit을 skill target으로 쓰지 않는다.",
+      "isSkillAoe=true여도 output target은 중심 unitId 하나만 쓴다."
+    ],
+    "wait_and_skill_control": [
+      "wait은 명령에 대기, 지연, 타이밍 조절, 위치 유지 의미가 직접 있을 때만 사용한다.",
+      "attack 또는 skill 뒤에는 wait을 붙이지 않는다.",
+      "skillControl은 스킬 지연 또는 금지 의도가 명시될 때만 사용한다.",
+      "조건부 명령은 current-state-only로 처리한다."
+    ]
+  },
+  "generation_constraints": [
+    "mixed_generation_requests의 각 item을 독립된 generation contract로 처리한다.",
+    "각 item의 selected_bucket, existing_valid_paraphrase_samples, other_split_reserved_command_texts, command_text_policy를 해당 item sample에만 적용한다.",
+    "한 item의 계약 필드를 다른 item sample에 섞어 쓰지 않는다.",
+    "출력 array는 mixed_output_contract.output_order를 따른다.",
+    "각 sample.split은 자신이 속한 item의 target_split과 같아야 한다.",
+    "각 item의 command_text_policy.sequence_contract.cycle_reuse_plan_1_based를 그대로 따른다.",
+    "cycle source index를 다시 계산하지 않는다.",
+    "command_text를 재사용하더라도 area_situation, gold, output은 복사하지 않고 새로 구성한다.",
+    "taxonomy 밖 값을 만들지 않는다.",
+    "source_ref를 생성하지 않는다.",
+    "validator_result를 생성하지 않는다.",
+    "input.commandAnalysis와 commandAnalysis 하위 필드를 절대 생성하지 않는다.",
+    "input.input.area_situation을 완전한 전장 상태로 창작한다.",
+    "output은 처음부터 raw valid assistant output이어야 한다."
+  ]
+}

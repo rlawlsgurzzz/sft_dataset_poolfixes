@@ -1164,8 +1164,8 @@ def validate_file(
             accepted.append(normalize_sample_with_result(sample, True, [], command_analysis))
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    accepted_path = dataset_root / "accepted" / f"3accepted_{timestamp}.jsonl"
-    rejected_path = dataset_root / "rejected" / f"3rejected_{timestamp}.jsonl"
+    accepted_path = dataset_root / "accepted" / f"5accepted_{timestamp}.jsonl"
+    rejected_path = dataset_root / "rejected" / f"5rejected_{timestamp}.jsonl"
 
     result = {
         "input_path": str(input_path),

@@ -912,7 +912,7 @@ def assign_sample_ids(samples: list[dict[str, Any]], output_path: Path) -> None:
         batch_id = batch_id.removesuffix("_raw")
 
     for index, sample in enumerate(samples, start=1):
-        sample["id"] = f"3{batch_id}_{index:03d}"
+        sample["id"] = f"5{batch_id}_{index:03d}"
 
 
 def append_jsonl(path: Path, records: list[dict[str, Any]]) -> None:

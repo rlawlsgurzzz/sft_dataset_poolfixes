@@ -1,0 +1,68 @@
+{
+  "created_at": "2026-05-22T03:05:32",
+  "mode": "inline_batch",
+  "model": "gemini-3.5-flash",
+  "display_name": "sft-0007-test30",
+  "plan": "generation_automation\\auto_generation_plan_0007.txt",
+  "dataset_root": "D:\\sftgit\\sft_dataset_personal",
+  "taxonomy": "D:\\sftgit\\sft_dataset_personal\\config\\taxonomy_sot.json",
+  "max_per_request": 10,
+  "sample_limit": 100,
+  "start_index": 1,
+  "selected_task_count": 1,
+  "inline_request_count": 1,
+  "expected_sample_count": 10,
+  "output_dir": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531",
+  "payload_dir": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531\\payloads",
+  "requests": [
+    {
+      "request_key": "request_0001",
+      "response_index_0_based": 0,
+      "task_index": 1,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "empty.explicit_actor.explicit_enemy_target.empty_action_expected.named_actor_dead, empty.explicit_actor.none.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-1-1-13-1-1 + c6-1-12-13-1-1",
+      "request": "c6-1-1-13-1-1.5 + c6-1-12-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c6-1-1-13-1-1",
+          "request": "c6-1-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c6-1-12-13-1-1",
+          "request": "c6-1-12-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531\\payloads\\request_0001.json"
+    }
+  ],
+  "status": "submitted",
+  "submitted_at": "2026-05-22T03:05:35",
+  "batch_job_name": "batches/6vv10rud9cdkv45llug5jl2z9jhd8663r5i8",
+  "batch_job": {
+    "name": "batches/6vv10rud9cdkv45llug5jl2z9jhd8663r5i8",
+    "display_name": "sft-0007-test30",
+    "state": "JOB_STATE_PENDING",
+    "create_time": "2026-05-21T18:05:33.703523Z",
+    "update_time": "2026-05-21T18:05:33.703523Z",
+    "model": "models/gemini-3.5-flash"
+  },
+  "fetched_at": "2026-05-22T03:15:06",
+  "fetch_state": "JOB_STATE_SUCCEEDED",
+  "raw_output_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531\\batch_raw.jsonl",
+  "trace_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531\\batch_trace.jsonl",
+  "error_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260522_030531\\batch_errors.jsonl",
+  "fetched_sample_count": 0,
+  "fetch_error_count": 1
+}
