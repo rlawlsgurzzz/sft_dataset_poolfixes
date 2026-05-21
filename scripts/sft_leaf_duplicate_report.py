@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 reports/general_coverage.md의 leaf id 목록을 기준으로 accepted sample 중복을 계산한다.
-중복 기준은 leaf 내부의 command_text + output.thinking + output.dialog exact match다.
-같은 key가 N개 있으면 duplicate count는 N - 1로 계산한다.
-raw sample, accepted sample, coverage 파일은 수정하지 않는다.
+기본 보고서 기준은 leaf 내부의 command_text + output.thinking + output.dialog exact match다.
+full exact 기준은 sample 전체에서 id 필드만 제외한 canonical JSON exact match다.
+기본 실행은 raw sample, accepted sample, coverage 파일을 수정하지 않는다.
+--decimate-full-exact 실행 시 full exact duplicate 그룹마다 첫 sample만 남기고 나머지를 accepted 파일에서 제거한다.
 """
 
 from __future__ import annotations
@@ -569,6 +570,150 @@ def write_json_report(path: Path, stats: list[DuplicateStats]) -> None:
     )
 
 
+
+
+def collect_full_exact_duplicate_refs_to_delete(
+    stats_full_exact: list[DuplicateStats],
+) -> set[str]:
+    delete_refs: set[str] = set()
+
+    for item in stats_full_exact:
+        for refs in item.groups.values():
+            if len(refs) <= 1:
+                continue
+            delete_refs.update(refs[1:])
+
+    return delete_refs
+
+
+def _read_json_records_with_format(path: Path) -> tuple[list[dict[str, Any]], str]:
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return [], "jsonl"
+
+    if text.startswith("["):
+        loaded = json.loads(text)
+        if not isinstance(loaded, list):
+            raise ValueError(f"JSON array가 아니다: {path}")
+        return [item for item in loaded if isinstance(item, dict)], "array"
+
+    records: list[dict[str, Any]] = []
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        try:
+            item = json.loads(stripped)
+        except json.JSONDecodeError as error:
+            raise ValueError(f"{path}:{line_number}: JSON parse failed: {error}") from error
+        if isinstance(item, dict):
+            records.append(item)
+
+    return records, "jsonl"
+
+
+def _write_json_records_with_format(
+    path: Path,
+    records: list[dict[str, Any]],
+    record_format: str,
+) -> None:
+    temp_path = path.with_name(f"{path.name}.tmp")
+
+    if record_format == "array":
+        temp_path.write_text(
+            json.dumps(records, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+    else:
+        with temp_path.open("w", encoding="utf-8", newline="\n") as file:
+            for record in records:
+                file.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    temp_path.replace(path)
+
+
+def decimate_full_exact_duplicates(
+    *,
+    accepted_dir: Path,
+    delete_refs: set[str],
+) -> dict[str, Any]:
+    if not delete_refs:
+        return {
+            "delete_refs": 0,
+            "deleted_samples": 0,
+            "touched_files": 0,
+            "missing_delete_refs": [],
+            "files": [],
+        }
+
+    remaining_refs = set(delete_refs)
+    file_summaries: list[dict[str, Any]] = []
+    deleted_samples = 0
+    touched_files = 0
+
+    for jsonl_path in sorted(accepted_dir.rglob("*.jsonl")):
+        records, record_format = _read_json_records_with_format(jsonl_path)
+        if not records:
+            continue
+
+        kept_records: list[dict[str, Any]] = []
+        removed_refs: list[str] = []
+
+        for sample in records:
+            sample_id = sample.get("id")
+            record_ref = (
+                f"{jsonl_path.name}_{sample_id}"
+                if isinstance(sample_id, str) and sample_id
+                else ""
+            )
+
+            if record_ref and record_ref in delete_refs:
+                removed_refs.append(record_ref)
+                remaining_refs.discard(record_ref)
+                continue
+
+            kept_records.append(sample)
+
+        if not removed_refs:
+            continue
+
+        _write_json_records_with_format(
+            path=jsonl_path,
+            records=kept_records,
+            record_format=record_format,
+        )
+
+        touched_files += 1
+        deleted_samples += len(removed_refs)
+        file_summaries.append(
+            {
+                "file": jsonl_path.as_posix(),
+                "format": record_format,
+                "before_count": len(records),
+                "after_count": len(kept_records),
+                "deleted_count": len(removed_refs),
+                "deleted_refs": removed_refs,
+            }
+        )
+
+    return {
+        "delete_refs": len(delete_refs),
+        "deleted_samples": deleted_samples,
+        "touched_files": touched_files,
+        "missing_delete_refs": sorted(remaining_refs),
+        "files": file_summaries,
+    }
+
+
+def write_decimation_report(path: Path, summary: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
 def resolve_report_output_path(
     *,
     dataset_root: Path,
@@ -670,6 +815,22 @@ def build_parser() -> argparse.ArgumentParser:
             "reports/duplicate_report_full_exact.json에 저장한다."
         ),
     )
+    parser.add_argument(
+        "--decimate-full-exact",
+        action="store_true",
+        help=(
+            "full exact duplicate 그룹마다 첫 sample만 남기고 나머지를 accepted 파일에서 제거한다. "
+            "삭제 전 accepted 폴더 백업이 이미 있다는 전제로 사용한다."
+        ),
+    )
+    parser.add_argument(
+        "--decimation-report",
+        default="",
+        help=(
+            "decimate 실행 결과 JSON 저장 경로. 생략하면 "
+            "reports/duplicate_report_full_exact_decimation.json에 저장한다."
+        ),
+    )
     return parser
 
 
@@ -716,6 +877,11 @@ def main() -> int:
             value=args.json_output_full_exact,
             default_filename="duplicate_report_full_exact.json",
         )
+        decimation_report_path = resolve_report_output_path(
+            dataset_root=dataset_root,
+            value=args.decimation_report,
+            default_filename="duplicate_report_full_exact_decimation.json",
+        )
 
         write_json_report(output_path, stats)
         write_json_report(units_output_path, stats_with_units)
@@ -727,6 +893,8 @@ def main() -> int:
         print(f"json_output: {output_path}")
         print(f"json_output_units: {units_output_path}")
         print(f"json_output_full_exact: {full_exact_output_path}")
+        if args.decimate_full_exact:
+            print(f"decimation_report: {decimation_report_path}")
         print()
 
         print(
@@ -750,6 +918,22 @@ def main() -> int:
                 only_duplicates=args.only_duplicates,
             )
         )
+
+        if args.decimate_full_exact:
+            delete_refs = collect_full_exact_duplicate_refs_to_delete(stats_full_exact)
+            decimation_summary = decimate_full_exact_duplicates(
+                accepted_dir=accepted_dir,
+                delete_refs=delete_refs,
+            )
+            write_decimation_report(decimation_report_path, decimation_summary)
+
+            print(
+                "decimate_full_exact: "
+                f"delete_refs={decimation_summary['delete_refs']}, "
+                f"deleted_samples={decimation_summary['deleted_samples']}, "
+                f"touched_files={decimation_summary['touched_files']}, "
+                f"missing_delete_refs={len(decimation_summary['missing_delete_refs'])}"
+            )
 
         return 0
 
