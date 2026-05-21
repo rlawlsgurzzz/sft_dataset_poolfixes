@@ -4058,6 +4058,15 @@
       "rejected_count": 0,
       "accepted_path": "D:\\sftgit\\sft_dataset_personal\\accepted\\3accepted_20260521_023015.jsonl",
       "rejected_path": null
+    },
+    "63eb8b84adf57e4f11f5c7ebc60ef8ccdc93b5f7d3c138b201099a10947244dc": {
+      "input_path": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\batch_0072_raw.jsonl",
+      "input_hash": "63eb8b84adf57e4f11f5c7ebc60ef8ccdc93b5f7d3c138b201099a10947244dc",
+      "skipped": false,
+      "accepted_count": 5,
+      "rejected_count": 0,
+      "accepted_path": "D:\\sftgit\\sft_dataset_personal\\accepted\\3accepted_20260522_000337.jsonl",
+      "rejected_path": null
     }
   }
 }

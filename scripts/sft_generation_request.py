@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Optional
@@ -66,6 +67,39 @@ SPLIT_EXPRESSION_POOL_LIMITS: dict[str, int] = {
     "validation": 3,
     "test": 3,
 }
+
+COMMAND_TEXT_UNIT_ID_RE = re.compile(r"(?<![A-Za-z0-9_])([AE])_\d{2}(?![A-Za-z0-9_])")
+
+
+# A_ID/E_ID 뒤의 조사 차이를 command_text family 비교에서 통합한다.
+def normalize_command_text_family_particles(text: str) -> str:
+    text = re.sub(
+        r"(?P<unit>[AE]_ID)\s*(?:은|는|이|가)(?=$|[\s,.;!?])",
+        r"\g<unit>{JOSA_ST}",
+        text,
+    )
+    text = re.sub(
+        r"(?P<unit>[AE]_ID)\s*(?:을|를)(?=$|[\s,.;!?])",
+        r"\g<unit>{JOSA_OBJ}",
+        text,
+    )
+    return text
+
+
+# command_text family 비교용 key를 만든다.
+# 실제 payload command_text는 바꾸지 않고, 비교할 때만 unitId와 일부 조사를 정규화한다.
+def normalize_command_text_family_key(command_text: str) -> str:
+    normalized = command_text.strip()
+    normalized = COMMAND_TEXT_UNIT_ID_RE.sub(
+        lambda match: f"{match.group(1)}_ID",
+        normalized,
+    )
+    normalized = normalize_command_text_family_particles(normalized)
+    normalized = re.sub(r"\s+", " ", normalized)
+    normalized = re.sub(r"\s*,\s*", ", ", normalized)
+    normalized = re.sub(r"\s+([.!?])", r"\1", normalized)
+    return normalized.strip()
+
 
 BATTLEFIELD_DIVERSITY_ALLY_IDS: tuple[str, ...] = tuple(
     f"A_{index:02d}" for index in range(1, 7)
@@ -329,6 +363,8 @@ def attach_skill_case_fields(
 
 
 # 요청 split 안에서 cycle 가능한 기존 표현 pool을 만든다.
+# A_XX/E_XX만 다르거나 주격/보조사/목적격 조사만 다른 command_text는 같은 family로 본다.
+# command_style은 family distinct 판정에 사용하지 않고, 가장 먼저 나온 sample을 대표 entry로 쓴다.
 def build_existing_paraphrase_samples(
     samples: list[dict[str, Any]],
     target_split: str,
@@ -336,7 +372,7 @@ def build_existing_paraphrase_samples(
     target_split = normalize_target_split(target_split)
     pool_limit = get_expression_pool_limit(target_split)
 
-    seen: set[tuple[str, str]] = set()
+    seen_families: set[str] = set()
     result: list[dict[str, str]] = []
 
     for sample in samples:
@@ -345,12 +381,12 @@ def build_existing_paraphrase_samples(
 
         command_text = sample_command_text(sample)
         command_style = sample_command_style(sample)
-        key = (command_text, command_style)
+        family_key = normalize_command_text_family_key(command_text)
 
-        if key in seen:
+        if family_key in seen_families:
             continue
 
-        seen.add(key)
+        seen_families.add(family_key)
         result.append(
             {
                 "command_text": command_text,
@@ -365,13 +401,15 @@ def build_existing_paraphrase_samples(
 
 
 # 다른 split에 이미 존재하는 표현을 중복 금지 목록으로 만든다.
+# split별로 같은 command_text family는 하나만 남기고, 가장 먼저 나온 sample을 대표 entry로 쓴다.
+# command_style은 family distinct 판정에 사용하지 않는다.
 def build_other_split_reserved_command_texts(
     samples: list[dict[str, Any]],
     target_split: str,
 ) -> list[dict[str, str]]:
     target_split = normalize_target_split(target_split)
 
-    seen: set[tuple[str, str, str]] = set()
+    seen_families: set[tuple[str, str]] = set()
     result: list[dict[str, str]] = []
 
     for sample in samples:
@@ -382,12 +420,13 @@ def build_other_split_reserved_command_texts(
 
         command_text = sample_command_text(sample)
         command_style = sample_command_style(sample)
-        key = (split, command_text, command_style)
+        family_key = normalize_command_text_family_key(command_text)
+        key = (split, family_key)
 
-        if key in seen:
+        if key in seen_families:
             continue
 
-        seen.add(key)
+        seen_families.add(key)
         result.append(
             {
                 "split": split,
@@ -511,14 +550,14 @@ def build_command_text_policy(
         "rules": [
             "같은 split 안에서 command_text 표현 pool을 관리한다.",
             "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
-            "새 command_text는 existing_valid_paraphrase_samples와 exact duplicate이면 안 된다.",
+            "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
             "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
             "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
             "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
             "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
             "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
-            "새 command_text는 other_split_reserved_command_texts와 exact duplicate이면 안 된다.",
-            "표현 pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+            "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+            "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
             "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
             "other_split_reserved_command_texts는 cycle source가 아니다.",
             "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
@@ -681,9 +720,9 @@ def build_generation_constraints(target_split: str = DEFAULT_TARGET_SPLIT) -> li
         "metadata.command_style에 informal을 절대 사용하지 않는다.",
         "existing_valid_paraphrase_samples는 요청 split의 cycle 가능 표현 pool이다.",
         "other_split_reserved_command_texts는 다른 split의 중복 금지 표현 목록이다.",
-        "새 command_text는 existing_valid_paraphrase_samples와 exact duplicate이면 안 된다.",
-        "새 command_text는 other_split_reserved_command_texts와 exact duplicate이면 안 된다.",
-        "표현 pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+        "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+        "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+        "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
         "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
         "other_split_reserved_command_texts는 cycle source가 아니다.",
         "command_text를 재사용하더라도 area_situation, gold, output은 복사하지 않고 새로 구성한다.",

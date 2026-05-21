@@ -569,6 +569,46 @@ def write_json_report(path: Path, stats: list[DuplicateStats]) -> None:
     )
 
 
+def resolve_report_output_path(
+    *,
+    dataset_root: Path,
+    value: str,
+    default_filename: str,
+) -> Path:
+    if value:
+        path = Path(value)
+        if path.is_absolute():
+            return path
+        return (dataset_root / path).resolve()
+
+    return (dataset_root / "reports" / default_filename).resolve()
+
+
+def summarize_stats_line(
+    label: str,
+    stats: list[DuplicateStats],
+    *,
+    only_duplicates: bool,
+) -> str:
+    rows = [item for item in stats if not only_duplicates or item.duplicate_count > 0]
+
+    total_samples = sum(item.leaf.expected_count for item in rows)
+    total_loaded = sum(item.loaded_count for item in rows)
+    total_missing = sum(item.missing_count for item in rows)
+    total_dup = sum(item.duplicate_count for item in rows)
+    leaves_with_dup = sum(1 for item in rows if item.duplicate_count > 0)
+
+    return (
+        f"{label}: "
+        f"leaves={len(rows)}, "
+        f"leaves_with_dup={leaves_with_dup}, "
+        f"samples={total_samples}, "
+        f"loaded={total_loaded}, "
+        f"missing={total_missing}, "
+        f"dup={total_dup}"
+    )
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
@@ -610,14 +650,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--json-output",
         default="",
-        help="상세 결과를 JSON 파일로 저장할 경로.",
+        help="상세 결과를 JSON 파일로 저장할 경로. 생략하면 reports/duplicate_report.json에 저장한다.",
     )
     parser.add_argument(
         "--json-output-units",
         default="",
         help=(
             "유닛 필드(hpRatio, attackRatioToAvg, teamFormationRole, skillDescription)까지 "
-            "포함한 exact duplicate 상세 결과를 JSON 파일로 저장할 경로."
+            "포함한 exact duplicate 상세 결과를 JSON 파일로 저장할 경로. "
+            "생략하면 reports/duplicate_report_units.json에 저장한다."
         ),
     )
     parser.add_argument(
@@ -625,7 +666,8 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help=(
             "sample 전체를 기준으로(단 id 필드는 제외) 토씨 하나 안 틀리는 exact duplicate "
-            "상세 결과를 JSON 파일로 저장할 경로."
+            "상세 결과를 JSON 파일로 저장할 경로. 생략하면 "
+            "reports/duplicate_report_full_exact.json에 저장한다."
         ),
     )
     return parser
@@ -659,36 +701,55 @@ def main() -> int:
         stats_with_units = compute_leaf_stats_with_units(leaves, sample_lookup)
         stats_full_exact = compute_leaf_stats_full_exact(leaves, sample_lookup)
 
+        output_path = resolve_report_output_path(
+            dataset_root=dataset_root,
+            value=args.json_output,
+            default_filename="duplicate_report.json",
+        )
+        units_output_path = resolve_report_output_path(
+            dataset_root=dataset_root,
+            value=args.json_output_units,
+            default_filename="duplicate_report_units.json",
+        )
+        full_exact_output_path = resolve_report_output_path(
+            dataset_root=dataset_root,
+            value=args.json_output_full_exact,
+            default_filename="duplicate_report_full_exact.json",
+        )
+
+        write_json_report(output_path, stats)
+        write_json_report(units_output_path, stats_with_units)
+        write_json_report(full_exact_output_path, stats_full_exact)
+
         print(f"dataset_root: {dataset_root}")
         print(f"coverage: {coverage_path}")
         print(f"accepted_dir: {accepted_dir}")
-        print(
-            "duplicate_key: command_spec.command_text/input.command "
-            "+ output.thinking + output.dialog"
-        )
+        print(f"json_output: {output_path}")
+        print(f"json_output_units: {units_output_path}")
+        print(f"json_output_full_exact: {full_exact_output_path}")
         print()
 
-        print_summary(
-            stats,
-            only_duplicates=args.only_duplicates,
-            command_width=args.command_width,
-            details=args.details,
+        print(
+            summarize_stats_line(
+                "duplicate_report",
+                stats,
+                only_duplicates=args.only_duplicates,
+            )
         )
-
-        if args.json_output:
-            output_path = Path(args.json_output).resolve()
-            write_json_report(output_path, stats)
-            print(f"json_output: {output_path}")
-
-        if args.json_output_units:
-            units_output_path = Path(args.json_output_units).resolve()
-            write_json_report(units_output_path, stats_with_units)
-            print(f"json_output_units: {units_output_path}")
-
-        if args.json_output_full_exact:
-            full_exact_output_path = Path(args.json_output_full_exact).resolve()
-            write_json_report(full_exact_output_path, stats_full_exact)
-            print(f"json_output_full_exact: {full_exact_output_path}")
+        print(
+            summarize_stats_line(
+                "duplicate_report_units",
+                stats_with_units,
+                only_duplicates=args.only_duplicates,
+            )
+        )
+        print(
+            summarize_stats_line(
+                "duplicate_report_full_exact",
+                stats_full_exact,
+                only_duplicates=args.only_duplicates,
+            )
+        )
 
         return 0
 

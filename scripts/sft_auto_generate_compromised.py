@@ -15,7 +15,7 @@ import re
 import subprocess
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -181,7 +181,6 @@ def build_batch_task_items(
 
     for item in items:
         remaining = item.count
-        cycle_start_offset = 0
         while remaining > 0:
             requested_count = min(per_path_limit, remaining)
             chunks.append(
@@ -191,10 +190,9 @@ def build_batch_task_items(
                     request_prefix=item.request_prefix,
                     requested_count=requested_count,
                     request=f"{item.request_prefix}.{requested_count}",
-                    cycle_start_offset=cycle_start_offset,
+                    cycle_start_offset=0,
                 )
             )
-            cycle_start_offset += requested_count
             remaining -= requested_count
 
     return chunks
@@ -271,6 +269,172 @@ def build_task_payload(
         taxonomy_path=taxonomy_path,
         target_split=task.items[0].split,
     )
+
+
+def cycle_cursor_key(split: str, request_prefix: str) -> tuple[str, str]:
+    return (split, request_prefix)
+
+
+def task_with_cycle_offsets(
+    task: BatchTask,
+    cycle_cursors: dict[tuple[str, str], int],
+) -> BatchTask:
+    return BatchTask(
+        task_index=task.task_index,
+        items=tuple(
+            replace(
+                item,
+                cycle_start_offset=cycle_cursors.get(
+                    cycle_cursor_key(item.split, item.request_prefix),
+                    item.cycle_start_offset,
+                ),
+            )
+            for item in task.items
+        ),
+    )
+
+
+def request_prefix_from_raw_request(raw_request: str) -> str:
+    if "." not in raw_request:
+        raise ValueError(f"request must end with .<count>: {raw_request}")
+
+    request_prefix, count_text = raw_request.rsplit(".", 1)
+    if not request_prefix or not count_text.isdigit():
+        raise ValueError(f"request must end with .<count>: {raw_request}")
+
+    return request_prefix
+
+
+def advance_cycle_cursors_from_payload(
+    payload: dict[str, Any],
+    cycle_cursors: dict[tuple[str, str], int],
+) -> None:
+    mixed_items = payload.get("mixed_generation_requests")
+    if not isinstance(mixed_items, list):
+        return
+
+    for item in mixed_items:
+        if not isinstance(item, dict):
+            continue
+
+        request_info = item.get("request")
+        if not isinstance(request_info, dict):
+            continue
+
+        raw_request = request_info.get("raw_request")
+        if not isinstance(raw_request, str) or not raw_request:
+            continue
+
+        target_split = item.get("target_split")
+        if not isinstance(target_split, str) or not target_split:
+            continue
+
+        command_text_policy = item.get("command_text_policy")
+        if not isinstance(command_text_policy, dict):
+            continue
+
+        cycle_count = command_text_policy.get("samples_using_same_split_cycle")
+        if not isinstance(cycle_count, int) or cycle_count <= 0:
+            continue
+
+        request_prefix = request_prefix_from_raw_request(raw_request)
+        key = cycle_cursor_key(target_split, request_prefix)
+        cycle_cursors[key] = cycle_cursors.get(key, 0) + cycle_count
+
+
+def build_payload_pool_records(
+    *,
+    tasks: list[BatchTask],
+    dataset_root: Path,
+    taxonomy_path: Path,
+) -> list[dict[str, Any]]:
+    cycle_cursors: dict[tuple[str, str], int] = {}
+    records: list[dict[str, Any]] = []
+
+    for task in tasks:
+        task = task_with_cycle_offsets(task, cycle_cursors)
+        payload = build_task_payload(
+            task=task,
+            dataset_root=dataset_root,
+            taxonomy_path=taxonomy_path,
+        )
+
+        task_record: dict[str, Any] = {
+            "task_index": task.task_index,
+            "source_plan_line": task.source_plan_line,
+            "split": task.split,
+            "mixed_request": task.request,
+            "requested_count": task.requested_count,
+            "items": [],
+        }
+
+        mixed_items = payload.get("mixed_generation_requests")
+        if isinstance(mixed_items, list):
+            for item in mixed_items:
+                if not isinstance(item, dict):
+                    continue
+
+                request_info = item.get("request")
+                command_text_policy = item.get("command_text_policy")
+                if not isinstance(request_info, dict) or not isinstance(command_text_policy, dict):
+                    continue
+
+                task_record["items"].append(
+                    {
+                        "mix_item_index_1_based": item.get("mix_item_index_1_based"),
+                        "raw_request": request_info.get("raw_request"),
+                        "stable_path": request_info.get("stable_path"),
+                        "skill_stable_path": request_info.get("skill_stable_path"),
+                        "command_slot_index": request_info.get("command_slot_index"),
+                        "base_command_text": request_info.get("base_command_text"),
+                        "target_split": item.get("target_split"),
+                        "cycle_start_offset_used": item.get("cycle_start_offset_used"),
+                        "existing_same_split_expression_count": command_text_policy.get(
+                            "existing_same_split_expression_count"
+                        ),
+                        "new_unique_command_texts_to_create": command_text_policy.get(
+                            "new_unique_command_texts_to_create"
+                        ),
+                        "samples_using_same_split_cycle": command_text_policy.get(
+                            "samples_using_same_split_cycle"
+                        ),
+                        "existing_valid_paraphrase_samples": item.get(
+                            "existing_valid_paraphrase_samples",
+                            [],
+                        ),
+                    }
+                )
+
+        records.append(task_record)
+        advance_cycle_cursors_from_payload(payload, cycle_cursors)
+
+    return records
+
+
+def print_payload_pools(
+    *,
+    tasks: list[BatchTask],
+    dataset_root: Path,
+    taxonomy_path: Path,
+    output_path: str,
+) -> int:
+    records = build_payload_pool_records(
+        tasks=tasks,
+        dataset_root=dataset_root,
+        taxonomy_path=taxonomy_path,
+    )
+
+    text = json.dumps(records, ensure_ascii=False, indent=2) + "\n"
+
+    if output_path:
+        path = Path(output_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8", newline="\n")
+        print(f"payload_pools_written: {path}")
+    else:
+        print(text, end="")
+
+    return 0
 
 
 def iter_payload_paths(payload: dict[str, Any]) -> list[str]:
@@ -432,8 +596,10 @@ def validate_tasks_for_dry_run(
     taxonomy_path: Path,
 ) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    cycle_cursors: dict[tuple[str, str], int] = {}
 
     for task in tasks:
+        task = task_with_cycle_offsets(task, cycle_cursors)
         started = time.monotonic()
         started_at = datetime.now().isoformat(timespec="seconds")
         payload = build_task_payload(
@@ -441,6 +607,7 @@ def validate_tasks_for_dry_run(
             dataset_root=dataset_root,
             taxonomy_path=taxonomy_path,
         )
+        advance_cycle_cursors_from_payload(payload, cycle_cursors)
 
         records.append(
             {
@@ -885,6 +1052,14 @@ def run_auto_generate(args: argparse.Namespace) -> int:
         print("no tasks selected")
         return 0
 
+    if args.print_payload_pools or args.payload_pools_output:
+        return print_payload_pools(
+            tasks=selected_tasks,
+            dataset_root=dataset_root,
+            taxonomy_path=taxonomy_path,
+            output_path=args.payload_pools_output,
+        )
+
     result_path, error_path = make_run_paths(automation_dir, plan_path)
     started_at = datetime.now().isoformat(timespec="seconds")
     records: list[dict[str, Any]] = []
@@ -967,9 +1142,11 @@ def run_auto_generate(args: argparse.Namespace) -> int:
 
     status = "completed"
     interrupted_at: str | None = None
+    cycle_cursors: dict[tuple[str, str], int] = {}
 
     try:
         for task in selected_tasks:
+            task = task_with_cycle_offsets(task, cycle_cursors)
             task_start_monotonic = time.monotonic()
             task_started_at = datetime.now().isoformat(timespec="seconds")
             print("")
@@ -1157,6 +1334,7 @@ def run_auto_generate(args: argparse.Namespace) -> int:
                         "elapsed_sec": round(time.monotonic() - task_start_monotonic, 2),
                     }
                     records.append(record)
+                    advance_cycle_cursors_from_payload(payload, cycle_cursors)
 
                     print("validation:")
                     print(json.dumps(record["validate_result"], ensure_ascii=False, indent=2))
@@ -1300,6 +1478,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--start-index", type=int, default=1)
     parser.add_argument("--continue-on-error", action="store_true")
     parser.add_argument("--stop-on-rejected", action="store_true")
+    parser.add_argument("--print-payload-pools", action="store_true")
+    parser.add_argument("--payload-pools-output", default="")
     parser.add_argument("--api-retry-initial-min-sec", type=float, default=DEFAULT_API_RETRY_INITIAL_MIN_SEC)
     parser.add_argument("--api-retry-initial-max-sec", type=float, default=DEFAULT_API_RETRY_INITIAL_MAX_SEC)
     parser.add_argument("--api-retry-min-increment-sec", type=float, default=DEFAULT_API_RETRY_MIN_INCREMENT_SEC)

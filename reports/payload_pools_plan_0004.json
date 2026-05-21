@@ -1,0 +1,232 @@
+[
+  {
+    "task_index": 1,
+    "source_plan_line": "1,2",
+    "split": "train",
+    "mixed_request": "c1-1-1-1-1-1.5 + c3-2-12-13-13-1/9-6-8.5",
+    "requested_count": 10,
+    "items": [
+      {
+        "mix_item_index_1_based": 1,
+        "raw_request": "c1-1-1-1-1-1.5",
+        "stable_path": "attack.explicit_actor.explicit_enemy_target.attack_only.simple_clear_target",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "A_01, E_02를 공격해.",
+        "target_split": "train",
+        "cycle_start_offset_used": 0,
+        "existing_same_split_expression_count": 6,
+        "new_unique_command_texts_to_create": 1,
+        "samples_using_same_split_cycle": 4,
+        "existing_valid_paraphrase_samples": [
+          {
+            "command_text": "A_01, E_02를 공격해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 쳐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_04, E_01을 물어.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_02, E_04를 때려봐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_06, E_03을 압박해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 패.",
+            "command_style": "direct_korean"
+          }
+        ]
+      },
+      {
+        "mix_item_index_1_based": 2,
+        "raw_request": "c3-2-12-13-13-1/9-6-8.5",
+        "stable_path": "skill.explicit_multi_actor.none.empty_action_expected.no_valid_skill_actor",
+        "skill_stable_path": "no_skill.none.skill_actor_has_no_skill",
+        "command_slot_index": 1,
+        "base_command_text": "A_03과 A_04는 지금 스킬 써.",
+        "target_split": "train",
+        "cycle_start_offset_used": 0,
+        "existing_same_split_expression_count": 7,
+        "new_unique_command_texts_to_create": 0,
+        "samples_using_same_split_cycle": 5,
+        "existing_valid_paraphrase_samples": [
+          {
+            "command_text": "A_03, A_04 지금 스킬 좀 써봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 지금 바로 스킬 써봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 스킬 좀 써줘.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 지금 스킬 써.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03이랑 A_04는 지금 스킬 작동시켜봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03이랑 A_04는 지금 스킬 발동해봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03과 A_04는 지금 스킬 써.",
+            "command_style": "direct_korean"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "task_index": 2,
+    "source_plan_line": "1,2",
+    "split": "train",
+    "mixed_request": "c1-1-1-1-1-1.5 + c3-2-12-13-13-1/9-6-8.5",
+    "requested_count": 10,
+    "items": [
+      {
+        "mix_item_index_1_based": 1,
+        "raw_request": "c1-1-1-1-1-1.5",
+        "stable_path": "attack.explicit_actor.explicit_enemy_target.attack_only.simple_clear_target",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "A_01, E_02를 공격해.",
+        "target_split": "train",
+        "cycle_start_offset_used": 4,
+        "existing_same_split_expression_count": 6,
+        "new_unique_command_texts_to_create": 1,
+        "samples_using_same_split_cycle": 4,
+        "existing_valid_paraphrase_samples": [
+          {
+            "command_text": "A_01, E_02를 공격해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 쳐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_04, E_01을 물어.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_02, E_04를 때려봐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_06, E_03을 압박해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 패.",
+            "command_style": "direct_korean"
+          }
+        ]
+      },
+      {
+        "mix_item_index_1_based": 2,
+        "raw_request": "c3-2-12-13-13-1/9-6-8.5",
+        "stable_path": "skill.explicit_multi_actor.none.empty_action_expected.no_valid_skill_actor",
+        "skill_stable_path": "no_skill.none.skill_actor_has_no_skill",
+        "command_slot_index": 1,
+        "base_command_text": "A_03과 A_04는 지금 스킬 써.",
+        "target_split": "train",
+        "cycle_start_offset_used": 5,
+        "existing_same_split_expression_count": 7,
+        "new_unique_command_texts_to_create": 0,
+        "samples_using_same_split_cycle": 5,
+        "existing_valid_paraphrase_samples": [
+          {
+            "command_text": "A_03, A_04 지금 스킬 좀 써봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 지금 바로 스킬 써봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 스킬 좀 써줘.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03, A_04 지금 스킬 써.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03이랑 A_04는 지금 스킬 작동시켜봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03이랑 A_04는 지금 스킬 발동해봐.",
+            "command_style": "casual_korean"
+          },
+          {
+            "command_text": "A_03과 A_04는 지금 스킬 써.",
+            "command_style": "direct_korean"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "task_index": 3,
+    "source_plan_line": "1",
+    "split": "train",
+    "mixed_request": "c1-1-1-1-1-1.5",
+    "requested_count": 5,
+    "items": [
+      {
+        "mix_item_index_1_based": 1,
+        "raw_request": "c1-1-1-1-1-1.5",
+        "stable_path": "attack.explicit_actor.explicit_enemy_target.attack_only.simple_clear_target",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "A_01, E_02를 공격해.",
+        "target_split": "train",
+        "cycle_start_offset_used": 8,
+        "existing_same_split_expression_count": 6,
+        "new_unique_command_texts_to_create": 1,
+        "samples_using_same_split_cycle": 4,
+        "existing_valid_paraphrase_samples": [
+          {
+            "command_text": "A_01, E_02를 공격해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 쳐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_04, E_01을 물어.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_02, E_04를 때려봐.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_06, E_03을 압박해.",
+            "command_style": "direct_korean"
+          },
+          {
+            "command_text": "A_03, E_05를 패.",
+            "command_style": "direct_korean"
+          }
+        ]
+      }
+    ]
+  }
+]

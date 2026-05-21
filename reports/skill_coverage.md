@@ -1,6 +1,6 @@
 # Skill Coverage
 
-enemy_single_target_attack [29.3%(18%) / 290]
+enemy_single_target_attack [29.2%(18%) / 290]
   enemy_alive [69.0%(80%) / 200]
     null [75.0%(55%) / 150]
       3-1-1-4-1-2/1-1-1 @ "A_03, E_02한테 공격 스킬 써." @ 3 @ [] @ accepted_20260514_002741.jsonl_seed_master_0103, accepted_20260514_211207.jsonl_batch_0131_001, accepted_20260516_024207.jsonl_batch_0137_001
@@ -103,13 +103,13 @@ mobility_skill [8.1%(5%) / 80]
     null [100.0%(100%) / 3]
       3-1-1-4-1-1/8-1-1 @ "A_01, E_02에게 도약기로 붙어." @ 3 @ mobility_skill_enemy_approach @ accepted_20260514_002741.jsonl_seed_master_0112, accepted_20260514_211047.jsonl_batch_0130_001, accepted_20260516_024048.jsonl_batch_0136_001
 
-no_skill [5.8%(6%) / 57]
-  none [100.0%(100%) / 57]
-    skill_actor_has_no_skill [100.0%(100%) / 57]
+no_skill [5.8%(6%) / 58]
+  none [100.0%(100%) / 58]
+    skill_actor_has_no_skill [100.0%(100%) / 58]
       3-1-1-4-11-1/9-6-8 @ "A_03, E_02한테 스킬 써." @ 1 @ actor_has_no_skill @ accepted_20260514_002740.jsonl_seed_master_0046
       6-1-11-13-9-1/9-6-8 @ "A_03, E_02한테 스킬 써." @ 1 @ actor_has_no_skill @ accepted_20260514_002741.jsonl_seed_master_0086
       3-1-12-13-11-1/9-6-8 @ "A_03, 지금 스킬 써." @ 3 @ actor_has_no_skill @ 2accepted_20260515_144139.jsonl_2batch_0047_001, accepted_20260514_002743.jsonl_seed_master_0176, accepted_20260515_045253.jsonl_batch_0192_001
       6-2-11-13-9-1/9-6-8 @ "A_03과 A_04는 죽은 E_02한테 스킬 써." @ 1 @ actor_has_no_skill, named_target_dead @ accepted_20260514_002745.jsonl_seed_master_0211
-      3-2-12-13-13-1/9-6-8 @ "A_03과 A_04는 지금 스킬 써." @ 9 @ no_valid_skill_actor @ 2accepted_20260515_154812.jsonl_2batch_0059_001, 3accepted_20260516_221200.jsonl_3batch_0069_006, 3accepted_20260516_221200.jsonl_3batch_0069_007, 3accepted_20260516_221200.jsonl_3batch_0069_008, 3accepted_20260516_221200.jsonl_3batch_0069_009, 3accepted_20260516_221200.jsonl_3batch_0069_010, 3accepted_20260521_023015.jsonl_3batch_0071_003, accepted_20260514_002743.jsonl_seed_master_0184, accepted_20260515_055958.jsonl_batch_0204_001
+      3-2-12-13-13-1/9-6-8 @ "A_03과 A_04는 지금 스킬 써." @ 10 @ no_valid_skill_actor @ 2accepted_20260515_154812.jsonl_2batch_0059_001, 3accepted_20260516_221200.jsonl_3batch_0069_006, 3accepted_20260516_221200.jsonl_3batch_0069_007, 3accepted_20260516_221200.jsonl_3batch_0069_008, 3accepted_20260516_221200.jsonl_3batch_0069_009, 3accepted_20260516_221200.jsonl_3batch_0069_010, 3accepted_20260521_023015.jsonl_3batch_0071_003, 3accepted_20260522_000337.jsonl_3batch_0072_005, accepted_20260514_002743.jsonl_seed_master_0184, accepted_20260515_055958.jsonl_batch_0204_001
       3-6-1-13-13-1/9-6-8 @ "스킬 가능한 아군은 E_02에게 스킬 써." @ 25 @ no_valid_skill_actor @ 2accepted_20260514_194946.jsonl_2batch_0006_001, 2accepted_20260514_194946.jsonl_2batch_0006_002, 2accepted_20260514_194946.jsonl_2batch_0006_003, 2accepted_20260514_194946.jsonl_2batch_0006_004, 2accepted_20260514_194946.jsonl_2batch_0006_005, 2accepted_20260514_194946.jsonl_2batch_0006_006, 2accepted_20260514_194946.jsonl_2batch_0006_007, 2accepted_20260514_194946.jsonl_2batch_0006_008, 2accepted_20260514_194946.jsonl_2batch_0006_009, 2accepted_20260514_194946.jsonl_2batch_0006_010, 2accepted_20260514_195203.jsonl_2batch_0007_001, 2accepted_20260514_195203.jsonl_2batch_0007_002, 2accepted_20260515_174426.jsonl_2batch_0071_001, 2accepted_20260515_174426.jsonl_2batch_0071_002, 2accepted_20260515_174426.jsonl_2batch_0071_003, 2accepted_20260515_174426.jsonl_2batch_0071_004, 2accepted_20260515_174426.jsonl_2batch_0071_005, 2accepted_20260515_174426.jsonl_2batch_0071_006, 2accepted_20260515_174426.jsonl_2batch_0071_007, 2accepted_20260515_174426.jsonl_2batch_0071_008, 2accepted_20260515_174426.jsonl_2batch_0071_009, 2accepted_20260515_174426.jsonl_2batch_0071_010, 2accepted_20260515_174650.jsonl_2batch_0072_001, 2accepted_20260515_174650.jsonl_2batch_0072_002, accepted_20260514_002741.jsonl_seed_master_0060
       3-6-12-13-13-1/9-6-8 @ "스킬 가능한 아군은 지금 스킬 써." @ 17 @ no_valid_skill_actor @ 2accepted_20260514_200139.jsonl_2batch_0009_001, 2accepted_20260514_200139.jsonl_2batch_0009_002, 2accepted_20260514_200139.jsonl_2batch_0009_003, 2accepted_20260514_200139.jsonl_2batch_0009_004, 2accepted_20260514_200139.jsonl_2batch_0009_005, 2accepted_20260514_200139.jsonl_2batch_0009_006, 2accepted_20260514_200139.jsonl_2batch_0009_007, 2accepted_20260514_200139.jsonl_2batch_0009_008, 2accepted_20260515_175632.jsonl_2batch_0074_001, 2accepted_20260515_175632.jsonl_2batch_0074_002, 2accepted_20260515_175632.jsonl_2batch_0074_003, 2accepted_20260515_175632.jsonl_2batch_0074_004, 2accepted_20260515_175632.jsonl_2batch_0074_005, 2accepted_20260515_175632.jsonl_2batch_0074_006, 2accepted_20260515_175632.jsonl_2batch_0074_007, 2accepted_20260515_175632.jsonl_2batch_0074_008, accepted_20260514_002743.jsonl_seed_master_0188

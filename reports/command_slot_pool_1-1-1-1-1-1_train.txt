@@ -1,0 +1,108 @@
+# Command Slot Pool Inspection
+
+- request: `1-1-1-1-1-1.10`
+- normalized_path: `1-1-1-1-1-1`
+- target_split: `train`
+- coverage_source: `D:/sftgit/sft_dataset_personal/reports/general_coverage.md`
+- base_command_text: `A_01, E_02를 공격해.`
+- coverage_row_sample_count: `142`
+- same_split_sample_count: `142`
+- distinct_family_count_in_same_split: `6`
+- pool_limit: `7`
+- pool_entry_count: `6`
+
+## Payload-like pool
+
+```json
+{
+  "request": {
+    "raw_request": "1-1-1-1-1-1.10",
+    "count_to_generate": 10,
+    "display_path": "1-1-1-1-1-1",
+    "base_command_text": "A_01, E_02를 공격해."
+  },
+  "target_split": "train",
+  "existing_valid_paraphrase_samples": [
+    {
+      "command_text": "A_01, E_02를 공격해.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_03, E_05를 쳐.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_04, E_01을 물어.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_02, E_04를 때려봐.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_06, E_03을 압박해.",
+      "command_style": "direct_korean"
+    },
+    {
+      "command_text": "A_03, E_05를 패.",
+      "command_style": "direct_korean"
+    }
+  ],
+  "command_text_policy": {
+    "target_split": "train",
+    "same_split_expression_pool_size": 7,
+    "existing_same_split_expression_count": 6,
+    "other_split_reserved_expression_count": 0,
+    "new_unique_command_texts_to_create": 1,
+    "samples_using_same_split_cycle": 9,
+    "dedupe_rule_for_this_inspection": "command_text with A_XX/E_XX normalized to A_ID/E_ID; command_style ignored"
+  }
+}
+```
+
+## Family summary
+
+| family_index | selected_for_pool | family_sample_count | family_key | selected_command_text | selected_command_style | command_texts_in_family |
+|---:|---|---:|---|---|---|---|
+| 1 | yes | 32 | `A_ID, E_ID{JOSA_OBJ} 공격해.` | `A_01, E_02를 공격해.` | `direct_korean` | A_01, E_02를 공격해.<br>A_04, E_03을 공격해. |
+| 2 | yes | 41 | `A_ID, E_ID{JOSA_OBJ} 쳐.` | `A_03, E_05를 쳐.` | `direct_korean` | A_03, E_05를 쳐.<br>A_05, E_06을 쳐.<br>A_03, E_06을 쳐. |
+| 3 | yes | 27 | `A_ID, E_ID{JOSA_OBJ} 물어.` | `A_04, E_01을 물어.` | `direct_korean` | A_04, E_01을 물어. |
+| 4 | yes | 15 | `A_ID, E_ID{JOSA_OBJ} 때려봐.` | `A_02, E_04를 때려봐.` | `direct_korean` | A_02, E_04를 때려봐. |
+| 5 | yes | 15 | `A_ID, E_ID{JOSA_OBJ} 압박해.` | `A_06, E_03을 압박해.` | `direct_korean` | A_06, E_03을 압박해. |
+| 6 | yes | 12 | `A_ID, E_ID{JOSA_OBJ} 패.` | `A_03, E_05를 패.` | `direct_korean` | A_03, E_05를 패. |
+
+## Pool entry family counts
+
+1. `A_01, E_02를 공격해.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 공격해.`
+   - family_sample_count: `32`
+   - family_command_texts:
+     - A_01, E_02를 공격해.
+     - A_04, E_03을 공격해.
+2. `A_03, E_05를 쳐.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 쳐.`
+   - family_sample_count: `41`
+   - family_command_texts:
+     - A_03, E_05를 쳐.
+     - A_05, E_06을 쳐.
+     - A_03, E_06을 쳐.
+3. `A_04, E_01을 물어.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 물어.`
+   - family_sample_count: `27`
+   - family_command_texts:
+     - A_04, E_01을 물어.
+4. `A_02, E_04를 때려봐.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 때려봐.`
+   - family_sample_count: `15`
+   - family_command_texts:
+     - A_02, E_04를 때려봐.
+5. `A_06, E_03을 압박해.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 압박해.`
+   - family_sample_count: `15`
+   - family_command_texts:
+     - A_06, E_03을 압박해.
+6. `A_03, E_05를 패.` / `direct_korean`
+   - family_key: `A_ID, E_ID{JOSA_OBJ} 패.`
+   - family_sample_count: `12`
+   - family_command_texts:
+     - A_03, E_05를 패.
