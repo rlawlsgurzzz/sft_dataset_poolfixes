@@ -34,8 +34,7 @@ teacher LLM은 master sample 후보를 생성한다.
 
 teacher가 생성하는 항목은 다음이다.
 
-```text 
-
+```text
 id
 split
 command_spec
@@ -690,9 +689,9 @@ test
 각 split은 서로 다른 command_text 표현 pool을 가진다.
 
 ```text
-train: 7개
-validation: 3개
-test: 3개
+train: 8개
+validation: 4개
+test: 4개
 ```
 
 같은 command slot에서 teacher LLM은 다음 규칙을 따른다.
@@ -701,8 +700,8 @@ test: 3개
 1. 요청 split의 accepted 표현은 existing_valid_paraphrase_samples로 전달된다.
 2. 다른 split의 accepted 표현은 other_split_reserved_command_texts로 전달된다.
 3. 요청 split의 표현 pool이 가득 차기 전에는 새 command_text를 만든다.
-4. 새 command_text는 같은 split의 기존 표현과 같은 command_text family이면 안 된다.
-5. 새 command_text는 다른 split의 reserved 표현과 같은 command_text family이면 안 된다.
+4. 새 command_text는 같은 split의 기존 표현과 exact duplicate이면 안 된다.
+5. 새 command_text는 다른 split의 reserved 표현과 exact duplicate이면 안 된다.
 6. 출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.
 7. 새 unique command_text 생성이 모두 끝난 뒤에만 cycle sample을 만든다.
 8. cycle source pool은 existing_valid_paraphrase_samples 뒤에 이번 응답에서 새로 만든 unique command_text를 output 순서대로 이어 붙인 목록이다.
@@ -710,14 +709,6 @@ test: 3개
 10. cycle 구간에서 첫 번째 source만 반복하거나 같은 command_text를 연속 반복하지 않는다.
 11. 다른 split의 reserved command_text는 cycle source로 사용할 수 없다.
 12. command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.
-```
-
-여기서 command_text family는 다음 정규화 기준으로 판정한다.
-
-```text
-- unitId 표기는 A_XX/E_XX를 A_ID/E_ID로 정규화한다.
-- A_ID/E_ID 뒤의 조사(은/는, 이/가, 을/를) 차이는 같은 family로 본다.
-- command_style 차이는 family distinct 판정에 사용하지 않는다.
 ```
 
 `command_text_policy.sequence_contract`는 output 순서를 `new_unique_first_then_cycle`로 고정하고, cycle 구간의 source index를 1-based round-robin plan으로 명시한다.
@@ -768,6 +759,84 @@ train skill.explicit_actor.explicit_ally_target.skill_only.ally_skill_valid_targ
 ```
 
 자동화 결과 문서는 `generation_automation/auto_run_<timestamp>_plan_<NNNN>.md`에 저장된다. 오류 상세는 같은 timestamp의 `_errors.jsonl`에 저장된다.
+
+### 14.1 `sft_auto_generate_compromised.py` 기준 mixed path/pool/cursor 상세
+
+아래 명령을 실행하면 plan의 line이 단순 순차 실행이 아니라 **split 고정 mixed batch task**로 재조합되어 payload가 만들어진다.
+
+```powershell
+py -3.11 scripts/sft_auto_generate_compromised.py --plan generation_automation/auto_generation_plan_0004.txt --yes --refresh-report --model gemini-3.5-flash
+```
+
+핵심 동작은 다음 순서다.
+
+```text
+1) plan line 파싱: <split> <request.count>
+2) line별 count를 per-path limit 단위 chunk로 분할
+3) 같은 split의 서로 다른 request_prefix를 최대 2개까지 한 task로 mixed 결합
+4) task마다 build_mixed_generation_payload 호출
+5) raw 생성 직후 validate_file 실행
+6) accepted/rejected 반영 후 다음 task 진행
+```
+
+#### A. mixed path가 실제로 빌드되는 방식
+
+- `max-per-request` 기본값은 10이고, compromised 스크립트는 내부적으로 `per_path_limit = max_per_request // 2`를 사용해 path별 요청량을 먼저 쪼갠다.
+- 그래서 기본값 기준 path 1개당 한 번에 최대 5개씩 chunk가 생긴다.
+- `build_batch_tasks`는 pending chunk를 순회하면서, **같은 split + 다른 request_prefix + 합계 requested_count <= max-per-request** 조건을 만족하면 두 chunk를 한 task로 묶는다.
+- 즉 mixed는 “아무거나 섞기”가 아니라 split 경계를 절대 넘지 않는 2-item 결합 전략이다.
+- 최종 payload는 `mixed_generation_requests` 배열을 가지며, 각 item은 request별 독립 계약(선택 bucket, policy, pool, cycle plan)을 가진다.
+
+#### B. split별 pool이 실제로 빌드되는 방식
+
+각 mixed item은 `sft_generation_request.build_generation_payload`를 통해 아래 정보를 독립적으로 계산한다.
+
+- `existing_valid_paraphrase_samples`: **요청 split 내부** accepted에서 뽑은 cycle 가능 표현 pool
+- `other_split_reserved_command_texts`: 다른 split에서 이미 점유한 표현(중복 금지용)
+- `command_text_policy`: same-split pool 크기, new unique 개수, cycle 개수, sequence contract
+
+pool 규칙의 실행 포인트:
+
+- train pool limit 8, validation/test pool limit 4
+- pool 여유가 있으면 `new_unique_command_texts_to_create`를 먼저 생성
+- 남는 요청량은 `cycle_sample_count`로 전환되어 같은 split pool 안에서만 재사용
+- cycle source 순서는
+  `existing_valid_paraphrase_samples` + `이번 item에서 새로 만든 unique command_text(output 순)`
+- mixed payload에서도 item 간 pool을 공유하지 않는다. 같은 task 안의 item 2개도 각각 자기 request 계약만 사용한다.
+
+#### C. cursor(cycle_start_offset) 동작
+
+compromised 스크립트의 핵심 차이는 **cycle cursor를 task 간 유지**하는 점이다.
+
+- 커서 key: `(split, request_prefix)`
+- 시작값: 0
+- task 실행 직전 `task_with_cycle_offsets`가 각 item에 현재 커서를 `cycle_start_offset`으로 주입
+- payload 생성 시 각 item에 `cycle_start_offset_used`가 기록됨
+- task 완료 후 `advance_cycle_cursors_from_payload`가 item별 `cycle_sample_count`만큼 커서를 증가
+
+즉 같은 `(split, request_prefix)`가 다음 task에서 다시 등장하면, cycle 재사용이 항상 source index 1부터 다시 시작하지 않고 **이전 task의 이어서** round-robin 된다.
+
+예시:
+
+```text
+- (train, c1-2-1-3-1-10/2-3-1) 커서가 0에서 시작
+- 첫 payload에서 cycle_sample_count=3이면 다음 커서는 3
+- 다음 payload에서 cycle_source_pool_size=7이면 실제 시작은 3 % 7 = index 4(1-based)
+```
+
+이 구조 덕분에 자동화 장기 실행에서도 특정 표현만 과도 반복되는 현상을 줄이고, split별 표현 재사용 분포를 더 균등하게 유지한다.
+
+#### D. 실행 산출물 관점에서 보는 확인 포인트
+
+실행 후 파일을 보면 mixed/pool/cursor가 다음처럼 남는다.
+
+- `*_request_payload.json`: mixed_generation_requests, command_text_policy, cycle_start_offset_used
+- `*_trace.jsonl`: teacher 호출 및 응답 추적
+- `*_accepted.jsonl` / `*_rejected.jsonl`: validator 결과
+- `generation_automation/auto_run_<timestamp>_plan_<NNNN>.md`: task별 요청/결과 요약
+
+필요하면 `--print-payload-pools` 또는 `--payload-pools-output`으로 task별 item의
+`existing_valid_paraphrase_samples`, `cycle_start_offset_used`, `cycle_sample_count`를 별도 점검할 수 있다.
 
 ---
 
@@ -869,77 +938,6 @@ generation_automation/auto_generation_plan_*.txt를 검증한다.
 invalid 항목은 numeric/stable request 형식과 실패 이유를 함께 출력한다.
 ```
 
-### 15.10 `scripts/build_sft_messages_dataset.py`
-
-```text
-accepted/*.jsonl 전체를 읽는다.
-각 accepted sample에서 input과 output만 뽑아 student runtime messages 형식으로 변환한다.
-샘플 순서를 간단한 deterministic shuffle로 섞는다.
-datasets/train_sft_messages.jsonl 파일 하나를 생성한다.
-```
-
-### 15.11 `scripts/sft_leaf_duplicate_report.py`
-
-```text
-reports/general_coverage.md의 leaf id를 기준으로 accepted sample 중복을 계산한다.
-기본 보고서는 leaf 내부 command_text + output.thinking + output.dialog exact match를 사용한다.
-full exact 기준은 sample 전체에서 id를 제외한 canonical JSON exact match를 사용한다.
---decimate-full-exact로 full exact duplicate 그룹마다 첫 sample만 남기고 나머지를 accepted 파일에서 제거할 수 있다.
-```
-
-### 15.12 `scripts/inspect_command_slot_pool.py`
-
-```text
-coverage markdown의 numeric path로 command slot pool을 점검한다.
-A_XX/E_XX와 일부 한국어 조사만 다른 command_text는 같은 family로 취급한다.
-payload용 existing_valid_paraphrase_samples와 family 요약을 출력 파일로 기록할 수 있다.
-```
-
-### 15.13 `scripts/sft_auto_generate_auto_request.py`
-
-```text
-automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
-각 요청마다 생성 직후 validate를 실행한다.
-요청 실패 시 최대 10회 재시도 후 다음 요청으로 넘어간다.
-```
-
-### 15.14 `scripts/sft_auto_generate_compromised.py`
-
-```text
-automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
-각 요청마다 생성 직후 validate를 실행한다.
-30초 이내 API 거절은 재시도하고, 30초 이상 걸린 거절은 해당 요청을 스킵한다.
-```
-
-### 15.15 `scripts/sft_auto_generate_never_stops.py`
-
-```text
-automation plan의 split별 generation request를 path 요청 단위로 자동 실행한다.
-각 요청마다 생성 직후 validate를 실행한다.
-요청 실패 시 수락될 때까지 무한 재시도한다.
-```
-
-### 15.16 `scripts/dump_full_prompt.py`
-
-```text
-하나 또는 둘의 mixed generation request를 받아 teacher full prompt text를 생성한다.
-full_prompt/*.txt 저장 및 user content 확인용 출력에 사용한다.
-```
-
-### 15.17 `scripts/sft_file_sequence.py`
-
-```text
-raw_generations 내부 순번 파일명(request_####.json, batch_####_raw.jsonl 등)을 계산한다.
-기존 파일을 덮어쓰지 않도록 현재 최대 번호 다음 번호를 사용한다.
-```
-
-### 15.18 `scripts/jsonl_pretty.py`
-
-```text
-레포의 JSON/JSONL 샘플을 사람이 읽기 좋은 형태로 stdout에 pretty-print한다.
-accepted/rejected/raw_generations 파일을 빠르게 점검할 때 사용한다.
-```
-
 ---
 
 ## 16. 주요 명령어
@@ -1026,18 +1024,6 @@ py -3.11 scripts/sft_cli.py validate --input raw_generations/batch_0001_raw.json
 python scripts/jsonl_pretty.py accepted_20260512_005252
 python scripts/jsonl_pretty.py accepted/accepted_20260512_005252.jsonl
 python scripts/jsonl_pretty.py seed_master_0001
-```
-
-### 16.12 SFT messages JSONL 생성
-
-```powershell
-python scripts/build_sft_messages_dataset.py
-```
-
-기본 출력 파일은 `datasets/train_sft_messages.jsonl`이다. 이 파일은 `accepted/*.jsonl`의 모든 sample을 섞은 뒤 다음 형태로 저장한다.
-
-```json
-{"messages":[{"role":"system","content":"학생 런타임 시스템 프롬프트"},{"role":"user","content":"{...input, commandAnalysis, output_schema_example, hard_constraints...}"},{"role":"assistant","content":"{...thinking, dialog, action...}"}]}
 ```
 
 ---
