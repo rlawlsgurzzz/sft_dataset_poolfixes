@@ -760,6 +760,84 @@ train skill.explicit_actor.explicit_ally_target.skill_only.ally_skill_valid_targ
 
 자동화 결과 문서는 `generation_automation/auto_run_<timestamp>_plan_<NNNN>.md`에 저장된다. 오류 상세는 같은 timestamp의 `_errors.jsonl`에 저장된다.
 
+### 14.1 `sft_auto_generate_compromised.py` 기준 mixed path/pool/cursor 상세
+
+아래 명령을 실행하면 plan의 line이 단순 순차 실행이 아니라 **split 고정 mixed batch task**로 재조합되어 payload가 만들어진다.
+
+```powershell
+py -3.11 scripts/sft_auto_generate_compromised.py --plan generation_automation/auto_generation_plan_0004.txt --yes --refresh-report --model gemini-3.5-flash
+```
+
+핵심 동작은 다음 순서다.
+
+```text
+1) plan line 파싱: <split> <request.count>
+2) line별 count를 per-path limit 단위 chunk로 분할
+3) 같은 split의 서로 다른 request_prefix를 최대 2개까지 한 task로 mixed 결합
+4) task마다 build_mixed_generation_payload 호출
+5) raw 생성 직후 validate_file 실행
+6) accepted/rejected 반영 후 다음 task 진행
+```
+
+#### A. mixed path가 실제로 빌드되는 방식
+
+- `max-per-request` 기본값은 10이고, compromised 스크립트는 내부적으로 `per_path_limit = max_per_request // 2`를 사용해 path별 요청량을 먼저 쪼갠다.
+- 그래서 기본값 기준 path 1개당 한 번에 최대 5개씩 chunk가 생긴다.
+- `build_batch_tasks`는 pending chunk를 순회하면서, **같은 split + 다른 request_prefix + 합계 requested_count <= max-per-request** 조건을 만족하면 두 chunk를 한 task로 묶는다.
+- 즉 mixed는 “아무거나 섞기”가 아니라 split 경계를 절대 넘지 않는 2-item 결합 전략이다.
+- 최종 payload는 `mixed_generation_requests` 배열을 가지며, 각 item은 request별 독립 계약(선택 bucket, policy, pool, cycle plan)을 가진다.
+
+#### B. split별 pool이 실제로 빌드되는 방식
+
+각 mixed item은 `sft_generation_request.build_generation_payload`를 통해 아래 정보를 독립적으로 계산한다.
+
+- `existing_valid_paraphrase_samples`: **요청 split 내부** accepted에서 뽑은 cycle 가능 표현 pool
+- `other_split_reserved_command_texts`: 다른 split에서 이미 점유한 표현(중복 금지용)
+- `command_text_policy`: same-split pool 크기, new unique 개수, cycle 개수, sequence contract
+
+pool 규칙의 실행 포인트:
+
+- train pool limit 8, validation/test pool limit 4
+- pool 여유가 있으면 `new_unique_command_texts_to_create`를 먼저 생성
+- 남는 요청량은 `cycle_sample_count`로 전환되어 같은 split pool 안에서만 재사용
+- cycle source 순서는
+  `existing_valid_paraphrase_samples` + `이번 item에서 새로 만든 unique command_text(output 순)`
+- mixed payload에서도 item 간 pool을 공유하지 않는다. 같은 task 안의 item 2개도 각각 자기 request 계약만 사용한다.
+
+#### C. cursor(cycle_start_offset) 동작
+
+compromised 스크립트의 핵심 차이는 **cycle cursor를 task 간 유지**하는 점이다.
+
+- 커서 key: `(split, request_prefix)`
+- 시작값: 0
+- task 실행 직전 `task_with_cycle_offsets`가 각 item에 현재 커서를 `cycle_start_offset`으로 주입
+- payload 생성 시 각 item에 `cycle_start_offset_used`가 기록됨
+- task 완료 후 `advance_cycle_cursors_from_payload`가 item별 `cycle_sample_count`만큼 커서를 증가
+
+즉 같은 `(split, request_prefix)`가 다음 task에서 다시 등장하면, cycle 재사용이 항상 source index 1부터 다시 시작하지 않고 **이전 task의 이어서** round-robin 된다.
+
+예시:
+
+```text
+- (train, c1-2-1-3-1-10/2-3-1) 커서가 0에서 시작
+- 첫 payload에서 cycle_sample_count=3이면 다음 커서는 3
+- 다음 payload에서 cycle_source_pool_size=7이면 실제 시작은 3 % 7 = index 4(1-based)
+```
+
+이 구조 덕분에 자동화 장기 실행에서도 특정 표현만 과도 반복되는 현상을 줄이고, split별 표현 재사용 분포를 더 균등하게 유지한다.
+
+#### D. 실행 산출물 관점에서 보는 확인 포인트
+
+실행 후 파일을 보면 mixed/pool/cursor가 다음처럼 남는다.
+
+- `*_request_payload.json`: mixed_generation_requests, command_text_policy, cycle_start_offset_used
+- `*_trace.jsonl`: teacher 호출 및 응답 추적
+- `*_accepted.jsonl` / `*_rejected.jsonl`: validator 결과
+- `generation_automation/auto_run_<timestamp>_plan_<NNNN>.md`: task별 요청/결과 요약
+
+필요하면 `--print-payload-pools` 또는 `--payload-pools-output`으로 task별 item의
+`existing_valid_paraphrase_samples`, `cycle_start_offset_used`, `cycle_sample_count`를 별도 점검할 수 있다.
+
 ---
 
 ## 15. 주요 파일
