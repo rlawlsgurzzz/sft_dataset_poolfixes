@@ -249,7 +249,7 @@ sample별 전장 다양성 강제 규칙:
 - isAlive, canBeTargeted, isRanged, IsSkillOnSelf, IsSkillOnOtherAlly, isSkillAoe, canSkillTargetDead는 boolean이다.
 - hpRatio와 attackRatioToAvg는 number다.
 - hpRatio는 0 이상 1 이하를 사용한다.
-- attackRatioToAvg는 0보다 큰 값을 사용한다.
+- attackRatioToAvg는 반드시 0보다 큰 값을 사용한다.
 - engagedByOpponentCount는 0 이상의 integer다.
 - teamFormationRole은 frontline, midline, backline 중 하나다.
 - skillDescription은 비어 있지 않은 string이다.
@@ -261,9 +261,12 @@ sample별 전장 다양성 강제 규칙:
 - closestTargetableOpponent와 farthestTargetableOpponent에는 반드시 살아있고 canBeTargeted=true인 enemy unitId만 들어간다.
 - closestAliveAlly와 farthestAliveAlly에는 actor 자신을 제외한 살아있는 ally unitId만 들어간다.
 - 자기 자신을 closestAliveAlly 또는 farthestAliveAlly로 쓰지 않는다.
-- 후보가 없으면 null을 사용한다.
-- 후보가 1명뿐이면 closest와 farthest에 같은 unitId를 사용한다.
-- 후보가 2명 이상이면 closest와 farthest에는 서로 다른 unitId를 사용한다.
+- 각 살아있는 ally마다 거리 후보 수를 먼저 센 뒤 closest/farthest를 작성한다.
+- 적 거리 후보는 isAlive=true && canBeTargeted=true인 enemy만 포함한다.
+- 아군 거리 후보는 isAlive=true인 ally 중 현재 ally 자기 자신을 제외한 unitId만 포함한다.
+- 후보가 0개이면 closest/farthest를 모두 null로 둔다.
+- 후보가 1개이면 closest/farthest를 모두 그 유일한 unitId로 둔다.
+- 후보가 2개 이상이면 closest/farthest는 반드시 서로 다른 unitId여야 한다. 같으면 validator reject 대상이므로 출력 전에 farthest를 다른 후보로 고친다.
 - 실제 게임에서는 Unity 엔진이 좌표와 거리로 계산하지만, dataset 생성에서는 teacher가 전술 상황에 맞게 논리적으로 창작한다.
 - 네 필드는 반드시 살아있고 targetable한 적 또는 살아있는 다른 아군만 가리켜야 한다.
 
@@ -370,7 +373,7 @@ output 규칙:
 - canBeTargeted는 현재 타게팅 가능 여부다.
 - isRanged는 원거리 성향 여부다.
 - hpRatio는 현재 체력 비율이다.
-- attackRatioToAvg는 평균 대비 공격력 비율이다.
+- attackRatioToAvg는 평균 대비 공격력 비율이며, 반드시 0보다 큰 number다.
 - engagedByOpponentCount는 해당 유닛을 현재 교전하거나 압박 중인 상대 유닛 수다.
 - teamFormationRole은 해당 유닛이 자기 팀 진형에서 맡는 현재 위치 역할이다: frontline, midline, backline.
 - skillDescription은 해당 actor가 사용할 수 있는 skill의 정확한 문자열이다.
@@ -511,6 +514,8 @@ Conditional command:
 - cycle_output_range_1_based에 해당하는 sample들은 cycle_reuse_plan_1_based의 output_index_1_based 순서와 일치해야 한다.
 - cycle sample의 command_text는 cycle_reuse_plan_1_based가 가리키는 source pool 항목의 문장 형식을 유지하되, source에 actor 또는 target unitId가 명시되어 있으면 해당 unitId를 모두 같은 진영의 다른 valid unitId로 재매핑했는지 확인한다.
 - 강제 점검: 모든 ally의 closest/farthest 필드는 실제 allies/enemies 목록을 역조회해, opponent는 isAlive=true && canBeTargeted=true인 enemy만, ally는 자기 자신이 아닌 isAlive=true ally만 가리키는지 확인한다.
+- 강제 점검: allyCandidates가 0개이면 closestAliveAlly/farthestAliveAlly는 모두 null이어야 하고, 1개이면 둘 다 같은 유일 후보여야 하며, 2개 이상이면 둘은 반드시 서로 다른 unitId여야 한다.
+- 강제 점검: 후보가 2개 이상인데 closest와 farthest가 같은 sample은 출력하지 말고, farthest를 같은 후보 목록 안의 다른 unitId로 고친 뒤 출력한다.
 
 schema skeleton example:
 [
@@ -751,7 +756,7 @@ def call_gemini(
             candidate_count=1,
             max_output_tokens=max_tokens,
             response_mime_type="application/json",
-            thinking_config=types.ThinkingConfig(thinking_level="minimal"),
+            thinking_config=types.ThinkingConfig(thinking_level="low"),
         ),
     )
 
