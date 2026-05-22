@@ -1,0 +1,1971 @@
+{
+  "created_at": "2026-05-23T05:55:35",
+  "mode": "inline_batch",
+  "model": "gemini-3.5-flash",
+  "display_name": "sft-0014-test30",
+  "plan": "generation_automation\\auto_generation_plan_0014.txt",
+  "dataset_root": "D:\\sftgit\\sft_dataset_personal",
+  "taxonomy": "D:\\sftgit\\sft_dataset_personal\\config\\taxonomy_sot.json",
+  "max_per_request": 10,
+  "sample_limit": 1500,
+  "start_index": 1,
+  "selected_task_count": 65,
+  "inline_request_count": 65,
+  "expected_sample_count": 610,
+  "output_dir": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357",
+  "payload_dir": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads",
+  "requests": [
+    {
+      "request_key": "request_0001",
+      "response_index_0_based": 0,
+      "task_index": 1,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0001.json"
+    },
+    {
+      "request_key": "request_0002",
+      "response_index_0_based": 1,
+      "task_index": 2,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0002.json"
+    },
+    {
+      "request_key": "request_0003",
+      "response_index_0_based": 2,
+      "task_index": 3,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0003.json"
+    },
+    {
+      "request_key": "request_0004",
+      "response_index_0_based": 3,
+      "task_index": 4,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0004.json"
+    },
+    {
+      "request_key": "request_0005",
+      "response_index_0_based": 4,
+      "task_index": 5,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0005.json"
+    },
+    {
+      "request_key": "request_0006",
+      "response_index_0_based": 5,
+      "task_index": 6,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0006.json"
+    },
+    {
+      "request_key": "request_0007",
+      "response_index_0_based": 6,
+      "task_index": 7,
+      "source_plan_line": "1,2",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.explicit_enemy_target.wait_then_attack.wait_then_attack_valid",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-1-7-3-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-1-7-3-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 2,
+          "split": "train",
+          "request_prefix": "c5-1-1-7-3-1",
+          "request": "c5-1-1-7-3-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0007.json"
+    },
+    {
+      "request_key": "request_0008",
+      "response_index_0_based": 7,
+      "task_index": 8,
+      "source_plan_line": "1,3",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_actor.none.wait_only.explicit_wait_duration",
+      "request_prefix": "c5-1-1-6-1-1 + c5-1-12-6-2-1",
+      "request": "c5-1-1-6-1-1.5 + c5-1-12-6-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 3,
+          "split": "train",
+          "request_prefix": "c5-1-12-6-2-1",
+          "request": "c5-1-12-6-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0008.json"
+    },
+    {
+      "request_key": "request_0009",
+      "response_index_0_based": 8,
+      "task_index": 9,
+      "source_plan_line": "1,4",
+      "split": "train",
+      "path": "wait.explicit_actor.explicit_enemy_target.wait_only.explicit_wait, wait.explicit_multi_actor.none.wait_only.multi_actor_wait",
+      "request_prefix": "c5-1-1-6-1-1 + c5-2-12-6-6-1",
+      "request": "c5-1-1-6-1-1.5 + c5-2-12-6-6-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 1,
+          "split": "train",
+          "request_prefix": "c5-1-1-6-1-1",
+          "request": "c5-1-1-6-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        },
+        {
+          "source_plan_line": 4,
+          "split": "train",
+          "request_prefix": "c5-2-12-6-6-1",
+          "request": "c5-2-12-6-6-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0009.json"
+    },
+    {
+      "request_key": "request_0010",
+      "response_index_0_based": 9,
+      "task_index": 10,
+      "source_plan_line": "4,5",
+      "split": "train",
+      "path": "wait.explicit_multi_actor.none.wait_only.multi_actor_wait, wait.global_condition.none.wait_only.hold_position_wait",
+      "request_prefix": "c5-2-12-6-6-1 + c5-3-12-6-5-1",
+      "request": "c5-2-12-6-6-1.5 + c5-3-12-6-5-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 4,
+          "split": "train",
+          "request_prefix": "c5-2-12-6-6-1",
+          "request": "c5-2-12-6-6-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        },
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0010.json"
+    },
+    {
+      "request_key": "request_0011",
+      "response_index_0_based": 10,
+      "task_index": 11,
+      "source_plan_line": "5,6",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.move_to_self_attempt",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-7-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-7-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        },
+        {
+          "source_plan_line": 6,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-7-1",
+          "request": "c6-1-11-13-7-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0011.json"
+    },
+    {
+      "request_key": "request_0012",
+      "response_index_0_based": 11,
+      "task_index": 12,
+      "source_plan_line": "5,6",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.move_to_self_attempt",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-7-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-7-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 6,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-7-1",
+          "request": "c6-1-11-13-7-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 3
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0012.json"
+    },
+    {
+      "request_key": "request_0013",
+      "response_index_0_based": 12,
+      "task_index": 13,
+      "source_plan_line": "5,6",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.move_to_self_attempt",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-7-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-7-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 6,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-7-1",
+          "request": "c6-1-11-13-7-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 6
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0013.json"
+    },
+    {
+      "request_key": "request_0014",
+      "response_index_0_based": 13,
+      "task_index": 14,
+      "source_plan_line": "5,7",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-9-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-9-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0014.json"
+    },
+    {
+      "request_key": "request_0015",
+      "response_index_0_based": 14,
+      "task_index": 15,
+      "source_plan_line": "5,7",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-9-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-9-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0015.json"
+    },
+    {
+      "request_key": "request_0016",
+      "response_index_0_based": 15,
+      "task_index": 16,
+      "source_plan_line": "5,7",
+      "split": "train",
+      "path": "wait.global_condition.none.wait_only.hold_position_wait, empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill",
+      "request_prefix": "c5-3-12-6-5-1 + c6-1-11-13-9-1",
+      "request": "c5-3-12-6-5-1.5 + c6-1-11-13-9-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 5,
+          "split": "train",
+          "request_prefix": "c5-3-12-6-5-1",
+          "request": "c5-3-12-6-5-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0016.json"
+    },
+    {
+      "request_key": "request_0017",
+      "response_index_0_based": 16,
+      "task_index": 17,
+      "source_plan_line": "7,8",
+      "split": "train",
+      "path": "empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill, empty.explicit_multi_actor.explicit_enemy_target.empty_action_expected.attack_target_outside_allowedTargets",
+      "request_prefix": "c6-1-11-13-9-1 + c6-2-1-13-6-1",
+      "request": "c6-1-11-13-9-1.5 + c6-2-1-13-6-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 8,
+          "split": "train",
+          "request_prefix": "c6-2-1-13-6-1",
+          "request": "c6-2-1-13-6-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0017.json"
+    },
+    {
+      "request_key": "request_0018",
+      "response_index_0_based": 17,
+      "task_index": 18,
+      "source_plan_line": "7,9",
+      "split": "train",
+      "path": "empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill, empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor",
+      "request_prefix": "c6-1-11-13-9-1 + c6-3-9-13-10-1",
+      "request": "c6-1-11-13-9-1.5 + c6-3-9-13-10-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0018.json"
+    },
+    {
+      "request_key": "request_0019",
+      "response_index_0_based": 18,
+      "task_index": 19,
+      "source_plan_line": "7,9",
+      "split": "train",
+      "path": "empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill, empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor",
+      "request_prefix": "c6-1-11-13-9-1 + c6-3-9-13-10-1",
+      "request": "c6-1-11-13-9-1.5 + c6-3-9-13-10-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0019.json"
+    },
+    {
+      "request_key": "request_0020",
+      "response_index_0_based": 19,
+      "task_index": 20,
+      "source_plan_line": "7,9",
+      "split": "train",
+      "path": "empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill, empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor",
+      "request_prefix": "c6-1-11-13-9-1 + c6-3-9-13-10-1",
+      "request": "c6-1-11-13-9-1.5 + c6-3-9-13-10-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0020.json"
+    },
+    {
+      "request_key": "request_0021",
+      "response_index_0_based": 20,
+      "task_index": 21,
+      "source_plan_line": "7,9",
+      "split": "train",
+      "path": "empty.explicit_actor.invalid_explicit_target.empty_action_expected.skill_actor_has_no_skill, empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor",
+      "request_prefix": "c6-1-11-13-9-1 + c6-3-9-13-10-1",
+      "request": "c6-1-11-13-9-1.5 + c6-3-9-13-10-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 7,
+          "split": "train",
+          "request_prefix": "c6-1-11-13-9-1",
+          "request": "c6-1-11-13-9-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0021.json"
+    },
+    {
+      "request_key": "request_0022",
+      "response_index_0_based": 21,
+      "task_index": 22,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0022.json"
+    },
+    {
+      "request_key": "request_0023",
+      "response_index_0_based": 22,
+      "task_index": 23,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0023.json"
+    },
+    {
+      "request_key": "request_0024",
+      "response_index_0_based": 23,
+      "task_index": 24,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0024.json"
+    },
+    {
+      "request_key": "request_0025",
+      "response_index_0_based": 24,
+      "task_index": 25,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0025.json"
+    },
+    {
+      "request_key": "request_0026",
+      "response_index_0_based": 25,
+      "task_index": 26,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0026.json"
+    },
+    {
+      "request_key": "request_0027",
+      "response_index_0_based": 26,
+      "task_index": 27,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 45
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0027.json"
+    },
+    {
+      "request_key": "request_0028",
+      "response_index_0_based": 27,
+      "task_index": 28,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 50
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0028.json"
+    },
+    {
+      "request_key": "request_0029",
+      "response_index_0_based": 28,
+      "task_index": 29,
+      "source_plan_line": "9,10",
+      "split": "train",
+      "path": "empty.global_condition.low_hp_ally.empty_action_expected.no_matching_actor, empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor",
+      "request_prefix": "c6-3-9-13-10-1 + c6-4-6-13-11-1",
+      "request": "c6-3-9-13-10-1.5 + c6-4-6-13-11-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 9,
+          "split": "train",
+          "request_prefix": "c6-3-9-13-10-1",
+          "request": "c6-3-9-13-10-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 55
+        },
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0029.json"
+    },
+    {
+      "request_key": "request_0030",
+      "response_index_0_based": 29,
+      "task_index": 30,
+      "source_plan_line": "10,11",
+      "split": "train",
+      "path": "empty.global_role_based.role_based_enemy.empty_action_expected.no_matching_role_actor, empty.global_state_based.role_based_enemy.empty_action_expected.no_valid_target",
+      "request_prefix": "c6-4-6-13-11-1 + c6-5-6-13-12-1",
+      "request": "c6-4-6-13-11-1.5 + c6-5-6-13-12-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 10,
+          "split": "train",
+          "request_prefix": "c6-4-6-13-11-1",
+          "request": "c6-4-6-13-11-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        },
+        {
+          "source_plan_line": 11,
+          "split": "train",
+          "request_prefix": "c6-5-6-13-12-1",
+          "request": "c6-5-6-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0030.json"
+    },
+    {
+      "request_key": "request_0031",
+      "response_index_0_based": 30,
+      "task_index": 31,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0031.json"
+    },
+    {
+      "request_key": "request_0032",
+      "response_index_0_based": 31,
+      "task_index": 32,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0032.json"
+    },
+    {
+      "request_key": "request_0033",
+      "response_index_0_based": 32,
+      "task_index": 33,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0033.json"
+    },
+    {
+      "request_key": "request_0034",
+      "response_index_0_based": 33,
+      "task_index": 34,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0034.json"
+    },
+    {
+      "request_key": "request_0035",
+      "response_index_0_based": 34,
+      "task_index": 35,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0035.json"
+    },
+    {
+      "request_key": "request_0036",
+      "response_index_0_based": 35,
+      "task_index": 36,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0036.json"
+    },
+    {
+      "request_key": "request_0037",
+      "response_index_0_based": 36,
+      "task_index": 37,
+      "source_plan_line": "12,13",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, empty.no_valid_actor.explicit_enemy_target.empty_action_expected.named_actor_dead",
+      "request_prefix": "c6-5-4-13-12-1 + c6-6-1-13-1-1",
+      "request": "c6-5-4-13-12-1.5 + c6-6-1-13-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 13,
+          "split": "train",
+          "request_prefix": "c6-6-1-13-1-1",
+          "request": "c6-6-1-13-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0037.json"
+    },
+    {
+      "request_key": "request_0038",
+      "response_index_0_based": 37,
+      "task_index": 38,
+      "source_plan_line": "12,14",
+      "split": "train",
+      "path": "empty.global_state_based.lowest_hp_enemy.empty_action_expected.no_valid_target, skill.explicit_actor.nearest_enemy.move_then_skill.approach_then_skill/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c6-5-4-13-12-1 + c3-1-3-5-12-1/1-1-1",
+      "request": "c6-5-4-13-12-1.5 + c3-1-3-5-12-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 12,
+          "split": "train",
+          "request_prefix": "c6-5-4-13-12-1",
+          "request": "c6-5-4-13-12-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 14,
+          "split": "train",
+          "request_prefix": "c3-1-3-5-12-1/1-1-1",
+          "request": "c3-1-3-5-12-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0038.json"
+    },
+    {
+      "request_key": "request_0039",
+      "response_index_0_based": 38,
+      "task_index": 39,
+      "source_plan_line": "14,15",
+      "split": "train",
+      "path": "skill.explicit_actor.nearest_enemy.move_then_skill.approach_then_skill/enemy_single_target_attack.enemy_alive.null, skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-1-3-5-12-1/1-1-1 + c3-3-4-4-1-1/1-1-1",
+      "request": "c3-1-3-5-12-1/1-1-1.5 + c3-3-4-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 14,
+          "split": "train",
+          "request_prefix": "c3-1-3-5-12-1/1-1-1",
+          "request": "c3-1-3-5-12-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        },
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0039.json"
+    },
+    {
+      "request_key": "request_0040",
+      "response_index_0_based": 39,
+      "task_index": 40,
+      "source_plan_line": "14,15",
+      "split": "train",
+      "path": "skill.explicit_actor.nearest_enemy.move_then_skill.approach_then_skill/enemy_single_target_attack.enemy_alive.null, skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-1-3-5-12-1/1-1-1 + c3-3-4-4-1-1/1-1-1",
+      "request": "c3-1-3-5-12-1/1-1-1.5 + c3-3-4-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 14,
+          "split": "train",
+          "request_prefix": "c3-1-3-5-12-1/1-1-1",
+          "request": "c3-1-3-5-12-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0040.json"
+    },
+    {
+      "request_key": "request_0041",
+      "response_index_0_based": 40,
+      "task_index": 41,
+      "source_plan_line": "14,15",
+      "split": "train",
+      "path": "skill.explicit_actor.nearest_enemy.move_then_skill.approach_then_skill/enemy_single_target_attack.enemy_alive.null, skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-1-3-5-12-1/1-1-1 + c3-3-4-4-1-1/1-1-1",
+      "request": "c3-1-3-5-12-1/1-1-1.5 + c3-3-4-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 14,
+          "split": "train",
+          "request_prefix": "c3-1-3-5-12-1/1-1-1",
+          "request": "c3-1-3-5-12-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0041.json"
+    },
+    {
+      "request_key": "request_0042",
+      "response_index_0_based": 41,
+      "task_index": 42,
+      "source_plan_line": "14,15",
+      "split": "train",
+      "path": "skill.explicit_actor.nearest_enemy.move_then_skill.approach_then_skill/enemy_single_target_attack.enemy_alive.null, skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-1-3-5-12-1/1-1-1 + c3-3-4-4-1-1/1-1-1",
+      "request": "c3-1-3-5-12-1/1-1-1.5 + c3-3-4-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 14,
+          "split": "train",
+          "request_prefix": "c3-1-3-5-12-1/1-1-1",
+          "request": "c3-1-3-5-12-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0042.json"
+    },
+    {
+      "request_key": "request_0043",
+      "response_index_0_based": 42,
+      "task_index": 43,
+      "source_plan_line": "15,16",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.explicit_enemy_target.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-5-1-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-5-1-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 16,
+          "split": "train",
+          "request_prefix": "c3-5-1-4-1-1/1-1-1",
+          "request": "c3-5-1-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0043.json"
+    },
+    {
+      "request_key": "request_0044",
+      "response_index_0_based": 43,
+      "task_index": 44,
+      "source_plan_line": "15,16",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.explicit_enemy_target.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-5-1-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-5-1-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 16,
+          "split": "train",
+          "request_prefix": "c3-5-1-4-1-1/1-1-1",
+          "request": "c3-5-1-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0044.json"
+    },
+    {
+      "request_key": "request_0045",
+      "response_index_0_based": 44,
+      "task_index": 45,
+      "source_plan_line": "15,16",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.explicit_enemy_target.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-5-1-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-5-1-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 16,
+          "split": "train",
+          "request_prefix": "c3-5-1-4-1-1/1-1-1",
+          "request": "c3-5-1-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0045.json"
+    },
+    {
+      "request_key": "request_0046",
+      "response_index_0_based": 45,
+      "task_index": 46,
+      "source_plan_line": "15,16",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.explicit_enemy_target.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-5-1-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-5-1-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 16,
+          "split": "train",
+          "request_prefix": "c3-5-1-4-1-1/1-1-1",
+          "request": "c3-5-1-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0046.json"
+    },
+    {
+      "request_key": "request_0047",
+      "response_index_0_based": 46,
+      "task_index": 47,
+      "source_plan_line": "15,17",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-4-6-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-4-6-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        },
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0047.json"
+    },
+    {
+      "request_key": "request_0048",
+      "response_index_0_based": 47,
+      "task_index": 48,
+      "source_plan_line": "15,17",
+      "split": "train",
+      "path": "skill.global_condition.lowest_hp_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null",
+      "request_prefix": "c3-3-4-4-1-1/1-1-1 + c3-4-6-4-1-1/1-1-1",
+      "request": "c3-3-4-4-1-1/1-1-1.5 + c3-4-6-4-1-1/1-1-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 15,
+          "split": "train",
+          "request_prefix": "c3-3-4-4-1-1/1-1-1",
+          "request": "c3-3-4-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 45
+        },
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0048.json"
+    },
+    {
+      "request_key": "request_0049",
+      "response_index_0_based": 48,
+      "task_index": 49,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0049.json"
+    },
+    {
+      "request_key": "request_0050",
+      "response_index_0_based": 49,
+      "task_index": 50,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0050.json"
+    },
+    {
+      "request_key": "request_0051",
+      "response_index_0_based": 50,
+      "task_index": 51,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0051.json"
+    },
+    {
+      "request_key": "request_0052",
+      "response_index_0_based": 51,
+      "task_index": 52,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0052.json"
+    },
+    {
+      "request_key": "request_0053",
+      "response_index_0_based": 52,
+      "task_index": 53,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0053.json"
+    },
+    {
+      "request_key": "request_0054",
+      "response_index_0_based": 53,
+      "task_index": 54,
+      "source_plan_line": "17,18",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_condition.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-3-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-3-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        },
+        {
+          "source_plan_line": 18,
+          "split": "train",
+          "request_prefix": "c3-3-9-4-2-1/4-2-1",
+          "request": "c3-3-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0054.json"
+    },
+    {
+      "request_key": "request_0055",
+      "response_index_0_based": 54,
+      "task_index": 55,
+      "source_plan_line": "17,19",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-5-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        },
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0055.json"
+    },
+    {
+      "request_key": "request_0056",
+      "response_index_0_based": 55,
+      "task_index": 56,
+      "source_plan_line": "17,19",
+      "split": "train",
+      "path": "skill.global_role_based.role_based_enemy.skill_only.enemy_skill_valid_target/enemy_single_target_attack.enemy_alive.null, skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-4-6-4-1-1/1-1-1 + c3-5-9-4-2-1/4-2-1",
+      "request": "c3-4-6-4-1-1/1-1-1.5 + c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 17,
+          "split": "train",
+          "request_prefix": "c3-4-6-4-1-1/1-1-1",
+          "request": "c3-4-6-4-1-1/1-1-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 45
+        },
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 5
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0056.json"
+    },
+    {
+      "request_key": "request_0057",
+      "response_index_0_based": 56,
+      "task_index": 57,
+      "source_plan_line": "19,20",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null, skill.no_valid_actor.explicit_ally_target.empty_action_expected.no_valid_skill_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1 + c3-6-2-13-14-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5 + c3-6-2-13-14-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 10
+        },
+        {
+          "source_plan_line": 20,
+          "split": "train",
+          "request_prefix": "c3-6-2-13-14-1/4-2-1",
+          "request": "c3-6-2-13-14-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 0
+        }
+      ],
+      "requested_count": 10,
+      "payload_count_to_generate": 10,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0057.json"
+    },
+    {
+      "request_key": "request_0058",
+      "response_index_0_based": 57,
+      "task_index": 58,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 15
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0058.json"
+    },
+    {
+      "request_key": "request_0059",
+      "response_index_0_based": 58,
+      "task_index": 59,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 20
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0059.json"
+    },
+    {
+      "request_key": "request_0060",
+      "response_index_0_based": 59,
+      "task_index": 60,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 25
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0060.json"
+    },
+    {
+      "request_key": "request_0061",
+      "response_index_0_based": 60,
+      "task_index": 61,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 30
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0061.json"
+    },
+    {
+      "request_key": "request_0062",
+      "response_index_0_based": 61,
+      "task_index": 62,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 35
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0062.json"
+    },
+    {
+      "request_key": "request_0063",
+      "response_index_0_based": 62,
+      "task_index": 63,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 40
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0063.json"
+    },
+    {
+      "request_key": "request_0064",
+      "response_index_0_based": 63,
+      "task_index": 64,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 45
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0064.json"
+    },
+    {
+      "request_key": "request_0065",
+      "response_index_0_based": 64,
+      "task_index": 65,
+      "source_plan_line": "19",
+      "split": "train",
+      "path": "skill.global_state_based.low_hp_ally.skill_only.ally_skill_valid_target/ally_heal.ally_alive.null",
+      "request_prefix": "c3-5-9-4-2-1/4-2-1",
+      "request": "c3-5-9-4-2-1/4-2-1.5",
+      "request_items": [
+        {
+          "source_plan_line": 19,
+          "split": "train",
+          "request_prefix": "c3-5-9-4-2-1/4-2-1",
+          "request": "c3-5-9-4-2-1/4-2-1.5",
+          "requested_count": 5,
+          "cycle_start_offset": 50
+        }
+      ],
+      "requested_count": 5,
+      "payload_count_to_generate": 5,
+      "payload_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_055357\\payloads\\request_0065.json"
+    }
+  ],
+  "status": "built_not_submitted"
+}

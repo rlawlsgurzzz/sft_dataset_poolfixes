@@ -1847,5 +1847,16 @@
     "create_time": "2026-05-22T20:48:08.486186Z",
     "update_time": "2026-05-22T20:48:08.486186Z",
     "model": "models/gemini-3.5-flash"
-  }
+  },
+  "fetched_at": "2026-05-23T05:52:09",
+  "fetch_state": "JOB_STATE_SUCCEEDED",
+  "raw_output_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_054717\\batch_raw.jsonl",
+  "trace_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_054717\\batch_trace.jsonl",
+  "error_file": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_054717\\batch_errors.jsonl",
+  "preserved_response_dir": "D:\\sftgit\\sft_dataset_personal\\raw_generations\\gemini_batch\\20260523_054717\\preserved_batch_responses",
+  "fetched_sample_count": 585,
+  "fetch_error_count": 0,
+  "inline_response_count": 59,
+  "manifest_request_count": 59,
+  "preserve_all_mode": true
 }
