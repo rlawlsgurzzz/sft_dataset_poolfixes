@@ -1,0 +1,2423 @@
+[
+  {
+    "id": "val-role-actor-empty-01",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "원거리 딜러들은 적 후열을 저격해라.",
+      "base_command_text": "원거리 아군은 적 후열을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "tactical_korean",
+      "actor_selection": "global_role_based",
+      "target_selection": "role_based_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_matching_role_actor",
+      "edge_flags": [
+        "no_matching_role_actor"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "forbidden_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "원거리 딜러들은 적 후열을 저격해라.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패로 적을 밀쳐내어 기절시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "검을 크게 휘둘러 전방의 적들에게 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 일시적으로 상승시킵니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.65,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속하게 대상을 찔러 출혈 상태로 만듭니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 0.85,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "빛의 힘으로 아군 하나의 체력을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_03",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.3,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "강력한 마법 화살을 날려 단일 대상에게 큰 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.6,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "원거리 아군 유닛 중 유일한 원거리 딜러인 A_06이 사망 상태이므로 명령을 수행할 수 있는 유효한 액터가 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-role-actor-empty-02",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "원거리 애들이 적 후방 라인 좀 타격해봐.",
+      "base_command_text": "원거리 아군은 적 후열을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "casual_korean",
+      "actor_selection": "global_role_based",
+      "target_selection": "role_based_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_matching_role_actor",
+      "edge_flags": [
+        "no_matching_role_actor"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "forbidden_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "원거리 애들이 적 후방 라인 좀 타격해봐.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 2,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 격동으로 적을 기절시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "대검을 휘둘러 광역 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군의 공격력을 강화합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.6,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "그림자 습격으로 적의 배후를 찌릅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 0.8,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "신성한 치유로 아군을 치료합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_03",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_04"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.4,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "화염구를 던져 폭발 피해를 입힙니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "원거리 공격이 가능한 아군 유닛 A_06이 사망하여 명령을 내릴 수 있는 대상이 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-role-actor-empty-03",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "원거리 딜러진은 적 후열을 일점사해.",
+      "base_command_text": "원거리 아군은 적 후열을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "rough_korean",
+      "actor_selection": "global_role_based",
+      "target_selection": "role_based_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_matching_role_actor",
+      "edge_flags": [
+        "no_matching_role_actor"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "forbidden_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "원거리 딜러진은 적 후열을 일점사해.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.95,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패로 적을 강타합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "검풍을 날려 전방을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 1.25,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "급소를 찔러 치명타를 입힙니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 0.85,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "성스러운 치유의 빛을 내립니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_03",
+              "farthestTargetableOpponent": "E_04",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_04"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.35,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "저격 화살로 큰 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "원거리 딜러인 A_06이 쓰러져 있어 명령을 실행할 수 있는 아군 유닛이 존재하지 않습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-role-actor-empty-04",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "원거리 딜러들은 적 후열을 저격해라.",
+      "base_command_text": "원거리 아군은 적 후열을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "tactical_korean",
+      "actor_selection": "global_role_based",
+      "target_selection": "role_based_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_matching_role_actor",
+      "edge_flags": [
+        "no_matching_role_actor"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "forbidden_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "원거리 딜러들은 적 후열을 저격해라.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패로 적을 밀쳐내어 기절시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.05,
+              "attackRatioToAvg": 1.13,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "검을 크게 휘둘러 전방의 적들에게 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.49,
+              "attackRatioToAvg": 1.01,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 일시적으로 상승시킵니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.38,
+              "attackRatioToAvg": 1.17,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속하게 대상을 찔러 출혈 상태로 만듭니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 0.85,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "빛의 힘으로 아군 하나의 체력을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_05",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_04"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.3,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "강력한 마법 화살을 날려 단일 대상에게 큰 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.73,
+              "attackRatioToAvg": 0.79,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.88,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.88,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "원거리 딜러 역할을 수행할 수 있는 유일한 아군 유닛 A_06이 사망 상태이므로 명령을 수행할 수 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-role-actor-empty-05",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "원거리 애들이 적 후방 라인 좀 타격해봐.",
+      "base_command_text": "원거리 아군은 적 후열을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "casual_korean",
+      "actor_selection": "global_role_based",
+      "target_selection": "role_based_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_matching_role_actor",
+      "edge_flags": [
+        "no_matching_role_actor"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "forbidden_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "원거리 애들이 적 후방 라인 좀 타격해봐.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 2,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 격동으로 적을 기절시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_03",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.1,
+              "attackRatioToAvg": 1.03,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline",
+              "skillDescription": "대검을 휘둘러 광역 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_03",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군의 공격력을 강화합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_03",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.6,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "그림자 습격으로 적의 배후를 찌릅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_03",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.51,
+              "attackRatioToAvg": 0.96,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "신성한 치유로 아군을 치료합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_03",
+              "farthestTargetableOpponent": "E_01",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_04"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.89,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "화염구를 던져 폭발 피해를 입힙니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.26,
+              "attackRatioToAvg": 1.02,
+              "engagedByOpponentCount": 1,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.88,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.09,
+              "attackRatioToAvg": 0.81,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.09,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "원거리 공격이 가능한 아군 유닛 A_06이 사망하여 명령을 내릴 수 있는 대상이 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-target-empty-01",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "전투 가능한 대원들은 가장 생명력이 낮은 적을 일점사해라.",
+      "base_command_text": "공격 가능한 아군은 체력이 제일 낮은 적을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "tactical_korean",
+      "actor_selection": "global_state_based",
+      "target_selection": "lowest_hp_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_valid_target",
+      "edge_flags": [
+        "no_valid_target"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "allowed_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "전투 가능한 대원들은 가장 생명력이 낮은 적을 일점사해라.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 돌격으로 적을 밀쳐냅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "회전 베기로 주변 적들을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속한 찌르기로 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 0.8,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "치유의 빛으로 아군을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.3,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "마법 화살로 적을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "전장에 살아있는 적 유닛이 전혀 존재하지 않으므로 공격을 수행할 대상이 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-target-empty-02",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "피가 제일 적게 남은 적부터 점사해봐.",
+      "base_command_text": "공격 가능한 아군은 체력이 제일 낮은 적을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "casual_korean",
+      "actor_selection": "global_state_based",
+      "target_selection": "lowest_hp_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_valid_target",
+      "edge_flags": [
+        "no_valid_target"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "allowed_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "피가 제일 적게 남은 적부터 점사해봐.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 돌격으로 적을 밀쳐냅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "회전 베기로 주변 적들을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 0.9,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속한 찌르기로 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.65,
+              "attackRatioToAvg": 0.85,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "치유의 빛으로 아군을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.88,
+              "attackRatioToAvg": 1.25,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "마법 화살로 적을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "살아있는 적 유닛이 전장에 존재하지 않아 타격할 대상이 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-target-empty-03",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "체력이 가장 바닥난 적부터 끊어라.",
+      "base_command_text": "공격 가능한 아군은 체력이 제일 낮은 적을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "rough_korean",
+      "actor_selection": "global_state_based",
+      "target_selection": "lowest_hp_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_valid_target",
+      "edge_flags": [
+        "no_valid_target"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "allowed_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "체력이 가장 바닥난 적부터 끊어라.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 돌격으로 적을 밀쳐냅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "회전 베기로 주변 적들을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.05,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속한 찌르기로 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 0.8,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "치유의 빛으로 아군을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.9,
+              "attackRatioToAvg": 1.3,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "마법 화살로 적을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "적군이 모두 처치된 상태이므로 공격을 수행할 유효한 대상이 없습니다.",
+      "dialog": [],
+      "action": []
+    }
+  },
+  {
+    "id": "val-target-empty-04",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "전투 가능한 대원들은 가장 생명력이 낮은 적을 일점사해라.",
+      "base_command_text": "공격 가능한 아군은 체력이 제일 낮은 적을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "tactical_korean",
+      "actor_selection": "global_state_based",
+      "target_selection": "lowest_hp_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_valid_target",
+      "edge_flags": [
+        "no_valid_target"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "allowed_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "전투 가능한 대원들은 가장 생명력이 낮은 적을 일점사해라.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.8,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 돌격으로 적을 밀쳐냅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.75,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "회전 베기로 주변 적들을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.92,
+              "attackRatioToAvg": 1.16,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.49,
+              "attackRatioToAvg": 0.89,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속한 찌르기로 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 0.8,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "치유의 빛으로 아군을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_04"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.7,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "마법 화살로 적을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.47,
+              "attackRatioToAvg": 1.14,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.0,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.6,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.07,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "살아있는 적 유닛 E_01, E_05가 존재하므로 공격 가능한 대상이 있어 빈 액션이 아닌 정상 공격을 수행해야 합니다.",
+      "dialog": [
+        {
+          "unitId": "A_01",
+          "text": "체력이 가장 낮은 적 E_01을 공격하겠습니다."
+        },
+        {
+          "unitId": "A_02",
+          "text": "가장 약한 적 E_01을 처단하러 갑니다."
+        },
+        {
+          "unitId": "A_04",
+          "text": "E_01을 빠르게 처리하겠습니다."
+        }
+      ],
+      "action": [
+        {
+          "unitId": "A_01",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_01"
+            },
+            {
+              "type": "attack",
+              "target": "E_01"
+            }
+          ]
+        },
+        {
+          "unitId": "A_02",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_01"
+            },
+            {
+              "type": "attack",
+              "target": "E_01"
+            }
+          ]
+        },
+        {
+          "unitId": "A_04",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_01"
+            },
+            {
+              "type": "attack",
+              "target": "E_01"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "val-target-empty-05",
+    "split": "validation",
+    "command_spec": {
+      "command_text": "피가 제일 적게 남은 적부터 점사해봐.",
+      "base_command_text": "공격 가능한 아군은 체력이 제일 낮은 적을 공격해.",
+      "slots": {
+        "actors": [],
+        "target": null,
+        "target_side_in_text": "enemy",
+        "mentioned_units": []
+      }
+    },
+    "metadata": {
+      "intent_family": "empty",
+      "command_style": "casual_korean",
+      "actor_selection": "global_state_based",
+      "target_selection": "lowest_hp_enemy",
+      "action_pattern": "empty_action_expected",
+      "scenario_family": "no_valid_target",
+      "edge_flags": [
+        "no_valid_target"
+      ],
+      "difficulty": "medium"
+    },
+    "skill_case": null,
+    "gold": {
+      "allowed_actors": [
+        "A_01",
+        "A_02",
+        "A_03",
+        "A_04",
+        "A_05",
+        "A_06"
+      ],
+      "empty_action_allowed": true,
+      "expected_action_pattern": "empty_action_expected"
+    },
+    "input": {
+      "input": {
+        "command": "피가 제일 적게 남은 적부터 점사해봐.",
+        "area_situation": {
+          "allies": [
+            {
+              "unitId": "A_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.85,
+              "attackRatioToAvg": 1.1,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "방패 돌격으로 적을 밀쳐냅니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_02",
+              "closestAliveAlly": "A_02",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "E_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.34,
+              "attackRatioToAvg": 0.87,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "A_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.09,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "아군 전체의 방어력을 높입니다.",
+              "IsSkillOnSelf": true,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": null,
+              "farthestTargetableOpponent": null,
+              "closestAliveAlly": null,
+              "farthestAliveAlly": null
+            },
+            {
+              "unitId": "A_04",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.18,
+              "attackRatioToAvg": 0.91,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline",
+              "skillDescription": "신속한 찌르기로 피해를 줍니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_01",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_05",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.65,
+              "attackRatioToAvg": 0.85,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "치유의 빛으로 아군을 회복시킵니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": true,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_01",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "A_06",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": true,
+              "hpRatio": 0.43,
+              "attackRatioToAvg": 0.93,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline",
+              "skillDescription": "마법 화살로 적을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": false,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_02",
+              "farthestTargetableOpponent": "E_01",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_05"
+            }
+          ],
+          "enemies": [
+            {
+              "unitId": "E_01",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.46,
+              "attackRatioToAvg": 0.99,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline"
+            },
+            {
+              "unitId": "A_02",
+              "isAlive": true,
+              "canBeTargeted": true,
+              "isRanged": false,
+              "hpRatio": 0.7,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "frontline",
+              "skillDescription": "회전 베기로 주변 적들을 공격합니다.",
+              "IsSkillOnSelf": false,
+              "IsSkillOnOtherAlly": false,
+              "isSkillAoe": true,
+              "canSkillTargetDead": false,
+              "closestTargetableOpponent": "E_01",
+              "farthestTargetableOpponent": "E_02",
+              "closestAliveAlly": "A_01",
+              "farthestAliveAlly": "A_06"
+            },
+            {
+              "unitId": "E_03",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.95,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_04",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": false,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 0.89,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "midline"
+            },
+            {
+              "unitId": "E_05",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.15,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            },
+            {
+              "unitId": "E_06",
+              "isAlive": false,
+              "canBeTargeted": false,
+              "isRanged": true,
+              "hpRatio": 0.0,
+              "attackRatioToAvg": 1.2,
+              "engagedByOpponentCount": 0,
+              "teamFormationRole": "backline"
+            }
+          ]
+        }
+      }
+    },
+    "output": {
+      "thinking": "살아있는 적 유닛 E_01, E_02가 존재하므로 체력이 가장 낮은 E_02를 타겟으로 정상 공격을 수행합니다.",
+      "dialog": [
+        {
+          "unitId": "A_01",
+          "text": "체력이 가장 낮은 적 E_02를 공격하겠습니다."
+        },
+        {
+          "unitId": "A_02",
+          "text": "E_02를 처단하러 이동합니다."
+        },
+        {
+          "unitId": "A_04",
+          "text": "가장 약한 적인 E_02를 타격하겠습니다."
+        },
+        {
+          "unitId": "A_06",
+          "text": "E_02에게 마법 화살을 날리겠습니다."
+        }
+      ],
+      "action": [
+        {
+          "unitId": "A_01",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_02"
+            },
+            {
+              "type": "attack",
+              "target": "E_02"
+            }
+          ]
+        },
+        {
+          "unitId": "A_02",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_02"
+            },
+            {
+              "type": "attack",
+              "target": "E_02"
+            }
+          ]
+        },
+        {
+          "unitId": "A_04",
+          "sequence": [
+            {
+              "type": "move",
+              "subtype": "approachOpponent",
+              "movementType": "direct",
+              "to": "E_02"
+            },
+            {
+              "type": "attack",
+              "target": "E_02"
+            }
+          ]
+        },
+        {
+          "unitId": "A_06",
+          "sequence": [
+            {
+              "type": "attack",
+              "target": "E_02"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,808 @@
+{
+  "request": {
+    "count_to_generate": 10,
+    "path_count": 2,
+    "items": [
+      {
+        "mix_item_index_1_based": 1,
+        "raw_request": "c1-5-4-1-4-1.5",
+        "count_to_generate": 5,
+        "stable_path": "attack.global_state_based.lowest_hp_enemy.attack_only.lowest_hp_target_clear",
+        "skill_stable_path": null,
+        "cycle_start_offset_used": 5
+      },
+      {
+        "mix_item_index_1_based": 2,
+        "raw_request": "c2-1-2-2-1-1.5",
+        "count_to_generate": 5,
+        "stable_path": "move.explicit_actor.explicit_ally_target.move_only.move_to_alive_ally",
+        "skill_stable_path": null,
+        "cycle_start_offset_used": 0
+      }
+    ]
+  },
+  "target_split": "test",
+  "mixed_generation_requests": [
+    {
+      "mix_item_index_1_based": 1,
+      "request": {
+        "raw_request": "c1-5-4-1-4-1.5",
+        "count_to_generate": 5,
+        "display_path": "1-5-4-1-4-1",
+        "stable_path": "attack.global_state_based.lowest_hp_enemy.attack_only.lowest_hp_target_clear",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "지금 공격 여유가 있는 아군은 체력이 제일 낮은 적을 공격해."
+      },
+      "target_split": "test",
+      "selected_bucket": {
+        "intent_family": "attack",
+        "intent_family_description": "기본 공격 또는 공격 중심 명령이다.",
+        "actor_selection": "global_state_based",
+        "actor_selection_description": "현재 전장 상태, 교전 수, 안전성, 지원 가능성을 근거로 actor를 고른다.",
+        "target_selection": "lowest_hp_enemy",
+        "target_selection_description": "체력이 가장 낮은 적을 target으로 고른다.",
+        "action_pattern": "attack_only",
+        "action_pattern_description": "정답 output이 attack action만 가진다.",
+        "scenario_family": "lowest_hp_target_clear",
+        "scenario_family_description": "체력이 가장 낮은 적이 명확히 유효한 target이다.",
+        "edge_flags": [
+          "healthy_actor_selection"
+        ],
+        "edge_flag_descriptions": {
+          "healthy_actor_selection": "체력이 여유 있는 actor를 선택해야 한다."
+        },
+        "skill_case": null
+      },
+      "existing_valid_paraphrase_samples": [
+        {
+          "command_text": "공격할 여유가 있는 아군들은 체력이 가장 적은 적을 일점사해.",
+          "command_style": "tactical_korean"
+        },
+        {
+          "command_text": "지금 손 비는 아군들은 피 제일 적은 놈부터 점사해라.",
+          "command_style": "rough_korean"
+        },
+        {
+          "command_text": "현재 여유가 있는 아군들은 체력이 제일 바닥인 적을 일점사하자.",
+          "command_style": "casual_korean"
+        }
+      ],
+      "other_split_reserved_command_texts": [
+        {
+          "split": "validation",
+          "command_text": "공격할 여유가 있는 아군들은 체력이 가장 적은 적을 일점사해.",
+          "command_style": "tactical_korean"
+        },
+        {
+          "split": "validation",
+          "command_text": "지금 손 비는 아군들은 피 제일 적은 놈부터 점사해라.",
+          "command_style": "rough_korean"
+        },
+        {
+          "split": "validation",
+          "command_text": "현재 여유가 있는 딜러들은 체력이 제일 바닥인 적을 일점사하자.",
+          "command_style": "casual_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "지금 공격 여유가 있는 아군은 체력이 제일 낮은 적을 공격해.",
+          "command_style": "direct_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "손 비어있는 애들은 피 제일 적은 놈부터 쳐.",
+          "command_style": "rough_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "지금 한가한 애들은 피 제일 없는 적부터 잡아.",
+          "command_style": "casual_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "여유 있는 아군들은 체력 제일 낮은 적 공격해.",
+          "command_style": "elliptical_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "지금 공격 가능하면 피 제일 적은 놈부터 패.",
+          "command_style": "rough_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "지금 공격 여유 있는 애들은 피 제일 적은 적부터 쳐.",
+          "command_style": "casual_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "지금 공격 여유 있는 아군은 피 제일 적은 놈부터 쳐라.",
+          "command_style": "tactical_korean"
+        }
+      ],
+      "command_text_policy": {
+        "target_split": "test",
+        "same_split_expression_pool_size": 3,
+        "existing_same_split_expression_count": 3,
+        "other_split_reserved_expression_count": 10,
+        "new_unique_command_texts_to_create": 0,
+        "samples_using_same_split_cycle": 5,
+        "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
+        "sequence_contract": {
+          "output_order": "new_unique_first_then_cycle",
+          "new_unique_output_range_1_based": [],
+          "cycle_output_range_1_based": [
+            1,
+            5
+          ],
+          "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
+          "cycle_reuse_strategy": "round_robin_from_cycle_start_offset",
+          "cycle_start_offset_0_based": 2,
+          "cycle_source_pool_size_after_new_unique": 3,
+          "cycle_reuse_plan_1_based": [
+            {
+              "output_index_1_based": 1,
+              "source_pool_index_1_based": 3,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 3,
+              "battlefield_diversity_hint": [
+                "A_06",
+                false,
+                0.0,
+                0.89,
+                "A_05",
+                true,
+                0.56,
+                1.16,
+                "A_01",
+                true,
+                0.69,
+                0.76,
+                "E_06",
+                true,
+                0.41,
+                0.92,
+                "E_05",
+                true,
+                0.98,
+                0.78,
+                "E_04",
+                true,
+                0.51,
+                0.94
+              ]
+            },
+            {
+              "output_index_1_based": 2,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_04",
+                true,
+                0.05,
+                0.9,
+                "A_02",
+                false,
+                0.0,
+                1.06,
+                "A_01",
+                true,
+                0.22,
+                0.96,
+                "E_03",
+                false,
+                0.0,
+                1.04,
+                "E_01",
+                true,
+                0.54,
+                0.93,
+                "E_05",
+                true,
+                0.47,
+                1.29
+              ]
+            },
+            {
+              "output_index_1_based": 3,
+              "source_pool_index_1_based": 2,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 2,
+              "battlefield_diversity_hint": [
+                "A_01",
+                false,
+                0.0,
+                0.97,
+                "A_06",
+                false,
+                0.0,
+                0.98,
+                "A_04",
+                true,
+                0.92,
+                1.02,
+                "E_03",
+                true,
+                0.65,
+                0.93,
+                "E_05",
+                true,
+                0.56,
+                1.15,
+                "E_06",
+                true,
+                0.92,
+                1.05
+              ]
+            },
+            {
+              "output_index_1_based": 4,
+              "source_pool_index_1_based": 3,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 3,
+              "battlefield_diversity_hint": [
+                "A_05",
+                true,
+                0.13,
+                1.15,
+                "A_06",
+                false,
+                0.0,
+                0.9,
+                "A_04",
+                true,
+                0.31,
+                0.71,
+                "E_03",
+                true,
+                0.97,
+                1.06,
+                "E_01",
+                true,
+                0.95,
+                0.86,
+                "E_06",
+                true,
+                0.9,
+                1.13
+              ]
+            },
+            {
+              "output_index_1_based": 5,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_02",
+                true,
+                0.68,
+                1.17,
+                "A_03",
+                true,
+                0.89,
+                1.02,
+                "A_05",
+                false,
+                0.0,
+                1.02,
+                "E_03",
+                true,
+                0.2,
+                1.11,
+                "E_06",
+                true,
+                0.74,
+                1.2,
+                "E_01",
+                true,
+                0.09,
+                1.06
+              ]
+            }
+          ],
+          "hard_fail_conditions": [
+            "cycle samples appear before all new_unique samples are created",
+            "a new_unique output reuses an existing command_text",
+            "a cycle output ignores cycle_reuse_plan_1_based",
+            "a cycle output repeatedly uses only source_pool_index_1_based=1 when cycle_reuse_plan_1_based specifies otherwise"
+          ],
+          "example": "if existing=7,new=0,cycle=5,cycle_start_offset=5 then outputs 1-5 reuse source pool indexes [6,7,1,2,3]"
+        },
+        "rules": [
+          "같은 split 안에서 command_text 표현 pool을 관리한다.",
+          "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
+          "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
+          "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
+          "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
+          "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
+          "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
+          "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+          "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+          "other_split_reserved_command_texts는 cycle source가 아니다.",
+          "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
+          "다른 split의 command_text 표현 pool을 cycle 대상으로 섞지 않는다."
+        ]
+      },
+      "count_to_generate": 5,
+      "cycle_start_offset_used": 5
+    },
+    {
+      "mix_item_index_1_based": 2,
+      "request": {
+        "raw_request": "c2-1-2-2-1-1.5",
+        "count_to_generate": 5,
+        "display_path": "2-1-2-2-1-1",
+        "stable_path": "move.explicit_actor.explicit_ally_target.move_only.move_to_alive_ally",
+        "skill_stable_path": null,
+        "command_slot_index": 1,
+        "base_command_text": "A_02, A_04에게 이동해."
+      },
+      "target_split": "test",
+      "selected_bucket": {
+        "intent_family": "move",
+        "intent_family_description": "위치 이동, 후퇴, 접근, 지원, 전열 유지 명령이다.",
+        "actor_selection": "explicit_actor",
+        "actor_selection_description": "명령에 단일 아군 actor가 직접 지목된다.",
+        "target_selection": "explicit_ally_target",
+        "target_selection_description": "명령에 아군 unitId가 직접 지목된다.",
+        "action_pattern": "move_only",
+        "action_pattern_description": "정답 output이 move action만 가진다.",
+        "scenario_family": "move_to_alive_ally",
+        "scenario_family_description": "살아있는 아군에게 이동하는 상황이다.",
+        "edge_flags": [],
+        "edge_flag_descriptions": {},
+        "skill_case": null
+      },
+      "existing_valid_paraphrase_samples": [
+        {
+          "command_text": "A_01, A_03 쪽으로 이동해.",
+          "command_style": "direct_korean"
+        },
+        {
+          "command_text": "A_05, A_02한테 가봐.",
+          "command_style": "casual_korean"
+        },
+        {
+          "command_text": "A_03, A_01 쪽으로 가줘.",
+          "command_style": "tactical_korean"
+        }
+      ],
+      "other_split_reserved_command_texts": [
+        {
+          "split": "validation",
+          "command_text": "A_01, A_03 쪽으로 이동해.",
+          "command_style": "direct_korean"
+        },
+        {
+          "split": "validation",
+          "command_text": "A_05, A_02한테 가봐.",
+          "command_style": "casual_korean"
+        },
+        {
+          "split": "validation",
+          "command_text": "A_03, A_01 쪽으로 가줘.",
+          "command_style": "tactical_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_02, A_04에게 이동해.",
+          "command_style": "direct_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_01, A_03 쪽으로 붙어.",
+          "command_style": "casual_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_05, A_01한테 가.",
+          "command_style": "rough_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_04, A_06 쪽으로 이동해줘.",
+          "command_style": "direct_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_03, A_02한테 붙어봐.",
+          "command_style": "elliptical_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_06, A_05 쪽으로 가줘.",
+          "command_style": "tactical_korean"
+        },
+        {
+          "split": "train",
+          "command_text": "A_02, A_01한테 가봐.",
+          "command_style": "casual_korean"
+        }
+      ],
+      "command_text_policy": {
+        "target_split": "test",
+        "same_split_expression_pool_size": 3,
+        "existing_same_split_expression_count": 3,
+        "other_split_reserved_expression_count": 10,
+        "new_unique_command_texts_to_create": 0,
+        "samples_using_same_split_cycle": 5,
+        "cycle_source": "existing_valid_paraphrase_samples plus newly created unique command_texts in this request",
+        "sequence_contract": {
+          "output_order": "new_unique_first_then_cycle",
+          "new_unique_output_range_1_based": [],
+          "cycle_output_range_1_based": [
+            1,
+            5
+          ],
+          "cycle_source_pool_order": "existing_valid_paraphrase_samples in payload order followed by newly_created_unique_command_texts in output order",
+          "cycle_reuse_strategy": "round_robin_from_cycle_start_offset",
+          "cycle_start_offset_0_based": 0,
+          "cycle_source_pool_size_after_new_unique": 3,
+          "cycle_reuse_plan_1_based": [
+            {
+              "output_index_1_based": 1,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_01",
+                true,
+                0.57,
+                1.03,
+                "A_03",
+                true,
+                0.97,
+                1.3,
+                "A_06",
+                true,
+                0.54,
+                1.13,
+                "E_05",
+                false,
+                0.0,
+                1.15,
+                "E_06",
+                true,
+                0.67,
+                1.0,
+                "E_04",
+                false,
+                0.0,
+                1.04
+              ]
+            },
+            {
+              "output_index_1_based": 2,
+              "source_pool_index_1_based": 2,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 2,
+              "battlefield_diversity_hint": [
+                "A_02",
+                true,
+                0.8,
+                1.03,
+                "A_01",
+                true,
+                0.19,
+                1.0,
+                "A_04",
+                true,
+                0.55,
+                1.07,
+                "E_05",
+                true,
+                0.63,
+                1.01,
+                "E_02",
+                false,
+                0.0,
+                0.85,
+                "E_06",
+                true,
+                0.61,
+                1.04
+              ]
+            },
+            {
+              "output_index_1_based": 3,
+              "source_pool_index_1_based": 3,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 3,
+              "battlefield_diversity_hint": [
+                "A_03",
+                false,
+                0.0,
+                0.87,
+                "A_02",
+                true,
+                0.97,
+                0.96,
+                "A_06",
+                false,
+                0.0,
+                1.09,
+                "E_06",
+                true,
+                0.48,
+                0.93,
+                "E_02",
+                true,
+                0.11,
+                0.73,
+                "E_04",
+                true,
+                0.88,
+                0.7
+              ]
+            },
+            {
+              "output_index_1_based": 4,
+              "source_pool_index_1_based": 1,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 1,
+              "battlefield_diversity_hint": [
+                "A_02",
+                false,
+                0.0,
+                1.16,
+                "A_01",
+                true,
+                0.85,
+                0.7,
+                "A_05",
+                true,
+                0.16,
+                0.92,
+                "E_06",
+                true,
+                0.53,
+                1.13,
+                "E_05",
+                true,
+                0.27,
+                1.07,
+                "E_01",
+                true,
+                0.24,
+                1.16
+              ]
+            },
+            {
+              "output_index_1_based": 5,
+              "source_pool_index_1_based": 2,
+              "source_kind": "existing_valid_paraphrase_samples",
+              "source_index_1_based": 2,
+              "battlefield_diversity_hint": [
+                "A_04",
+                true,
+                0.59,
+                1.0,
+                "A_05",
+                true,
+                0.82,
+                1.13,
+                "A_03",
+                false,
+                0.0,
+                1.09,
+                "E_01",
+                true,
+                0.89,
+                1.07,
+                "E_06",
+                true,
+                0.1,
+                1.09,
+                "E_04",
+                true,
+                0.34,
+                1.07
+              ]
+            }
+          ],
+          "hard_fail_conditions": [
+            "cycle samples appear before all new_unique samples are created",
+            "a new_unique output reuses an existing command_text",
+            "a cycle output ignores cycle_reuse_plan_1_based",
+            "a cycle output repeatedly uses only source_pool_index_1_based=1 when cycle_reuse_plan_1_based specifies otherwise"
+          ],
+          "example": "if existing=7,new=0,cycle=5,cycle_start_offset=5 then outputs 1-5 reuse source pool indexes [6,7,1,2,3]"
+        },
+        "rules": [
+          "같은 split 안에서 command_text 표현 pool을 관리한다.",
+          "표현 pool이 가득 차기 전에는 새 command_text를 만든다.",
+          "새 command_text는 existing_valid_paraphrase_samples와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "출력 array의 앞쪽 new_unique_command_texts_to_create개 sample은 반드시 새 unique command_text로 만든다.",
+          "새 unique command_text 생성이 모두 끝난 뒤에만 samples_using_same_split_cycle개 sample을 만든다.",
+          "cycle source pool은 existing_valid_paraphrase_samples의 payload 순서 뒤에 이번 응답에서 만든 새 unique command_text를 output 순서대로 이어 붙인 목록이다.",
+          "cycle sample은 sequence_contract.cycle_reuse_plan_1_based를 따라 source command_text를 재사용한다.",
+          "cycle 구간에서 첫 번째 source command_text만 반복하거나 같은 command_text를 연속 반복하지 않는다.",
+          "새 command_text는 other_split_reserved_command_texts와 같은 command_text family이면 안 된다. family 비교에서는 A_XX/E_XX를 A_ID/E_ID로 정규화하고, 은/는, 이/가, 을/를 조사 차이와 command_style은 무시한다.",
+          "표현 family pool이 가득 찬 뒤에는 같은 split 표현 pool 안에서만 command_text를 순환 재사용할 수 있다.",
+          "같은 요청에서 새로 만든 unique command_text도 이후 cycle source로 사용할 수 있다.",
+          "other_split_reserved_command_texts는 cycle source가 아니다.",
+          "command_text를 재사용하더라도 area_situation, gold, output은 새로 구성한다.",
+          "다른 split의 command_text 표현 pool을 cycle 대상으로 섞지 않는다."
+        ]
+      },
+      "count_to_generate": 5,
+      "cycle_start_offset_used": 0
+    }
+  ],
+  "count_to_generate": 10,
+  "mixed_output_contract": {
+    "output_order": "generate all samples for mixed_generation_requests in array order; finish one item before starting the next item",
+    "per_item_rule": "Each mixed_generation_requests item is an independent generation contract.",
+    "count_rule": "The final JSON array length must equal top-level count_to_generate."
+  },
+  "runtime_generation_contract": {
+    "teacher_role": "전장 시나리오와 정답 output을 생성한다.",
+    "validator_role": "area_situation을 검증하고 commandAnalysis를 계산해 accepted 저장 시점에 추가한다.",
+    "teacher_must_create": [
+      "id",
+      "split",
+      "command_spec",
+      "metadata",
+      "skill_case",
+      "gold",
+      "input.input.command",
+      "input.input.area_situation.allies",
+      "input.input.area_situation.enemies",
+      "output.thinking",
+      "output.dialog",
+      "output.action"
+    ],
+    "teacher_must_not_create": [
+      "input.commandAnalysis",
+      "commandAnalysis",
+      "allowedActors",
+      "allowedAttackTargets",
+      "validMoveToUnits",
+      "deadAllies",
+      "invalidUnits",
+      "actionPolicy",
+      "validator_result",
+      "source_ref"
+    ],
+    "validator_will_create_on_accept": [
+      "input.commandAnalysis.analysisMode",
+      "input.commandAnalysis.allowedActors",
+      "input.commandAnalysis.allowedAttackTargets",
+      "input.commandAnalysis.validMoveToUnits",
+      "input.commandAnalysis.deadAllies",
+      "input.commandAnalysis.invalidUnits",
+      "input.commandAnalysis.actionPolicy"
+    ],
+    "runtime_student_input_after_accept": {
+      "input": {
+        "command": "한국어 명령",
+        "area_situation": {
+          "allies": "A_01부터 A_06까지 정확히 6명",
+          "enemies": "E_01부터 E_06까지 정확히 6명"
+        }
+      },
+      "commandAnalysis": "validator가 계산한 runtime_constraint_summary"
+    }
+  },
+  "area_situation_contract": {
+    "allies_count": 6,
+    "enemies_count": 6,
+    "ally_ids": [
+      "A_01",
+      "A_02",
+      "A_03",
+      "A_04",
+      "A_05",
+      "A_06"
+    ],
+    "enemy_ids": [
+      "E_01",
+      "E_02",
+      "E_03",
+      "E_04",
+      "E_05",
+      "E_06"
+    ],
+    "ally_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole",
+      "skillDescription",
+      "IsSkillOnSelf",
+      "IsSkillOnOtherAlly",
+      "isSkillAoe",
+      "canSkillTargetDead",
+      "closestTargetableOpponent",
+      "farthestTargetableOpponent",
+      "closestAliveAlly",
+      "farthestAliveAlly"
+    ],
+    "enemy_required_fields": [
+      "unitId",
+      "isAlive",
+      "canBeTargeted",
+      "isRanged",
+      "hpRatio",
+      "attackRatioToAvg",
+      "engagedByOpponentCount",
+      "teamFormationRole"
+    ],
+    "single_distance_fields": {
+      "closestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "farthestTargetableOpponent": "살아있고 canBeTargeted=true인 enemy unitId 또는 null",
+      "closestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null",
+      "farthestAliveAlly": "자기 자신을 제외한 살아있는 ally unitId 또는 null"
+    },
+    "single_distance_field_rules": [
+      "네 필드는 배열이 아니라 unitId string 또는 null이다.",
+      "후보가 없으면 null을 사용한다.",
+      "후보가 1명뿐이면 closest와 farthest에 같은 unitId를 사용한다.",
+      "후보가 2명 이상이면 closest와 farthest는 서로 다른 unitId를 사용한다.",
+      "closestAliveAlly와 farthestAliveAlly에는 자기 자신의 unitId를 쓰지 않는다.",
+      "죽은 unit은 네 필드에 들어가지 않는다."
+    ],
+    "dead_unit_rules": [
+      "이 게임에서는 죽은 unit도 보통 canBeTargeted=true일 수 있다.",
+      "죽은 ally가 canBeTargeted=true이면 validator가 commandAnalysis.deadAllies에 포함한다.",
+      "죽은 unit은 actor, attack target, move.to로 사용할 수 없다.",
+      "canSkillTargetDead=true인 skill에서만 죽은 targetable ally를 skill target으로 사용할 수 있다."
+    ]
+  },
+  "assistant_output_contract": {
+    "assistant_output_top_level_keys": [
+      "thinking",
+      "dialog",
+      "action"
+    ],
+    "thinking": "짧은 한국어 판단 요약. 자세한 사고 과정 금지.",
+    "dialog": [
+      "action actor마다 정확히 하나만 생성한다.",
+      "action에 없는 unitId를 넣지 않는다.",
+      "여러 actor에게 완전히 같은 text를 반복하지 않는다."
+    ],
+    "action": [
+      "actor는 살아있는 ally만 가능하다.",
+      "enemy는 actor가 될 수 없다.",
+      "각 actor sequence는 최대 3개 action이다.",
+      "실행 가능한 action이 없으면 dialog와 action은 빈 배열이다."
+    ],
+    "skill": [
+      "skill.description은 actor.skillDescription과 정확히 같아야 한다.",
+      "IsSkillOnSelf=true이면 target은 actor 자신이다.",
+      "IsSkillOnOtherAlly=true이면 target은 actor 자신이 아닌 ally다.",
+      "IsSkillOnSelf=false이고 IsSkillOnOtherAlly=false이면 target은 enemy다.",
+      "canSkillTargetDead=false이면 죽은 unit을 skill target으로 쓰지 않는다.",
+      "isSkillAoe=true여도 output target은 중심 unitId 하나만 쓴다."
+    ],
+    "wait_and_skill_control": [
+      "wait은 명령에 대기, 지연, 타이밍 조절, 위치 유지 의미가 직접 있을 때만 사용한다.",
+      "attack 또는 skill 뒤에는 wait을 붙이지 않는다.",
+      "skillControl은 스킬 지연 또는 금지 의도가 명시될 때만 사용한다.",
+      "조건부 명령은 current-state-only로 처리한다."
+    ]
+  },
+  "generation_constraints": [
+    "mixed_generation_requests의 각 item을 독립된 generation contract로 처리한다.",
+    "각 item의 selected_bucket, existing_valid_paraphrase_samples, other_split_reserved_command_texts, command_text_policy를 해당 item sample에만 적용한다.",
+    "한 item의 계약 필드를 다른 item sample에 섞어 쓰지 않는다.",
+    "출력 array는 mixed_output_contract.output_order를 따른다.",
+    "각 sample.split은 자신이 속한 item의 target_split과 같아야 한다.",
+    "각 item의 command_text_policy.sequence_contract.cycle_reuse_plan_1_based를 그대로 따른다.",
+    "cycle source index를 다시 계산하지 않는다.",
+    "command_text를 재사용하더라도 area_situation, gold, output은 복사하지 않고 새로 구성한다.",
+    "taxonomy 밖 값을 만들지 않는다.",
+    "source_ref를 생성하지 않는다.",
+    "validator_result를 생성하지 않는다.",
+    "input.commandAnalysis와 commandAnalysis 하위 필드를 절대 생성하지 않는다.",
+    "input.input.area_situation을 완전한 전장 상태로 창작한다.",
+    "output은 처음부터 raw valid assistant output이어야 한다."
+  ]
+}
