@@ -16,6 +16,7 @@ DEFAULT_ACCEPTED_DIR = DEFAULT_DATASET_ROOT / "accepted"
 DEFAULT_OUTPUT_PATH = DEFAULT_DATASET_ROOT / "datasets" / "train_sft_messages.jsonl"
 DEFAULT_TEACHER_CLIENT_PATH = Path(__file__).resolve().parent / "sft_teacher_client.py"
 DEFAULT_SHUFFLE_SEED = 20260517
+SPLIT_CHOICES = ("train", "validation", "test")
 
 STUDENT_PROMPT_BEGIN = "[STUDENT_RUNTIME_SYSTEM_PROMPT_BEGIN]"
 STUDENT_PROMPT_END = "[STUDENT_RUNTIME_SYSTEM_PROMPT_END]"
@@ -170,14 +171,23 @@ def convert_accepted_to_sft_messages(
     output_path: Path,
     teacher_client_path: Path,
     seed: int,
+    split: str | None = None,
 ) -> int:
     if not accepted_dir.is_dir():
         raise FileNotFoundError(f"Accepted directory does not exist: {accepted_dir}")
 
     student_runtime_system_prompt = load_student_runtime_system_prompt(teacher_client_path)
     samples: list[tuple[Path, dict[str, Any]]] = list(iter_accepted_samples(accepted_dir))
+    if split is not None:
+        samples = [
+            (source_path, sample)
+            for source_path, sample in samples
+            if sample.get("split") == split
+        ]
     if not samples:
-        raise ValueError(f"No accepted samples found in {accepted_dir}")
+        if split is None:
+            raise ValueError(f"No accepted samples found in {accepted_dir}")
+        raise ValueError(f"No accepted samples found in {accepted_dir} for split={split}")
 
     random.Random(seed).shuffle(samples)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -220,6 +230,12 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_SHUFFLE_SEED,
         help=f"Deterministic shuffle seed. Default: {DEFAULT_SHUFFLE_SEED}",
     )
+    parser.add_argument(
+        "--split",
+        choices=SPLIT_CHOICES,
+        default=None,
+        help="Only include records whose accepted sample split matches this value.",
+    )
     return parser.parse_args()
 
 
@@ -230,6 +246,7 @@ def main() -> None:
         output_path=args.output,
         teacher_client_path=args.teacher_client,
         seed=args.seed,
+        split=args.split,
     )
     print(f"wrote {count} SFT records to {args.output}")
 
