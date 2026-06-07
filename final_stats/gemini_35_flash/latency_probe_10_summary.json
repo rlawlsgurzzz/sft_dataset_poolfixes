@@ -1,0 +1,18 @@
+{
+  "created_at_utc": "2026-06-07T06:43:31.967225+00:00",
+  "messages_path": "datasets\\test_sft_messages3.jsonl",
+  "actual_output": "actual\\responses_35_flash_latency_probe_10.jsonl",
+  "latency_rows_output": "actual\\responses_35_flash_latency_probe_10_latency_rows.jsonl",
+  "model_label": "gemini_31_flash_lite",
+  "model": "gemini-3.1-flash-lite",
+  "expected_count": 10,
+  "total_requests": 10,
+  "successful_requests": 10,
+  "failed_requests": 0,
+  "avg_latency_ms": 1447.342,
+  "p50_latency_ms": 1333.11,
+  "p95_latency_ms": 2197.874,
+  "min_latency_ms": 964.722,
+  "max_latency_ms": 2292.001,
+  "avg_output_tokens": 224.3
+}

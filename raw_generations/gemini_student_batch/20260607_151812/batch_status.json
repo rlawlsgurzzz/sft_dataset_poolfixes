@@ -1,0 +1,12 @@
+{
+  "name": "batches/hel021dy1ivjvr4rfplg5tgp2kssudyy9e0c",
+  "display_name": "sft-0015-test500-35flash",
+  "state": "JOB_STATE_SUCCEEDED",
+  "create_time": "2026-06-07T06:18:17.868454Z",
+  "end_time": "2026-06-07T06:19:48.741266Z",
+  "update_time": "2026-06-07T06:19:48.741266Z",
+  "model": "models/gemini-3.1-flash-lite",
+  "dest": {
+    "file_name": "files/batch-hel021dy1ivjvr4rfplg5tgp2kssudyy9e0c"
+  }
+}
